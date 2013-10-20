@@ -1,0 +1,12 @@
+.table-action {
+    text-align: center;
+    width: 80px;
+}
+
+.alert {
+    margin-bottom: 8px;
+}
+
+span.error {
+    color: #b94a48;
+}

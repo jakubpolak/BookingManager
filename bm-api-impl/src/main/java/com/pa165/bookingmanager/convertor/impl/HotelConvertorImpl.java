@@ -6,6 +6,7 @@ import com.pa165.bookingmanager.dto.RoomDto;
 import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.entity.ReservationEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
+import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 
@@ -32,31 +33,46 @@ public class HotelConvertorImpl {
         // Convert associated room entities to DTO
         ArrayList<RoomDto> roomsById = new ArrayList<>();
         for (RoomEntity room: entity.getRoomsById()) {
-            RoomDto roomDTO = new RoomDto();
-            roomDTO.setId(room.getId());
-            roomDTO.setNumber(room.getNumber());
-            roomDTO.setPrice(room.getPrice());
-            roomDTO.setHotelByHotelId(dto);
+            // TODO: Check if works
+            RoomDto roomDto = new RoomDto();
+            BeanUtils.copyProperties(room, roomDto);
+
+            // TODO: Remove if BeanUtils.copyProperties works correctly
+            /*
+            roomDto.setId(room.getId());
+            roomDto.setNumber(room.getNumber());
+            roomDto.setPrice(room.getPrice());
+            roomDto.setHotelByHotelId(dto);
+            */
 
             // Convert associated reservations entities to DTO
             ArrayList<ReservationDto> reservationsById = new ArrayList<>();
             for (ReservationEntity reservation: room.getReservationsById()) {
-                ReservationDto reservationDTO = new ReservationDto();
-                reservationDTO.setId(reservation.getId());
-                reservationDTO.setCustomerEmail(reservation.getCustomerEmail());
-                reservationDTO.setCustomerName(reservation.getCustomerName());
-                reservationDTO.setCustomerPhone(reservation.getCustomerPhone());
-                reservationDTO.setReservationFrom(reservation.getReservationFrom());
-                reservationDTO.setReservationTo(reservation.getReservationTo());
-                reservationDTO.setRoomByRoomId(roomDTO);
-                reservationsById.add(reservationDTO);
-            }
-            roomDTO.setReservationsById(reservationsById);
+                // TODO: Check if works
+                ReservationDto reservationDto = new ReservationDto();
+                BeanUtils.copyProperties(reservation, reservationDto);
 
-            roomsById.add(roomDTO);
+                // TODO: Remove if BeanUtils.copyProperties works correctly
+                /*
+                reservationDto.setId(reservation.getId());
+                reservationDto.setCustomerEmail(reservation.getCustomerEmail());
+                reservationDto.setCustomerName(reservation.getCustomerName());
+                reservationDto.setCustomerPhone(reservation.getCustomerPhone());
+                reservationDto.setReservationFrom(reservation.getReservationFrom());
+                reservationDto.setReservationTo(reservation.getReservationTo());
+                resservationDto.setRoomByRoomId(roomDto);
+                */
+
+                reservationsById.add(reservationDto);
+
+            }
+            roomDto.setReservationsById(reservationsById);
+
+            roomsById.add(roomDto);
         }
 
         dto.setRoomsById(roomsById);
+
         return dto;
     }
 
@@ -77,16 +93,27 @@ public class HotelConvertorImpl {
         // Convert associated rooms DTO to entities
         ArrayList<RoomEntity> roomsById = new ArrayList<>();
         for (RoomDto room: dto.getRoomsById()) {
+            // TODO: Check if works
             RoomEntity roomEntity = new RoomEntity();
+            BeanUtils.copyProperties(room, roomEntity);
+
+            // TODO: Remove if BeanUtils.copyProperties works correctly
+            /*
             roomEntity.setId(room.getId());
             roomEntity.setNumber(room.getNumber());
             roomEntity.setPrice(room.getPrice());
             roomEntity.setHotelByHotelId(entity);
+            */
 
             // Convert associated reservations DTO to entities
             ArrayList<ReservationEntity> reservationsById = new ArrayList<>();
             for (ReservationDto reservation: room.getReservationsById()) {
+                // TODO: Check if works
                 ReservationEntity reservationEntity = new ReservationEntity();
+                BeanUtils.copyProperties(room, roomEntity);
+
+                // TODO: Remove if BeanUtils.copyProperties works correctly
+                /*
                 reservationEntity.setId(reservation.getId());
                 reservationEntity.setCustomerEmail(reservation.getCustomerEmail());
                 reservationEntity.setCustomerName(reservation.getCustomerName());
@@ -94,6 +121,8 @@ public class HotelConvertorImpl {
                 reservationEntity.setReservationFrom(reservation.getReservationFrom());
                 reservationEntity.setReservationTo(reservation.getReservationTo());
                 reservationEntity.setRoomByRoomId(roomEntity);
+                */
+
                 reservationsById.add(reservationEntity);
             }
             roomEntity.setReservationsById(reservationsById);
@@ -102,6 +131,7 @@ public class HotelConvertorImpl {
         }
 
         entity.setRoomsById(roomsById);
+
         return entity;
     }
 }

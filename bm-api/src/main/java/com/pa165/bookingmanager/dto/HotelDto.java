@@ -6,121 +6,47 @@ import java.util.List;
 /**
  * @author Josef Stribny
  */
-public class HotelDto  implements Serializable
+public interface HotelDto
 {
-    /**
-     * Id
-     */
-    private Long id;
-
-    /**
-     * Name
-     */
-    private String name;
-
-    /**
-     * Rooms by id
-     */
-    private List<RoomDto> roomsById;
-
     /**
      * Get id
      *
      * @return id
      */
-    public Long getId() {
-        return id;
-    }
+    Long getId();
 
     /**
      * Set id
      *
      * @param id
      */
-    public void setId(Long id) {
-        this.id = id;
-    }
+    void setId(Long id);
 
     /**
      * Get name
      *
      * @return
      */
-    public String getName() {
-        return name;
-    }
+    String getName();
 
     /**
      * Set name
      *
      * @param name
      */
-    public void setName(String name) {
-        this.name = name;
-    }
+    void setName(String name);
 
     /**
      * Get rooms by id
      *
      * @return rooms by id
      */
-    public List<RoomDto> getRoomsById() {
-        return roomsById;
-    }
+    List<RoomDto> getRoomsById();
 
     /**
      * Set rooms by id
      *
      * @param roomsById
      */
-    public void setRoomsById(List<RoomDto> roomsById) {
-        this.roomsById = roomsById;
-    }
-
-    /**
-     * Equals
-     *
-     * @param o object
-     * @return boolean
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof HotelDto)) return false;
-
-        HotelDto hotelDto = (HotelDto) o;
-
-        if (!id.equals(hotelDto.id)) return false;
-        if (!name.equals(hotelDto.name)) return false;
-        if (roomsById != null ? !roomsById.equals(hotelDto.roomsById) : hotelDto.roomsById != null) return false;
-
-        return true;
-    }
-
-    /**
-     * Hash code
-     *
-     * @return hash code
-     */
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + (roomsById != null ? roomsById.hashCode() : 0);
-        return result;
-    }
-
-    /**
-     * To string
-     *
-     * @return string representation of object
-     */
-    @Override
-    public String toString() {
-        return "HotelDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", roomsById=" + roomsById +
-                '}';
-    }
+    void setRoomsById(List<RoomDto> roomsById);
 }

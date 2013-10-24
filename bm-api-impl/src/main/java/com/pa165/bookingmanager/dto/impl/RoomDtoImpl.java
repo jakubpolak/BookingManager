@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.dto;
+package com.pa165.bookingmanager.dto.impl;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

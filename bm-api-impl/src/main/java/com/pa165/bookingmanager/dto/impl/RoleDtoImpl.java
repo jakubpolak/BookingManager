@@ -1,12 +1,14 @@
 package com.pa165.bookingmanager.dto.impl;
 
-import java.io.Serializable;
+import com.pa165.bookingmanager.dto.RoleDto;
+import com.pa165.bookingmanager.dto.UserDto;
+
 import java.util.List;
 
 /**
  * @author Josef Stribny
  */
-public class RoleDtoImpl  implements RoleDto, Serializable
+public class RoleDtoImpl  implements RoleDto
 {
     /**
      * Id
@@ -78,17 +80,14 @@ public class RoleDtoImpl  implements RoleDto, Serializable
     }
 
     /**
-     * Equals
-     *
-     * @param o object
-     * @return boolean
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof RoleDto)) return false;
+        if (!(o instanceof RoleDtoImpl)) return false;
 
-        RoleDto roleDto = (RoleDto) o;
+        RoleDtoImpl roleDto = (RoleDtoImpl) o;
 
         if (!id.equals(roleDto.id)) return false;
         if (!name.equals(roleDto.name)) return false;
@@ -98,9 +97,7 @@ public class RoleDtoImpl  implements RoleDto, Serializable
     }
 
     /**
-     * Hash code
-     *
-     * @return hash code
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {
@@ -111,13 +108,11 @@ public class RoleDtoImpl  implements RoleDto, Serializable
     }
 
     /**
-     * To string
-     *
-     * @return string representation of object
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return "RoleDto{" +
+        return "RoleDtoImpl{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", usersById=" + usersById +

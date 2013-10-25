@@ -1,12 +1,14 @@
 package com.pa165.bookingmanager.dto.impl;
 
-import java.io.Serializable;
+import com.pa165.bookingmanager.dto.ReservationDto;
+import com.pa165.bookingmanager.dto.RoomDto;
+
 import java.util.Date;
 
 /**
  * @author Josef Stribny
  */
-public class ReservationDtoImpl  implements ReservationDto, Serializable
+public class ReservationDtoImpl  implements ReservationDto
 {
     /**
      * Id
@@ -170,17 +172,14 @@ public class ReservationDtoImpl  implements ReservationDto, Serializable
     }
 
     /**
-     * Equals
-     *
-     * @param o object
-     * @return boolean
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ReservationDto)) return false;
+        if (!(o instanceof ReservationDtoImpl)) return false;
 
-        ReservationDto that = (ReservationDto) o;
+        ReservationDtoImpl that = (ReservationDtoImpl) o;
 
         if (!customerEmail.equals(that.customerEmail)) return false;
         if (!customerName.equals(that.customerName)) return false;
@@ -194,9 +193,7 @@ public class ReservationDtoImpl  implements ReservationDto, Serializable
     }
 
     /**
-     * Hash code
-     *
-     * @return hash code
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {
@@ -211,13 +208,11 @@ public class ReservationDtoImpl  implements ReservationDto, Serializable
     }
 
     /**
-     * To string
-     *
-     * @return string representation of object
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return "ReservationDto{" +
+        return "ReservationDtoImpl{" +
                 "id=" + id +
                 ", roomByRoomId=" + roomByRoomId +
                 ", reservationFrom=" + reservationFrom +

@@ -1,12 +1,14 @@
 package com.pa165.bookingmanager.dto.impl;
 
-import java.io.Serializable;
+import com.pa165.bookingmanager.dto.HotelDto;
+import com.pa165.bookingmanager.dto.RoomDto;
+
 import java.util.List;
 
 /**
  * @author Josef Stribny
  */
-public class HotelDtoImpl  implements HotelDto, Serializable
+public class HotelDtoImpl  implements HotelDto
 {
     /**
      * Id
@@ -78,17 +80,14 @@ public class HotelDtoImpl  implements HotelDto, Serializable
     }
 
     /**
-     * Equals
-     *
-     * @param o object
-     * @return boolean
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof HotelDto)) return false;
+        if (!(o instanceof HotelDtoImpl)) return false;
 
-        HotelDto hotelDto = (HotelDto) o;
+        HotelDtoImpl hotelDto = (HotelDtoImpl) o;
 
         if (!id.equals(hotelDto.id)) return false;
         if (!name.equals(hotelDto.name)) return false;
@@ -98,9 +97,7 @@ public class HotelDtoImpl  implements HotelDto, Serializable
     }
 
     /**
-     * Hash code
-     *
-     * @return hash code
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {
@@ -111,13 +108,11 @@ public class HotelDtoImpl  implements HotelDto, Serializable
     }
 
     /**
-     * To string
-     *
-     * @return string representation of object
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return "HotelDto{" +
+        return "HotelDtoImpl{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", roomsById=" + roomsById +

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author Josef Stribny
  */
-public interface UserDto
+public interface UserDto extends Serializable
 {
     /**
      * Get id

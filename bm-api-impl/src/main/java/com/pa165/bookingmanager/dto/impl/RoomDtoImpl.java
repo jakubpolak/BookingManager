@@ -1,13 +1,16 @@
 package com.pa165.bookingmanager.dto.impl;
 
-import java.io.Serializable;
+import com.pa165.bookingmanager.dto.HotelDto;
+import com.pa165.bookingmanager.dto.ReservationDto;
+import com.pa165.bookingmanager.dto.RoomDto;
+
 import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * @author Josef Stribny
  */
-public class RoomDtoImpl  implements RoomDto, Serializable
+public class RoomDtoImpl  implements RoomDto
 {
     /**
      * Id
@@ -125,31 +128,27 @@ public class RoomDtoImpl  implements RoomDto, Serializable
     }
 
     /**
-     * Equals
-     *
-     * @param o object
-     * @return boolean
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof RoomDto)) return false;
+        if (!(o instanceof RoomDtoImpl)) return false;
 
-        RoomDto roomDto = (RoomDto) o;
+        RoomDtoImpl roomDto = (RoomDtoImpl) o;
 
         if (!hotelByHotelId.equals(roomDto.hotelByHotelId)) return false;
         if (!id.equals(roomDto.id)) return false;
         if (!number.equals(roomDto.number)) return false;
         if (!price.equals(roomDto.price)) return false;
-        if (!reservationsById.equals(roomDto.reservationsById)) return false;
+        if (reservationsById != null ? !reservationsById.equals(roomDto.reservationsById) : roomDto.reservationsById != null)
+            return false;
 
         return true;
     }
 
     /**
-     * Hash code
-     *
-     * @return hash code
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {
@@ -157,18 +156,16 @@ public class RoomDtoImpl  implements RoomDto, Serializable
         result = 31 * result + number.hashCode();
         result = 31 * result + hotelByHotelId.hashCode();
         result = 31 * result + price.hashCode();
-        result = 31 * result + reservationsById.hashCode();
+        result = 31 * result + (reservationsById != null ? reservationsById.hashCode() : 0);
         return result;
     }
 
     /**
-     * To string
-     *
-     * @return string representation of object
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return "RoomDto{" +
+        return "RoomDtoImpl{" +
                 "id=" + id +
                 ", number='" + number + '\'' +
                 ", hotelByHotelId=" + hotelByHotelId +

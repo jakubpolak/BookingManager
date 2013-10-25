@@ -1,11 +1,12 @@
 package com.pa165.bookingmanager.dto.impl;
 
-import java.io.Serializable;
+import com.pa165.bookingmanager.dto.RoleDto;
+import com.pa165.bookingmanager.dto.UserDto;
 
 /**
  * @author Josef Stribny
  */
-public class UserDtoImpl implements UserDto, Serializable
+public class UserDtoImpl implements UserDto
 {
     /**
      * Id
@@ -100,17 +101,14 @@ public class UserDtoImpl implements UserDto, Serializable
     }
 
     /**
-     * Equals
-     *
-     * @param o object
-     * @return boolean
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserDto)) return false;
+        if (!(o instanceof UserDtoImpl)) return false;
 
-        UserDto userDto = (UserDto) o;
+        UserDtoImpl userDto = (UserDtoImpl) o;
 
         if (!email.equals(userDto.email)) return false;
         if (!id.equals(userDto.id)) return false;
@@ -121,9 +119,7 @@ public class UserDtoImpl implements UserDto, Serializable
     }
 
     /**
-     * Hash code
-     *
-     * @return hash code
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {
@@ -135,13 +131,11 @@ public class UserDtoImpl implements UserDto, Serializable
     }
 
     /**
-     * To string
-     *
-     * @return string representation of object
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return "UserDto{" +
+        return "UserDtoImpl{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +

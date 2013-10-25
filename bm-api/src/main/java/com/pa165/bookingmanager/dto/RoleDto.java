@@ -6,8 +6,7 @@ import java.util.List;
 /**
  * @author Josef Stribny
  */
-public interface RoleDto
-{
+public interface RoleDto extends Serializable {
     /**
      * Get id
      *

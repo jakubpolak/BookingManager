@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author Josef Stribny
  */
-public interface RoomDto
+public interface RoomDto extends Serializable
 {
     /**
      * Get id

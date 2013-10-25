@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * @author Josef Stribny
  */
-public interface ReservationDto
+public interface ReservationDto extends Serializable
 {
     /**
      * Get id

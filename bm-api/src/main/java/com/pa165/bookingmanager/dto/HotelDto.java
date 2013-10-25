@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author Josef Stribny
  */
-public interface HotelDto
+public interface HotelDto extends Serializable
 {
     /**
      * Get id

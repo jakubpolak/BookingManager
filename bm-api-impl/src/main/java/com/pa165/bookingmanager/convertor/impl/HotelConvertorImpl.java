@@ -3,6 +3,9 @@ package com.pa165.bookingmanager.convertor.impl;
 import com.pa165.bookingmanager.dto.HotelDto;
 import com.pa165.bookingmanager.dto.ReservationDto;
 import com.pa165.bookingmanager.dto.RoomDto;
+import com.pa165.bookingmanager.dto.impl.HotelDtoImpl;
+import com.pa165.bookingmanager.dto.impl.ReservationDtoImpl;
+import com.pa165.bookingmanager.dto.impl.RoomDtoImpl;
 import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.entity.ReservationEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
@@ -26,19 +29,19 @@ public class HotelConvertorImpl {
             return null;
         }
 
-        HotelDto dto = new HotelDto();
+        HotelDto dto = new HotelDtoImpl();
         BeanUtils.copyProperties(entity, dto);
 
         // Convert associated room entities to DTO
         ArrayList<RoomDto> roomsById = new ArrayList<>();
         for (RoomEntity room: entity.getRoomsById()) {
-            RoomDto roomDto = new RoomDto();
+            RoomDto roomDto = new RoomDtoImpl();
             BeanUtils.copyProperties(room, roomDto);
 
             // Convert associated reservations entities to DTO
             ArrayList<ReservationDto> reservationsById = new ArrayList<>();
             for (ReservationEntity reservation: room.getReservationsById()) {
-                ReservationDto reservationDto = new ReservationDto();
+                ReservationDto reservationDto = new ReservationDtoImpl();
                 BeanUtils.copyProperties(reservation, reservationDto);
                 reservationsById.add(reservationDto);
             }

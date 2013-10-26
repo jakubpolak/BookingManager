@@ -3,6 +3,7 @@ package com.pa165.bookingmanager.convertor;
 import com.pa165.bookingmanager.dto.HotelDto;
 import com.pa165.bookingmanager.dto.RoomDto;
 import com.pa165.bookingmanager.dto.impl.HotelDtoImpl;
+import com.pa165.bookingmanager.dto.impl.RoomDtoImpl;
 import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
 import org.springframework.beans.BeanUtils;
@@ -19,64 +20,66 @@ public class HotelConvertor
     /**
      * Convert entity to DTO
      *
-     * @param entity
+     * @param hotelEntity
      * @return hotel entity
      */
-    public static HotelDto convertEntityToDto(HotelEntity entity) {
-        if (entity == null) {
+    public static HotelDto convertEntityToDto(HotelEntity hotelEntity) {
+        if (hotelEntity == null) {
             throw new IllegalArgumentException("HotelEntity can't be null.");
         }
 
-        HotelDto dto = new HotelDtoImpl();
-        BeanUtils.copyProperties(entity, dto);
+        HotelDto hotelDto = new HotelDtoImpl();
+        BeanUtils.copyProperties(hotelEntity, hotelDto, new String[] {"roomsById"});
 
         // Room Entities -> Room DTOs
-        List<RoomEntity> roomEntities = entity.getRoomsById();
+        List<RoomEntity> roomEntities = hotelEntity.getRoomsById();
 
         if (roomEntities != null){
             List<RoomDto> roomDtos = new ArrayList<>();
 
             for (RoomEntity roomEntity : roomEntities){
-                roomDtos.add(
-                    RoomConvertor.convertEntityToDto(roomEntity)
-                );
+                RoomDto roomDto = new RoomDtoImpl();
+                BeanUtils.copyProperties(roomEntity, roomDto);
+                roomDto.setHotelByHotelId(hotelDto);
+                roomDtos.add(roomDto);
             }
 
-            dto.setRoomsById(roomDtos);
+            hotelDto.setRoomsById(roomDtos);
         }
 
-        return dto;
+        return hotelDto;
     }
 
     /**
      * Convert DTO to entity
      *
-     * @param dto
+     * @param hotelDto
      * @return hotel entity
      */
-    public static HotelEntity convertDtoToEntity(HotelDto dto) {
-        if (dto == null){
+    public static HotelEntity convertDtoToEntity(HotelDto hotelDto) {
+        if (hotelDto == null){
             throw new IllegalArgumentException("HotelDto can't be null.");
         }
 
-        HotelEntity entity = new HotelEntity();
-        BeanUtils.copyProperties(dto, entity);
+        HotelEntity hotelEntity = new HotelEntity();
+        BeanUtils.copyProperties(hotelDto, hotelEntity, new String[] {"roomsById"});
 
         // Room DTOs -> Room Entities
-        List<RoomDto> roomDtos = dto.getRoomsById();
+        List<RoomDto> roomDtos = hotelDto.getRoomsById();
 
         if (roomDtos != null){
             List<RoomEntity> roomEntities = new ArrayList<>();
 
             for (RoomDto roomDto : roomDtos){
-                roomEntities.add(
-                    RoomConvertor.convertDtoToEntity(roomDto)
-                );
+                RoomEntity roomEntity = new RoomEntity();
+                BeanUtils.copyProperties(roomDto, roomEntity);
+                roomEntity.setHotelByHotelId(hotelEntity);
+                roomEntities.add(roomEntity);
             }
 
-            entity.setRoomsById(roomEntities);
+            hotelEntity.setRoomsById(roomEntities);
         }
 
-        return entity;
+        return hotelEntity;
     }
 }

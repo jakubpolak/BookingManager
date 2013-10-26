@@ -15,19 +15,19 @@ public class UserConvertor
     /**
      * Convert entity to DTO
      *
-     * @param entity
+     * @param userEntity
      * @return user entity
      */
-    public static UserDto convertEntityToDto(UserEntity entity) {
-        if (entity == null) {
+    public static UserDto convertEntityToDto(UserEntity userEntity) {
+        if (userEntity == null) {
             throw new IllegalArgumentException("UserEntity can't be null.");
         }
 
         UserDto dto = new UserDtoImpl();
-        BeanUtils.copyProperties(entity, dto);
+        BeanUtils.copyProperties(userEntity, dto, new String[] {"roleByRoleId"});
 
         // Role Entity -> Role DTO
-        RoleEntity roleEntity = entity.getRoleByRoleId();
+        RoleEntity roleEntity = userEntity.getRoleByRoleId();
 
         if (roleEntity != null){
             dto.setRoleByRoleId(
@@ -41,26 +41,26 @@ public class UserConvertor
     /**
      * Convert DTO to entity
      *
-     * @param dto
+     * @param userDto
      * @return user entity
      */
-    public static UserEntity convertDtoToEntity(UserDto dto) {
-        if (dto == null) {
+    public static UserEntity convertDtoToEntity(UserDto userDto) {
+        if (userDto == null) {
             throw new IllegalArgumentException("UserDto can't be null.");
         }
 
-        UserEntity entity = new UserEntity();
-        BeanUtils.copyProperties(dto, entity);
+        UserEntity userEntity = new UserEntity();
+        BeanUtils.copyProperties(userDto, userEntity, new String[] {"roleByRoleId"});
 
         // Role DTO –> Role Entity
-        RoleDto roleDto = dto.getRoleByRoleId();
+        RoleDto roleDto = userDto.getRoleByRoleId();
 
         if (roleDto != null){
-            entity.setRoleByRoleId(
+            userEntity.setRoleByRoleId(
                 RoleConvertor.convertDtoToEntity(roleDto)
             );
         }
 
-        return entity;
+        return userEntity;
     }
 }

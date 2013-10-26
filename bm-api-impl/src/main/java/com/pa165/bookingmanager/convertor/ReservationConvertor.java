@@ -15,27 +15,27 @@ public class ReservationConvertor
     /**
      * Convert entity to DTO
      *
-     * @param entity
+     * @param reservationEntity
      * @return reservation entity
      */
-    public static ReservationDto convertEntityToDto(ReservationEntity entity) {
-        if (entity == null) {
+    public static ReservationDto convertEntityToDto(ReservationEntity reservationEntity) {
+        if (reservationEntity == null) {
             throw new IllegalArgumentException("ReservationEntity can't be null.");
         }
 
-        ReservationDto dto = new ReservationDtoImpl();
-        BeanUtils.copyProperties(entity, dto);
+        ReservationDto reservationDto = new ReservationDtoImpl();
+        BeanUtils.copyProperties(reservationEntity, reservationDto, new String[] {"roomByRoomId"});
 
         // Room Entity -> Room DTO
-        RoomEntity roomEntity = entity.getRoomByRoomId();
+        RoomEntity roomEntity = reservationEntity.getRoomByRoomId();
 
         if (roomEntity != null){
-            dto.setRoomByRoomId(
+            reservationDto.setRoomByRoomId(
                 RoomConvertor.convertEntityToDto(roomEntity)
             );
         }
 
-        return dto;
+        return reservationDto;
     }
 
     /**
@@ -50,7 +50,7 @@ public class ReservationConvertor
         }
 
         ReservationEntity entity = new ReservationEntity();
-        BeanUtils.copyProperties(dto, entity);
+        BeanUtils.copyProperties(dto, entity, new String[] {"roomByRoomId"});
 
         // Room DTO -> Room Entity
         RoomDto roomDto = dto.getRoomByRoomId();

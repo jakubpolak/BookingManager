@@ -3,6 +3,7 @@ package com.pa165.bookingmanager.convertor;
 import com.pa165.bookingmanager.dto.HotelDto;
 import com.pa165.bookingmanager.dto.ReservationDto;
 import com.pa165.bookingmanager.dto.RoomDto;
+import com.pa165.bookingmanager.dto.impl.ReservationDtoImpl;
 import com.pa165.bookingmanager.dto.impl.RoomDtoImpl;
 import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.entity.ReservationEntity;
@@ -20,82 +21,84 @@ public class RoomConvertor
     /**
      * Convert entity to DTO
      *
-     * @param entity
+     * @param roomEntity
      * @return room entity
      */
-    public static RoomDto convertEntityToDto(RoomEntity entity) {
-        if (entity == null) {
+    public static RoomDto convertEntityToDto(RoomEntity roomEntity) {
+        if (roomEntity == null) {
             throw new IllegalArgumentException("RoomEntity can't be null.");
         }
 
-        RoomDto dto = new RoomDtoImpl();
-        BeanUtils.copyProperties(entity, dto);
+        RoomDto roomDto = new RoomDtoImpl();
+        BeanUtils.copyProperties(roomEntity, roomDto, new String[] {"hotelByHotelId", "reservationsById"});
 
-        HotelEntity hotelEntity = entity.getHotelByHotelId();
+        HotelEntity hotelEntity = roomEntity.getHotelByHotelId();
 
         if (hotelEntity != null){
             // Hotel Entity -> Hotel DTO
-            dto.setHotelByHotelId(
+            roomDto.setHotelByHotelId(
                 HotelConvertor.convertEntityToDto(hotelEntity)
             );
         }
 
         // Reservation Entities -> Hotel DTOs
-        List<ReservationEntity> reservationEntities = entity.getReservationsById();
+        List<ReservationEntity> reservationEntities = roomEntity.getReservationsById();
 
         if (reservationEntities != null){
             List<ReservationDto> reservationDtos = new ArrayList<>();
 
             for (ReservationEntity reservationEntity : reservationEntities){
-                reservationDtos.add(
-                    ReservationConvertor.convertEntityToDto(reservationEntity)
-                );
+                ReservationDto reservationDto = new ReservationDtoImpl();
+                BeanUtils.copyProperties(reservationEntity, reservationDto, new String[] {"roomByRoomId"});
+                reservationDto.setRoomByRoomId(roomDto);
+                reservationDtos.add(reservationDto);
             }
 
-            dto.setReservationsById(reservationDtos);
+            roomDto.setReservationsById(reservationDtos);
         }
 
-        return dto;
+        return roomDto;
     }
 
     /**
      * Convert DTO to entity
      *
-     * @param dto
+     * @param roomDto
      * @return room entity
      */
-    public static RoomEntity convertDtoToEntity(RoomDto dto) {
-        if (dto == null) {
+    public static RoomEntity convertDtoToEntity(RoomDto roomDto) {
+        if (roomDto == null) {
             throw new IllegalArgumentException("RoomDto can't be null.");
         }
 
-        RoomEntity entity = new RoomEntity();
-        BeanUtils.copyProperties(dto, entity);
+        RoomEntity roomEntity = new RoomEntity();
+        BeanUtils.copyProperties(roomDto, roomEntity, new String[] {"hotelByHotelId", "reservationsById"});
 
         // Hotel DTO -> Hotel Entity
-        HotelDto hotelDto = dto.getHotelByHotelId();
+        HotelDto hotelDto = roomDto.getHotelByHotelId();
 
         if (hotelDto != null){
-            entity.setHotelByHotelId(
+            roomEntity.setHotelByHotelId(
                 HotelConvertor.convertDtoToEntity(hotelDto)
             );
         }
 
         // Reservation DTOs -> Reservationt Entities
-        List<ReservationDto> reservationDtos = dto.getReservationsById();
+        List<ReservationDto> reservationDtos = roomDto.getReservationsById();
 
         if (reservationDtos != null){
             List<ReservationEntity> reservationEntities = new ArrayList<>();
 
             for (ReservationDto reservationDto : reservationDtos){
-                reservationEntities.add(
-                    ReservationConvertor.convertDtoToEntity(reservationDto)
-                );
+                ReservationEntity reservationEntity = new ReservationEntity();
+                BeanUtils.copyProperties(reservationDto, reservationEntity, new String[] {"roomByRoomId"});
+                reservationEntity.setRoomByRoomId(roomEntity);
+                reservationEntities.add(reservationEntity);
             }
 
-            entity.setReservationsById(reservationEntities);
+            roomEntity.setReservationsById(reservationEntities);
         }
 
-        return entity;
+        return roomEntity;
     }
 }

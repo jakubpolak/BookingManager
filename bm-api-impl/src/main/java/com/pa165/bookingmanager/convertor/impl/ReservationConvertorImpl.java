@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.convertor;
+package com.pa165.bookingmanager.convertor.impl;
 
 import com.pa165.bookingmanager.dto.ReservationDto;
 import com.pa165.bookingmanager.dto.RoomDto;
@@ -6,19 +6,22 @@ import com.pa165.bookingmanager.dto.impl.ReservationDtoImpl;
 import com.pa165.bookingmanager.entity.ReservationEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
- * @author Jakub Polak
+ * {@inheritDoc}
  */
-public class ReservationConvertor
+@Component
+public class ReservationConvertorImpl extends GenericConvertorImpl<ReservationEntity, ReservationDto>
 {
+    @Autowired
+    RoomConvertorImpl roomConvertor;
+
     /**
-     * Convert entity to DTO
-     *
-     * @param reservationEntity
-     * @return reservation entity
+     * {@inheritDoc}
      */
-    public static ReservationDto convertEntityToDto(ReservationEntity reservationEntity) {
+    public  ReservationDto convertEntityToDto(ReservationEntity reservationEntity) {
         if (reservationEntity == null) {
             throw new IllegalArgumentException("ReservationEntity can't be null.");
         }
@@ -31,7 +34,7 @@ public class ReservationConvertor
 
         if (roomEntity != null){
             reservationDto.setRoomByRoomId(
-                RoomConvertor.convertEntityToDto(roomEntity)
+                roomConvertor.convertEntityToDto(roomEntity)
             );
         }
 
@@ -39,12 +42,9 @@ public class ReservationConvertor
     }
 
     /**
-     * Convert DTO to entity
-     *
-     * @param dto
-     * @return reservation entity
+     * {@inheritDoc}
      */
-    public static ReservationEntity convertDtoToEntity(ReservationDto dto) {
+    public  ReservationEntity convertDtoToEntity(ReservationDto dto) {
         if (dto == null) {
             throw new IllegalArgumentException("ReservationDto can't be null.");
         }
@@ -57,7 +57,7 @@ public class ReservationConvertor
 
         if (roomDto != null){
             entity.setRoomByRoomId(
-                RoomConvertor.convertDtoToEntity(roomDto)
+                roomConvertor.convertDtoToEntity(roomDto)
             );
         }
 

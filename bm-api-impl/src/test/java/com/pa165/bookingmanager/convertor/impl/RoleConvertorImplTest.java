@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.convertor;
+package com.pa165.bookingmanager.convertor.impl;
 
 import com.pa165.bookingmanager.TestSetup;
 import com.pa165.bookingmanager.dto.RoleDto;
@@ -10,6 +10,7 @@ import com.pa165.bookingmanager.entity.UserEntity;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +18,14 @@ import java.util.List;
 /**
  * @author Jakub Polak
  */
-public class RoleConvertorTest extends TestSetup
+public class RoleConvertorImplTest extends TestSetup
 {
     private RoleEntity roleEntity;
 
     private RoleDto roleDto;
+
+    @Autowired
+    RoleConvertorImpl roleConvertor;
 
     @Before
     public void setup(){
@@ -58,7 +62,7 @@ public class RoleConvertorTest extends TestSetup
 
     @Test
     public void testConvertEntityToDto() throws Exception {
-        RoleDto roleDto = RoleConvertor.convertEntityToDto(roleEntity);
+        RoleDto roleDto = roleConvertor.convertEntityToDto(roleEntity);
 
         Assert.assertEquals(roleEntity.getId(), roleDto.getId());
         Assert.assertEquals(roleEntity.getName(), roleDto.getName());
@@ -67,7 +71,7 @@ public class RoleConvertorTest extends TestSetup
 
     @Test
     public void testConvertDtoToEntity() throws Exception {
-        RoleEntity roleEntity = RoleConvertor.convertDtoToEntity(roleDto);
+        RoleEntity roleEntity = roleConvertor.convertDtoToEntity(roleDto);
 
         Assert.assertEquals(roleDto.getId(), roleEntity.getId());
         Assert.assertEquals(roleDto.getName(), roleEntity.getName());

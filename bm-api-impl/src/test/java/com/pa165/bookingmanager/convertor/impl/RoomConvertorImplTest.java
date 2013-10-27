@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.convertor;
+package com.pa165.bookingmanager.convertor.impl;
 
 import com.pa165.bookingmanager.TestSetup;
 import com.pa165.bookingmanager.dto.HotelDto;
@@ -13,6 +13,7 @@ import com.pa165.bookingmanager.entity.RoomEntity;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,11 +22,14 @@ import java.util.List;
 /**
  * @author Jakub Polak
  */
-public class RoomConvertorTest extends TestSetup
+public class RoomConvertorImplTest extends TestSetup
 {
     private RoomEntity roomEntity;
 
-    protected RoomDto roomDto;
+    private RoomDto roomDto;
+
+    @Autowired
+    private RoomConvertorImpl roomConvertor;
 
     @Before
     public void setup()
@@ -69,7 +73,7 @@ public class RoomConvertorTest extends TestSetup
 
     @Test
     public void testConvertEntityToDto() throws Exception {
-        RoomDto roomDto = RoomConvertor.convertEntityToDto(roomEntity);
+        RoomDto roomDto = roomConvertor.convertEntityToDto(roomEntity);
 
         Assert.assertEquals(roomDto.getId(), roomEntity.getId());
         Assert.assertEquals(roomDto.getNumber(), roomEntity.getNumber());
@@ -80,7 +84,7 @@ public class RoomConvertorTest extends TestSetup
 
     @Test
     public void testConvertDtoToEntity() throws Exception {
-        RoomEntity roomEntity = RoomConvertor.convertDtoToEntity(roomDto);
+        RoomEntity roomEntity = roomConvertor.convertDtoToEntity(roomDto);
 
         Assert.assertEquals(roomEntity.getId(), roomDto.getId());
         Assert.assertEquals(roomEntity.getNumber(), roomDto.getNumber());

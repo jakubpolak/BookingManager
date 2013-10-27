@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.convertor;
+package com.pa165.bookingmanager.convertor.impl;
 
 import com.pa165.bookingmanager.dto.HotelDto;
 import com.pa165.bookingmanager.dto.ReservationDto;
@@ -9,22 +9,25 @@ import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.entity.ReservationEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Jakub Polak
+ * {@inheritDoc}
  */
-public class RoomConvertor
+@Component
+public class RoomConvertorImpl extends GenericConvertorImpl<RoomEntity, RoomDto>
 {
+    @Autowired
+    HotelConvertorImpl hotelConvertor;
+
     /**
-     * Convert entity to DTO
-     *
-     * @param roomEntity
-     * @return room entity
+     * {@inheritDoc}
      */
-    public static RoomDto convertEntityToDto(RoomEntity roomEntity) {
+    public RoomDto convertEntityToDto(RoomEntity roomEntity) {
         if (roomEntity == null) {
             throw new IllegalArgumentException("RoomEntity can't be null.");
         }
@@ -37,7 +40,7 @@ public class RoomConvertor
         if (hotelEntity != null){
             // Hotel Entity -> Hotel DTO
             roomDto.setHotelByHotelId(
-                HotelConvertor.convertEntityToDto(hotelEntity)
+                hotelConvertor.convertEntityToDto(hotelEntity)
             );
         }
 
@@ -61,12 +64,9 @@ public class RoomConvertor
     }
 
     /**
-     * Convert DTO to entity
-     *
-     * @param roomDto
-     * @return room entity
+     * {@inheritDoc}
      */
-    public static RoomEntity convertDtoToEntity(RoomDto roomDto) {
+    public RoomEntity convertDtoToEntity(RoomDto roomDto) {
         if (roomDto == null) {
             throw new IllegalArgumentException("RoomDto can't be null.");
         }
@@ -79,7 +79,7 @@ public class RoomConvertor
 
         if (hotelDto != null){
             roomEntity.setHotelByHotelId(
-                HotelConvertor.convertDtoToEntity(hotelDto)
+                hotelConvertor.convertDtoToEntity(hotelDto)
             );
         }
 

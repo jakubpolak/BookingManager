@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.convertor;
+package com.pa165.bookingmanager.convertor.impl;
 
 import com.pa165.bookingmanager.dto.HotelDto;
 import com.pa165.bookingmanager.dto.RoomDto;
@@ -7,23 +7,21 @@ import com.pa165.bookingmanager.dto.impl.RoomDtoImpl;
 import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Josef Stribny, Jakub Polak
+ * {@inheritDoc}
  */
-
-public class HotelConvertor
+@Component
+public class HotelConvertorImpl extends GenericConvertorImpl<HotelEntity, HotelDto>
 {
     /**
-     * Convert entity to DTO
-     *
-     * @param hotelEntity
-     * @return hotel entity
+     * {@inheritDoc}
      */
-    public static HotelDto convertEntityToDto(HotelEntity hotelEntity) {
+    public HotelDto convertEntityToDto(HotelEntity hotelEntity) {
         if (hotelEntity == null) {
             throw new IllegalArgumentException("HotelEntity can't be null.");
         }
@@ -51,12 +49,9 @@ public class HotelConvertor
     }
 
     /**
-     * Convert DTO to entity
-     *
-     * @param hotelDto
-     * @return hotel entity
+     * {@inheritDoc}
      */
-    public static HotelEntity convertDtoToEntity(HotelDto hotelDto) {
+    public HotelEntity convertDtoToEntity(HotelDto hotelDto) {
         if (hotelDto == null){
             throw new IllegalArgumentException("HotelDto can't be null.");
         }

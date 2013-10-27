@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.convertor;
+package com.pa165.bookingmanager.convertor.impl;
 
 import com.pa165.bookingmanager.dto.RoleDto;
 import com.pa165.bookingmanager.dto.UserDto;
@@ -7,6 +7,7 @@ import com.pa165.bookingmanager.dto.impl.UserDtoImpl;
 import com.pa165.bookingmanager.entity.RoleEntity;
 import com.pa165.bookingmanager.entity.UserEntity;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,8 @@ import java.util.List;
 /**
  * @author Jakub Polak
  */
-public class RoleConvertor
+@Component
+public class RoleConvertorImpl extends GenericConvertorImpl<RoleEntity, RoleDto>
 {
     /**
      * Convert entity to DTO
@@ -22,7 +24,7 @@ public class RoleConvertor
      * @param roleEntity
      * @return role entity
      */
-    public static RoleDto convertEntityToDto(RoleEntity roleEntity) {
+    public RoleDto convertEntityToDto(RoleEntity roleEntity) {
         if (roleEntity == null) {
             throw new IllegalArgumentException("RoleEntity can't be null.");
         }
@@ -55,7 +57,7 @@ public class RoleConvertor
      * @param roleDto
      * @return role entity
      */
-    public static RoleEntity convertDtoToEntity(RoleDto roleDto) {
+    public RoleEntity convertDtoToEntity(RoleDto roleDto) {
         if (roleDto == null) {
             throw new IllegalArgumentException("RoleDto can't be null.");
         }

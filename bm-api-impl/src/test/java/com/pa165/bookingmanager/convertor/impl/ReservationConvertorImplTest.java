@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.convertor;
+package com.pa165.bookingmanager.convertor.impl;
 
 import com.pa165.bookingmanager.TestSetup;
 import com.pa165.bookingmanager.dto.ReservationDto;
@@ -10,17 +10,21 @@ import com.pa165.bookingmanager.entity.RoomEntity;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.GregorianCalendar;
 
 /**
  * @author Jakub Polak
  */
-public class ReservationConvertorTest extends TestSetup
+public class ReservationConvertorImplTest extends TestSetup
 {
     private ReservationEntity reservationEntity;
 
     private ReservationDto reservationDto;
+
+    @Autowired
+    private ReservationConvertorImpl reservationConvertor;
 
     @Before
     public void setup(){
@@ -53,7 +57,7 @@ public class ReservationConvertorTest extends TestSetup
 
     @Test
     public void testConvertEntityToDto() throws Exception {
-        ReservationDto reservationDto = ReservationConvertor.convertEntityToDto(reservationEntity);
+        ReservationDto reservationDto = reservationConvertor.convertEntityToDto(reservationEntity);
 
         Assert.assertEquals(reservationDto.getId(), reservationEntity.getId());
         Assert.assertEquals(reservationDto.getCustomerEmail(), reservationEntity.getCustomerEmail());
@@ -66,7 +70,7 @@ public class ReservationConvertorTest extends TestSetup
 
     @Test
     public void testConvertDtoToEntity() throws Exception {
-        ReservationEntity reservationEntity = ReservationConvertor.convertDtoToEntity(reservationDto);
+        ReservationEntity reservationEntity = reservationConvertor.convertDtoToEntity(reservationDto);
 
         Assert.assertEquals(reservationEntity.getId(), reservationDto.getId());
         Assert.assertEquals(reservationEntity.getCustomerEmail(), reservationDto.getCustomerEmail());

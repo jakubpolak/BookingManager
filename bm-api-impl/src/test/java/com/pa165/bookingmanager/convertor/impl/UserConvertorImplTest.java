@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.convertor;
+package com.pa165.bookingmanager.convertor.impl;
 
 import com.pa165.bookingmanager.TestSetup;
 import com.pa165.bookingmanager.dto.RoleDto;
@@ -10,16 +10,20 @@ import com.pa165.bookingmanager.entity.UserEntity;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Jakub Polak
  */
 
-public class UserConvertorTest extends TestSetup
+public class UserConvertorImplTest extends TestSetup
 {
     private UserDto userDto;
 
     private UserEntity userEntity;
+
+    @Autowired
+    private UserConvertorImpl userConvertor;
 
     @Before
     public void setup(){
@@ -46,7 +50,7 @@ public class UserConvertorTest extends TestSetup
 
     @Test
     public void testConvertEntityToDto() throws Exception {
-        UserDto userDto = UserConvertor.convertEntityToDto(userEntity);
+        UserDto userDto = userConvertor.convertEntityToDto(userEntity);
 
         Assert.assertEquals(userDto.getId(), userEntity.getId());
         Assert.assertEquals(userDto.getEmail(), userEntity.getEmail());
@@ -56,7 +60,7 @@ public class UserConvertorTest extends TestSetup
 
     @Test
     public void testConvertDtoToEntity() throws Exception {
-        UserEntity userEntity = UserConvertor.convertDtoToEntity(userDto);
+        UserEntity userEntity = userConvertor.convertDtoToEntity(userDto);
 
         Assert.assertEquals(userEntity.getId(), userDto.getId());
         Assert.assertEquals(userEntity.getEmail(), userDto.getEmail());

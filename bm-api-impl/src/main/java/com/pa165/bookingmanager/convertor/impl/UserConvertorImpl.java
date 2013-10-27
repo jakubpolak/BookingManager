@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.convertor;
+package com.pa165.bookingmanager.convertor.impl;
 
 import com.pa165.bookingmanager.dto.RoleDto;
 import com.pa165.bookingmanager.dto.UserDto;
@@ -6,19 +6,22 @@ import com.pa165.bookingmanager.dto.impl.UserDtoImpl;
 import com.pa165.bookingmanager.entity.RoleEntity;
 import com.pa165.bookingmanager.entity.UserEntity;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
- * @author Jakub Polak
+ * {@inheritDoc}
  */
-public class UserConvertor
+@Component
+public class UserConvertorImpl extends GenericConvertorImpl<UserEntity, UserDto>
 {
+    @Autowired
+    RoleConvertorImpl roleConvertor;
+
     /**
-     * Convert entity to DTO
-     *
-     * @param userEntity
-     * @return user entity
+     * {@inheritDoc}
      */
-    public static UserDto convertEntityToDto(UserEntity userEntity) {
+    public UserDto convertEntityToDto(UserEntity userEntity) {
         if (userEntity == null) {
             throw new IllegalArgumentException("UserEntity can't be null.");
         }
@@ -31,7 +34,7 @@ public class UserConvertor
 
         if (roleEntity != null){
             dto.setRoleByRoleId(
-                RoleConvertor.convertEntityToDto(roleEntity)
+                roleConvertor.convertEntityToDto(roleEntity)
             );
         }
 
@@ -39,12 +42,9 @@ public class UserConvertor
     }
 
     /**
-     * Convert DTO to entity
-     *
-     * @param userDto
-     * @return user entity
+     * {@inheritDoc}
      */
-    public static UserEntity convertDtoToEntity(UserDto userDto) {
+    public UserEntity convertDtoToEntity(UserDto userDto) {
         if (userDto == null) {
             throw new IllegalArgumentException("UserDto can't be null.");
         }
@@ -57,7 +57,7 @@ public class UserConvertor
 
         if (roleDto != null){
             userEntity.setRoleByRoleId(
-                RoleConvertor.convertDtoToEntity(roleDto)
+                roleConvertor.convertDtoToEntity(roleDto)
             );
         }
 

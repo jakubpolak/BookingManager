@@ -1,8 +1,11 @@
 package com.pa165.bookingmanager.service.impl;
 
+import com.pa165.bookingmanager.convertor.impl.RoleConvertorImpl;
 import com.pa165.bookingmanager.convertor.impl.UserConvertorImpl;
 import com.pa165.bookingmanager.dao.UserDao;
+import com.pa165.bookingmanager.dto.RoleDto;
 import com.pa165.bookingmanager.dto.UserDto;
+import com.pa165.bookingmanager.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,6 +31,9 @@ public class UserDetailsServiceImpl implements UserDetailsService
     private UserDao userDao;
 
     @Autowired
+    RoleConvertorImpl roleConvertor;
+
+    @Autowired
     private UserConvertorImpl userConvertor;
 
     /**
@@ -40,7 +46,15 @@ public class UserDetailsServiceImpl implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException
     {
-        UserDto userDto = userConvertor.convertEntityToDto(userDao.findOneByEmail(email));
+        UserEntity userEntity = userDao.findOneByEmail(email);
+
+        if (userEntity == null){
+            throw new UsernameNotFoundException("Username not found.");
+        }
+
+        UserDto userDto = userConvertor.convertEntityToDto(userEntity);
+        RoleDto roleDto = roleConvertor.convertEntityToDto(userEntity.getRoleByRoleId());
+        userDto.setRoleByRoleId(roleDto);
 
         boolean enabled = true;
         boolean accountNonExpired = true;
@@ -64,12 +78,12 @@ public class UserDetailsServiceImpl implements UserDetailsService
      * @param role user role
      * @return list of granted authority objects
      */
-    public Collection<? extends GrantedAuthority> getAuthorities(Integer role)
+    private Collection<? extends GrantedAuthority> getAuthorities(Integer role)
     {
         return getGrantedAuthorities(getRoles(role));
     }
 
-    public List<String> getRoles(Integer role)
+    private List<String> getRoles(Integer role)
     {
         List<String> roles = new ArrayList<>();
 
@@ -93,7 +107,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
      * @param roles user role
      * @return list of granted authority objects
      */
-    public static List<GrantedAuthority> getGrantedAuthorities(List<String> roles)
+    private static List<GrantedAuthority> getGrantedAuthorities(List<String> roles)
     {
         List<GrantedAuthority> authorities = new ArrayList<>();
 

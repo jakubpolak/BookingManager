@@ -101,7 +101,12 @@ public class RoomServiceImpl implements RoomService
             throw new IllegalArgumentException("RoomDto can't be null.");
         }
 
-        roomDao.update(roomConvertor.convertDtoToEntity(roomDto));
+        RoomEntity roomEntity = roomDao.find(roomDto.getId());
+
+        if (roomEntity != null){
+            roomConvertor.convertDtoToEntity(roomDto, roomEntity);
+            roomDao.update(roomEntity);
+        }
     }
 
     /**
@@ -114,6 +119,10 @@ public class RoomServiceImpl implements RoomService
             throw new IllegalArgumentException("RoomDto can't be null.");
         }
 
-        roomDao.delete(roomConvertor.convertDtoToEntity(roomDto));
+        RoomEntity roomEntity = roomDao.find(roomDto.getId());
+
+        if (roomEntity != null){
+            roomDao.delete(roomEntity);
+        }
     }
 }

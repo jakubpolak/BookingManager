@@ -28,6 +28,14 @@ public interface GenericConvertor<E, D extends Serializable>
     E convertDtoToEntity(D d);
 
     /**
+     * Convert dto to entity
+     *
+     * @param d DTO
+     * @param e entity
+     */
+    void convertDtoToEntity(D d, E e);
+
+    /**
      * Dto list to entity list
      *
      * @param ds DTOs

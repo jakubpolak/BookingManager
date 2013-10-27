@@ -120,7 +120,12 @@ public class UserServiceImpl implements UserService
             throw new IllegalArgumentException("UserDto can't be null.");
         }
 
-        userDao.update(userConvertor.convertDtoToEntity(userDto));
+        UserEntity userEntity = userDao.find(userDto.getId());
+
+        if (userEntity != null){
+            userConvertor.convertDtoToEntity(userDto, userEntity);
+            userDao.update(userEntity);
+        }
     }
 
     /**
@@ -133,6 +138,10 @@ public class UserServiceImpl implements UserService
             throw new IllegalArgumentException("UserDto can't be null.");
         }
 
-        userDao.delete(userConvertor.convertDtoToEntity(userDto));
+        UserEntity userEntity = userDao.find(userDto.getId());
+
+        if (userEntity != null){
+            userDao.delete(userEntity);
+        }
     }
 }

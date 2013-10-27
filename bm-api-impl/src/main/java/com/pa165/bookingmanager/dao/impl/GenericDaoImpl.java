@@ -1,10 +1,10 @@
 package com.pa165.bookingmanager.dao.impl;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.Session;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Criterion;
 import com.pa165.bookingmanager.dao.GenericDao;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -51,6 +51,10 @@ public class GenericDaoImpl<E, I extends Serializable> implements GenericDao<E, 
     @Override
     @SuppressWarnings("unchecked")
     public E find(I id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id can't be null.");
+        }
+
         return (E) getCurrentSession().get(entityClass, id);
     }
 
@@ -70,6 +74,10 @@ public class GenericDaoImpl<E, I extends Serializable> implements GenericDao<E, 
      */
     @Override
     public void create(E e) {
+        if (e == null){
+            throw new IllegalArgumentException("Entity can't be null.");
+        }
+
         getCurrentSession().save(e);
     }
 
@@ -78,6 +86,10 @@ public class GenericDaoImpl<E, I extends Serializable> implements GenericDao<E, 
      */
     @Override
     public void update(E e) {
+        if (e == null){
+            throw new IllegalArgumentException("Entity can't be null.");
+        }
+
         getCurrentSession().update(e);
     }
 
@@ -86,6 +98,10 @@ public class GenericDaoImpl<E, I extends Serializable> implements GenericDao<E, 
      */
     @Override
     public void delete(E e) {
+        if (e == null){
+            throw new IllegalArgumentException("Entity can't be null.");
+        }
+
         getCurrentSession().delete(e);
     }
 }

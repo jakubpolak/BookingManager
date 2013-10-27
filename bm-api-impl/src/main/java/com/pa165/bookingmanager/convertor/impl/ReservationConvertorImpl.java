@@ -1,12 +1,9 @@
 package com.pa165.bookingmanager.convertor.impl;
 
 import com.pa165.bookingmanager.dto.ReservationDto;
-import com.pa165.bookingmanager.dto.RoomDto;
 import com.pa165.bookingmanager.dto.impl.ReservationDtoImpl;
 import com.pa165.bookingmanager.entity.ReservationEntity;
-import com.pa165.bookingmanager.entity.RoomEntity;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,8 +12,10 @@ import org.springframework.stereotype.Component;
 @Component("reservationConvertor")
 public class ReservationConvertorImpl extends GenericConvertorImpl<ReservationEntity, ReservationDto>
 {
-    @Autowired
-    RoomConvertorImpl roomConvertor;
+    /**
+     * Properties to be ignored by BeanUtils.copyProperties method
+     */
+    private String[] ignoreProperties = {"roomByRoomId"};
 
     /**
      * {@inheritDoc}
@@ -27,16 +26,7 @@ public class ReservationConvertorImpl extends GenericConvertorImpl<ReservationEn
         }
 
         ReservationDto reservationDto = new ReservationDtoImpl();
-        BeanUtils.copyProperties(reservationEntity, reservationDto, new String[] {"roomByRoomId"});
-
-        // Room Entity -> Room DTO
-        RoomEntity roomEntity = reservationEntity.getRoomByRoomId();
-
-        if (roomEntity != null){
-            reservationDto.setRoomByRoomId(
-                roomConvertor.convertEntityToDto(roomEntity)
-            );
-        }
+        BeanUtils.copyProperties(reservationEntity, reservationDto, ignoreProperties);
 
         return reservationDto;
     }
@@ -50,17 +40,23 @@ public class ReservationConvertorImpl extends GenericConvertorImpl<ReservationEn
         }
 
         ReservationEntity entity = new ReservationEntity();
-        BeanUtils.copyProperties(dto, entity, new String[] {"roomByRoomId"});
-
-        // Room DTO -> Room Entity
-        RoomDto roomDto = dto.getRoomByRoomId();
-
-        if (roomDto != null){
-            entity.setRoomByRoomId(
-                roomConvertor.convertDtoToEntity(roomDto)
-            );
-        }
+        BeanUtils.copyProperties(dto, entity, ignoreProperties);
 
         return entity;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void convertDtoToEntity(ReservationDto reservationDto, ReservationEntity reservationEntity){
+        if (reservationDto == null){
+            throw new IllegalArgumentException("HotelDto can't be null.");
+        }
+
+        if (reservationEntity == null){
+            throw new IllegalArgumentException("ReservationEntity can't be null.");
+        }
+
+        BeanUtils.copyProperties(reservationDto, reservationEntity, ignoreProperties);
     }
 }

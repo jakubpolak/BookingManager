@@ -101,7 +101,12 @@ public class ReservationServiceImpl implements ReservationService
             throw new IllegalArgumentException("ReservationDto can't be null.");
         }
 
-        reservationDao.update(reservationConvertor.convertDtoToEntity(reservationDto));
+        ReservationEntity reservationEntity = reservationDao.find(reservationDto.getId());
+
+        if (reservationEntity != null){
+            reservationConvertor.convertDtoToEntity(reservationDto, reservationEntity);
+            reservationDao.update(reservationEntity);
+        }
     }
 
     /**
@@ -114,6 +119,10 @@ public class ReservationServiceImpl implements ReservationService
             throw new IllegalArgumentException("ReservationDto can't be null.");
         }
 
-        reservationDao.delete(reservationConvertor.convertDtoToEntity(reservationDto));
+        ReservationEntity reservationEntity = reservationDao.find(reservationDto.getId());
+
+        if (reservationEntity != null){
+            reservationDao.delete(reservationEntity);
+        }
     }
 }

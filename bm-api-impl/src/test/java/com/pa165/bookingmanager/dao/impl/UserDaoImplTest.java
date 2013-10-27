@@ -5,14 +5,17 @@ import com.pa165.bookingmanager.dao.UserDao;
 import com.pa165.bookingmanager.entity.UserEntity;
 import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.Assert;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
 /**
  * @author Josef Stribny
  */
+@RunWith(SpringJUnit4ClassRunner.class)
 public class UserDaoImplTest extends TestSetup
 {
     @Autowired

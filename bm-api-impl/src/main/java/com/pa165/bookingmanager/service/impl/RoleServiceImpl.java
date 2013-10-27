@@ -101,7 +101,12 @@ public class RoleServiceImpl implements RoleService
             throw new IllegalArgumentException("RoleDto can't be null.");
         }
 
-        roleDao.update(roleConvertor.convertDtoToEntity(roleDto));
+        RoleEntity roleEntity = roleDao.find(roleDto.getId());
+
+        if (roleEntity != null){
+            roleConvertor.convertDtoToEntity(roleDto, roleEntity);
+            roleDao.update(roleEntity);
+        }
     }
 
     /**
@@ -114,6 +119,10 @@ public class RoleServiceImpl implements RoleService
             throw new IllegalArgumentException("RoleDto can't be null.");
         }
 
-        roleDao.delete(roleConvertor.convertDtoToEntity(roleDto));
+        RoleEntity roleEntity = roleDao.find(roleDto.getId());
+
+        if (roleEntity != null){
+            roleDao.delete(roleEntity);
+        }
     }
 }

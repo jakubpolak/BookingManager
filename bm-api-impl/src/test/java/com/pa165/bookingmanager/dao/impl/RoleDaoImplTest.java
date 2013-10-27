@@ -6,14 +6,17 @@ import com.pa165.bookingmanager.entity.RoleEntity;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.Assert;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
 /**
  * @author Josef Stribny
  */
+@RunWith(SpringJUnit4ClassRunner.class)
 public class RoleDaoImplTest extends TestSetup
 {
     @Autowired

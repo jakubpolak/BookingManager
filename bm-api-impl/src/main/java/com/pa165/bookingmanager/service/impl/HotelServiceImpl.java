@@ -69,9 +69,10 @@ public class HotelServiceImpl implements HotelService
         }
 
         HotelEntity hotelEntity = hotelDao.find(id);
+
         HotelDto hotelDto = null;
         if (hotelEntity != null){
-            hotelConvertor.convertEntityToDto(hotelEntity);
+            hotelDto = hotelConvertor.convertEntityToDto(hotelEntity);
         }
 
         return hotelDto;
@@ -100,7 +101,12 @@ public class HotelServiceImpl implements HotelService
             throw new IllegalArgumentException("HotelDto can't be null.");
         }
 
-        hotelDao.update(hotelConvertor.convertDtoToEntity(hotelDto));
+        HotelEntity hotelEntity = hotelDao.find(hotelDto.getId());
+
+        if (hotelEntity != null){
+            hotelConvertor.convertDtoToEntity(hotelDto, hotelEntity);
+            hotelDao.update(hotelEntity);
+        }
     }
 
     /**
@@ -113,6 +119,10 @@ public class HotelServiceImpl implements HotelService
             throw new IllegalArgumentException("HotelDto can't be null.");
         }
 
-        hotelDao.delete(hotelConvertor.convertDtoToEntity(hotelDto));
+        HotelEntity hotelEntity = hotelDao.find(hotelDto.getId());
+
+        if (hotelEntity != null){
+            hotelDao.delete(hotelEntity);
+        }
     }
 }

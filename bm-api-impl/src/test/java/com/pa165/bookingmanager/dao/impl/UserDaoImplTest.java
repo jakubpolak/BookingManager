@@ -85,4 +85,10 @@ public class UserDaoImplTest extends TestSetup
         UserEntity userEntityDeleted = userDao.find(id);
         Assert.assertEquals(userEntityDeleted, null);
     }
+
+    @Test
+    public void testFindOneByEmail(){
+        UserEntity userEntity = userDao.findOneByEmail("admin@bm.com");
+        Assert.assertNotNull(userEntity);
+    }
 }

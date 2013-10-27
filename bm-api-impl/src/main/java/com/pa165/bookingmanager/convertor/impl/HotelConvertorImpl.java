@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * {@inheritDoc}
  */
-@Component
+@Component("hotelConvertor")
 public class HotelConvertorImpl extends GenericConvertorImpl<HotelEntity, HotelDto>
 {
     /**

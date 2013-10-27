@@ -16,6 +16,10 @@ public abstract class GenericConvertorImpl<E, D extends Serializable> implements
      */
     @Override
     public List<E> convertDtoListToEntityList(List<D> ds) {
+        if (ds == null){
+            throw new IllegalArgumentException("DTO list can't be null.");
+        }
+
         List<E> es = new ArrayList<>();
         for (D d : ds){
             es.add(convertDtoToEntity(d));
@@ -29,6 +33,10 @@ public abstract class GenericConvertorImpl<E, D extends Serializable> implements
      */
     @Override
     public List<D> convertEntityListToDtoList(List<E> es) {
+        if (es == null){
+            throw new IllegalArgumentException("Entity list can't be null.");
+        }
+
         List<D> ds = new ArrayList<>();
         for (E e : es){
             ds.add(convertEntityToDto(e));

@@ -7,5 +7,11 @@ import com.pa165.bookingmanager.entity.UserEntity;
  */
 public interface UserDao extends GenericDao<UserEntity, Long>
 {
-
+    /**
+     * Find by email
+     *
+     * @param email user email
+     * @return UserEntity
+     */
+    UserEntity findOneByEmail(String email);
 }

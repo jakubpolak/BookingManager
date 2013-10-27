@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * {@inheritDoc}
  */
-@Component
+@Component("reservationConvertor")
 public class ReservationConvertorImpl extends GenericConvertorImpl<ReservationEntity, ReservationDto>
 {
     @Autowired

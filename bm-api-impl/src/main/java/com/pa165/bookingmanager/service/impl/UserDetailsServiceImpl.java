@@ -1,8 +1,8 @@
 package com.pa165.bookingmanager.service.impl;
 
+import com.pa165.bookingmanager.convertor.impl.UserConvertorImpl;
 import com.pa165.bookingmanager.dao.UserDao;
-import com.pa165.bookingmanager.entity.UserEntity;
-import org.hibernate.criterion.Restrictions;
+import com.pa165.bookingmanager.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,23 +24,23 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class UserDetailsServiceImpl implements UserDetailsService
 {
-    /**
-     * Data access object
-     */
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private UserConvertorImpl userConvertor;
 
     /**
      * Load user by user name
      *
-     * @param string unique identification of user, user email is used in this case
+     * @param email unique identification of user, user email is used in this case
      * @return user
      * @throws UsernameNotFoundException in case that specified user email does not exist
      */
     @Override
-    public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException
     {
-        UserEntity userEntity = userDao.findByCriteria(Restrictions.eq("email", string)).get(0);
+        UserDto userDto = userConvertor.convertEntityToDto(userDao.findOneByEmail(email));
 
         boolean enabled = true;
         boolean accountNonExpired = true;
@@ -48,13 +48,13 @@ public class UserDetailsServiceImpl implements UserDetailsService
         boolean accountNonLocked = true;
 
         return new User(
-            userEntity.getEmail(),
-            userEntity.getPassword(),
+            userDto.getEmail(),
+            userDto.getPassword(),
             enabled,
             accountNonExpired,
             credentialsNonExpired,
             accountNonLocked,
-            getAuthorities(userEntity.getRoleByRoleId().getId().intValue())
+            getAuthorities(userDto.getRoleByRoleId().getId().intValue())
         );
     }
 

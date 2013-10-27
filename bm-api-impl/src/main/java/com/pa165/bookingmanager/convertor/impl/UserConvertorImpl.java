@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * {@inheritDoc}
  */
-@Component
+@Component("userConvertor")
 public class UserConvertorImpl extends GenericConvertorImpl<UserEntity, UserDto>
 {
     @Autowired

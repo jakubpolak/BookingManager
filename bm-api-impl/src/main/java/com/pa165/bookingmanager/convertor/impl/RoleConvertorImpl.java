@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Jakub Polak
  */
-@Component
+@Component("roleConvertor")
 public class RoleConvertorImpl extends GenericConvertorImpl<RoleEntity, RoleDto>
 {
     /**

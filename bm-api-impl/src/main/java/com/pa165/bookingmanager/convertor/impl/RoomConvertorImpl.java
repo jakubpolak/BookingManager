@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * {@inheritDoc}
  */
-@Component
+@Component("roomConvertor")
 public class RoomConvertorImpl extends GenericConvertorImpl<RoomEntity, RoomDto>
 {
     @Autowired

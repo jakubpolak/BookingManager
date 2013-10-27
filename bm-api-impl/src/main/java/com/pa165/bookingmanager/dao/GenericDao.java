@@ -15,7 +15,7 @@ public interface GenericDao<E, I extends Serializable>
      *
      * @return list of entities
      */
-    public List<E> findAll();
+    List<E> findAll();
 
     /**
      * Find by criteria
@@ -23,7 +23,7 @@ public interface GenericDao<E, I extends Serializable>
      * @param criterion criterion
      * @return entities
      */
-    public List<E> findByCriteria(Criterion criterion);
+    List<E> findByCriteria(Criterion criterion);
 
     /**
      * Find one entity by id
@@ -31,26 +31,26 @@ public interface GenericDao<E, I extends Serializable>
      * @param i id
      * @return entity
      */
-    public E find(I i);
+    E find(I i);
 
     /**
      * Save entity
      *
      * @param e entity
      */
-    public void create(E e);
+    void create(E e);
 
     /**
      * Update entity
      *
      * @param e entity
      */
-    public void update(E e);
+    void update(E e);
 
     /**
      * Delete entity
      *
      * @param e entity
      */
-    public void delete(E e);
+    void delete(E e);
 }

@@ -34,6 +34,14 @@ public interface UserService
     UserDto find(Long id);
 
     /**
+     * Find one by email
+     *
+     * @param email user email
+     * @return user DTO
+     */
+    UserDto findOneByEmail(String email);
+
+    /**
      * Create
      *
      * @param userDto user DTO

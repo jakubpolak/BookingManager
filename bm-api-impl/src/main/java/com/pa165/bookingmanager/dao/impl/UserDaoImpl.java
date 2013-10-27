@@ -2,6 +2,7 @@ package com.pa165.bookingmanager.dao.impl;
 
 import com.pa165.bookingmanager.dao.UserDao;
 import com.pa165.bookingmanager.entity.UserEntity;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,5 +16,20 @@ public class UserDaoImpl extends GenericDaoImpl<UserEntity, Long> implements Use
      */
     public UserDaoImpl(){
         super(UserEntity.class);
+    }
+
+    /**
+     * Find one by email
+     *
+     * @param email user email
+     * @return UserEntity
+     */
+    @Override
+    public UserEntity findOneByEmail(String email) {
+        return (UserEntity) getCurrentSession()
+            .createCriteria(UserEntity.class)
+            .add(Restrictions.eq("email", email))
+            .uniqueResult()
+        ;
     }
 }

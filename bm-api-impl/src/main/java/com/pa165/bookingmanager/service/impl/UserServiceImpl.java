@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService
             throw new IllegalArgumentException("Id can't be null.");
         }
 
-        List<UserEntity> userEntities = userDao.findAll();
+        List<UserEntity> userEntities = userDao.findByCriteria(criterion);
         List<UserDto> userDtos = null;
 
         if (userEntities != null){

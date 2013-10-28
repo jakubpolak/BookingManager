@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @author Jana Polakova, Jakub Polak
+ * @author Jana Polakova, Jakub Polak, Jan Hrubes
  */
 @Service("roleService")
 @Transactional(readOnly = true)
@@ -49,7 +49,7 @@ public class RoleServiceImpl implements RoleService
             throw new IllegalArgumentException("Criterion can't be null.");
         }
 
-        List<RoleEntity> roleEntities = roleDao.findAll();
+        List<RoleEntity> roleEntities = roleDao.findByCriteria(criterion);
         List<RoleDto> roleDtos = null;
 
         if (roleEntities != null){

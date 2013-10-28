@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @author Jana Polakova, Jakub Polak
+ * @author Jana Polakova, Jakub Polak, Jan Hrubes
  */
 @Service("roomService")
 @Transactional(readOnly = true)
@@ -49,7 +49,7 @@ public class RoomServiceImpl implements RoomService
             throw new IllegalArgumentException("Criterion can't be null.");
         }
 
-        List<RoomEntity> roomEntities = roomDao.findAll();
+        List<RoomEntity> roomEntities = roomDao.findByCriteria(criterion);
         List<RoomDto> roomDtos = null;
 
         if (roomEntities != null){

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @author Jana Polakova, Jakub Polak
+ * @author Jana Polakova, Jakub Polak, Jan Hrubes
  */
 @Service("userService")
 @Transactional(readOnly = true)

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @author Jana Polakova, Jakub Polak
+ * @author Jana Polakova, Jakub Polak, Jan Hrubes
  */
 @Service("reservationService")
 @Transactional(readOnly = true)
@@ -49,7 +49,7 @@ public class ReservationServiceImpl implements ReservationService
             throw new IllegalArgumentException("Criterion can't be null.");
         }
 
-        List<ReservationEntity> reservationEntities = reservationDao.findAll();
+        List<ReservationEntity> reservationEntities = reservationDao.findByCriteria(criterion);
         List<ReservationDto> reservationDtos = null;
 
         if (reservationEntities != null){

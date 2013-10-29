@@ -1,6 +1,6 @@
 package com.pa165.bookingmanager.dao.impl;
 
-import com.pa165.bookingmanager.TestSetup;
+import com.pa165.bookingmanager.TestDaoSetup;
 import com.pa165.bookingmanager.dao.HotelDao;
 import com.pa165.bookingmanager.dao.ReservationDao;
 import com.pa165.bookingmanager.dao.RoomDao;
@@ -23,7 +23,7 @@ import java.util.List;
  * @author Jan Hrubes
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class RoomDaoImplTest extends TestSetup
+public class RoomDaoImplTest extends TestDaoSetup
 {
     @Autowired
     HotelDao hotelDao;

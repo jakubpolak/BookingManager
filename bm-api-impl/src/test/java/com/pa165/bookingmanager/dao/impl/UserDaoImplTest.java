@@ -1,6 +1,6 @@
 package com.pa165.bookingmanager.dao.impl;
 
-import com.pa165.bookingmanager.TestSetup;
+import com.pa165.bookingmanager.TestDaoSetup;
 import com.pa165.bookingmanager.dao.UserDao;
 import com.pa165.bookingmanager.entity.UserEntity;
 import org.hibernate.criterion.Restrictions;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author Josef Stribny
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class UserDaoImplTest extends TestSetup
+public class UserDaoImplTest extends TestDaoSetup
 {
     @Autowired
     UserDao userDao;

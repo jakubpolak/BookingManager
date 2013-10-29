@@ -8,12 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Jakub Polak
  */
 @ContextConfiguration(locations={
-    "classpath:/configuration/spring.xml",
+    "classpath:/configuration/testing/spring.xml",
     "classpath:/configuration/testing/hibernate.xml"
 })
 @TransactionConfiguration
 @Transactional
-public class TestSetup
+public class TestDaoSetup
 {
 
 }

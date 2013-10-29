@@ -1,9 +1,12 @@
 package com.pa165.bookingmanager.service.impl;
 
-import com.pa165.bookingmanager.TestSetup;
+import com.pa165.bookingmanager.TestServiceSetup;
+import com.pa165.bookingmanager.dao.UserDao;
 import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,8 +17,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Jakub Polak
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class UserDetailsServiceImplTest extends TestSetup
+public class UserDetailsServiceImplTest extends TestServiceSetup
 {
+    @Mock
+    UserDao userDao;
+
+    @InjectMocks
     @Autowired
     UserDetailsService userDetailsService;
 

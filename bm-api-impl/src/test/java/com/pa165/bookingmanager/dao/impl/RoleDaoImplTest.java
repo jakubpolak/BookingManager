@@ -1,6 +1,6 @@
 package com.pa165.bookingmanager.dao.impl;
 
-import com.pa165.bookingmanager.TestSetup;
+import com.pa165.bookingmanager.TestDaoSetup;
 import com.pa165.bookingmanager.dao.RoleDao;
 import com.pa165.bookingmanager.entity.RoleEntity;
 import org.hibernate.criterion.Property;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author Josef Stribny
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class RoleDaoImplTest extends TestSetup
+public class RoleDaoImplTest extends TestDaoSetup
 {
     @Autowired
     RoleDao roleDao;

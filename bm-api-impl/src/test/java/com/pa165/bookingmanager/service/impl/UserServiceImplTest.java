@@ -1,6 +1,6 @@
 package com.pa165.bookingmanager.service.impl;
 
-import com.pa165.bookingmanager.TestSetup;
+import com.pa165.bookingmanager.TestServiceSetup;
 import com.pa165.bookingmanager.dto.UserDto;
 import com.pa165.bookingmanager.dto.impl.UserDtoImpl;
 import com.pa165.bookingmanager.service.RoleService;
@@ -18,7 +18,7 @@ import java.util.List;
  * @author Jakub Polak, Jan Hrubes
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class UserServiceImplTest  extends TestSetup
+public class UserServiceImplTest  extends TestServiceSetup
 {
     @Autowired
     UserService userService;

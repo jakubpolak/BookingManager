@@ -1,6 +1,6 @@
 package com.pa165.bookingmanager.service.impl;
 
-import com.pa165.bookingmanager.TestSetup;
+import com.pa165.bookingmanager.TestServiceSetup;
 import com.pa165.bookingmanager.dto.ReservationDto;
 import com.pa165.bookingmanager.dto.impl.ReservationDtoImpl;
 import com.pa165.bookingmanager.service.ReservationService;
@@ -19,7 +19,7 @@ import java.util.List;
  * @author Jakub Polak, Jan Hrubes
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ReservationServiceImplTest extends TestSetup
+public class ReservationServiceImplTest extends TestServiceSetup
 {
     @Autowired
     ReservationService reservationService;

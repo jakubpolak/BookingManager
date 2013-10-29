@@ -5,7 +5,6 @@ import com.pa165.bookingmanager.dao.RoomDao;
 import com.pa165.bookingmanager.dto.RoomDto;
 import com.pa165.bookingmanager.entity.RoomEntity;
 import com.pa165.bookingmanager.service.RoomService;
-import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,30 +25,29 @@ public class RoomServiceImpl implements RoomService
     RoomConvertorImpl roomConvertor;
 
     /**
-     * {@inheritDoc}
+     * Constructor
      */
-    @Override
-    public List<RoomDto> findAll() {
-        List<RoomEntity> roomEntities = roomDao.findAll();
-        List<RoomDto> roomDtos = null;
+    public RoomServiceImpl(){
 
-        if (roomEntities != null){
-            roomDtos = roomConvertor.convertEntityListToDtoList(roomEntities);
-        }
+    }
 
-        return roomDtos;
+    /**
+     * Constructor
+     *
+     * @param roomDao room dao
+     * @param roomConvertor room convertor
+     */
+    public RoomServiceImpl(RoomDao roomDao, RoomConvertorImpl roomConvertor){
+        this.roomDao = roomDao;
+        this.roomConvertor = roomConvertor;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<RoomDto> findByCriteria(Criterion criterion) {
-        if (criterion == null){
-            throw new IllegalArgumentException("Criterion can't be null.");
-        }
-
-        List<RoomEntity> roomEntities = roomDao.findByCriteria(criterion);
+    public List<RoomDto> findAll() {
+        List<RoomEntity> roomEntities = roomDao.findAll();
         List<RoomDto> roomDtos = null;
 
         if (roomEntities != null){

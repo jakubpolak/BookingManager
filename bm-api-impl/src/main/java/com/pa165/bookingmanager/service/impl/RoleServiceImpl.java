@@ -5,7 +5,6 @@ import com.pa165.bookingmanager.dao.RoleDao;
 import com.pa165.bookingmanager.dto.RoleDto;
 import com.pa165.bookingmanager.entity.RoleEntity;
 import com.pa165.bookingmanager.service.RoleService;
-import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,30 +25,29 @@ public class RoleServiceImpl implements RoleService
     RoleConvertorImpl roleConvertor;
 
     /**
-     * {@inheritDoc}
+     * Constructor
      */
-    @Override
-    public List<RoleDto> findAll() {
-        List<RoleEntity> roleEntities = roleDao.findAll();
-        List<RoleDto> roleDtos = null;
+    public RoleServiceImpl(){
 
-        if (roleEntities != null){
-            roleDtos = roleConvertor.convertEntityListToDtoList(roleEntities);
-        }
+    }
 
-        return roleDtos;
+    /**
+     * Constructor
+     *
+     * @param roleDao role dao
+     * @param roleConvertor role convertor
+     */
+    public RoleServiceImpl(RoleDao roleDao, RoleConvertorImpl roleConvertor){
+        this.roleDao = roleDao;
+        this.roleConvertor = roleConvertor;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<RoleDto> findByCriteria(Criterion criterion) {
-        if (criterion == null){
-            throw new IllegalArgumentException("Criterion can't be null.");
-        }
-
-        List<RoleEntity> roleEntities = roleDao.findByCriteria(criterion);
+    public List<RoleDto> findAll() {
+        List<RoleEntity> roleEntities = roleDao.findAll();
         List<RoleDto> roleDtos = null;
 
         if (roleEntities != null){

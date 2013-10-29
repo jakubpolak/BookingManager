@@ -5,7 +5,6 @@ import com.pa165.bookingmanager.dao.ReservationDao;
 import com.pa165.bookingmanager.dto.ReservationDto;
 import com.pa165.bookingmanager.entity.ReservationEntity;
 import com.pa165.bookingmanager.service.ReservationService;
-import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,30 +25,29 @@ public class ReservationServiceImpl implements ReservationService
     ReservationConvertorImpl reservationConvertor;
 
     /**
-     * {@inheritDoc}
+     * Constructor
      */
-    @Override
-    public List<ReservationDto> findAll() {
-        List<ReservationEntity> reservationEntities = reservationDao.findAll();
-        List<ReservationDto> reservationDtos = null;
+    public ReservationServiceImpl(){
 
-        if (reservationEntities != null){
-            reservationDtos = reservationConvertor.convertEntityListToDtoList(reservationEntities);
-        }
+    }
 
-        return reservationDtos;
+    /**
+     * Constructor
+     *
+     * @param reservationDao reservation dao
+     * @param reservationConvertor reservation convertor
+     */
+    public ReservationServiceImpl(ReservationDao reservationDao, ReservationConvertorImpl reservationConvertor){
+        this.reservationDao = reservationDao;
+        this.reservationConvertor = reservationConvertor;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<ReservationDto> findByCriteria(Criterion criterion) {
-        if (criterion == null){
-            throw new IllegalArgumentException("Criterion can't be null.");
-        }
-
-        List<ReservationEntity> reservationEntities = reservationDao.findByCriteria(criterion);
+    public List<ReservationDto> findAll() {
+        List<ReservationEntity> reservationEntities = reservationDao.findAll();
         List<ReservationDto> reservationDtos = null;
 
         if (reservationEntities != null){

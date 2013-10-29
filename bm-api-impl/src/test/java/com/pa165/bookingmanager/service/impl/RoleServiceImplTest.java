@@ -1,78 +1,86 @@
 package com.pa165.bookingmanager.service.impl;
 
 import com.pa165.bookingmanager.TestServiceSetup;
+import com.pa165.bookingmanager.convertor.impl.RoleConvertorImpl;
+import com.pa165.bookingmanager.dao.RoleDao;
 import com.pa165.bookingmanager.dto.RoleDto;
 import com.pa165.bookingmanager.dto.impl.RoleDtoImpl;
+import com.pa165.bookingmanager.entity.RoleEntity;
 import com.pa165.bookingmanager.service.RoleService;
 import junit.framework.Assert;
-import org.hibernate.criterion.Restrictions;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.mockito.Mock;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.when;
 
 /**
  * @author Jakub Polak, Jan Hrubes
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 public class RoleServiceImplTest extends TestServiceSetup
 {
-    @Autowired
-    RoleService roleService;
+    @Mock
+    private RoleDao roleDao;
 
-    @Test
-    public void testFindAll() throws Exception {
-        List<RoleDto> roleDtos = roleService.findAll();
+    @Mock
+    private RoleConvertorImpl roleConvertor;
 
-        Assert.assertEquals(3, roleDtos.size());
+    private RoleService roleService;
+
+    @Before
+    public void setup() throws Exception {
+        super.setup();
+        roleService = new RoleServiceImpl(roleDao, roleConvertor);
     }
 
     @Test
-    public void testFindByCriteria() throws Exception {
-        List<RoleDto> roleDtos1 = roleService.findByCriteria(Restrictions.eq("name", "ROLE_ADMIN"));
+    public void testFindAll() throws Exception {
+        List<RoleEntity> roleEntities = new ArrayList<>();
+        List<RoleDto> roleDtos = new ArrayList<>();
 
-        Assert.assertEquals(1, roleDtos1.size());
+        roleEntities.add(new RoleEntity());
+        roleDtos.add(new RoleDtoImpl());
 
-        List<RoleDto> roleDtos2 = roleService.findByCriteria(Restrictions.eq("name", "ROLE_DOES_NOT_EXIST"));
+        when(roleDao.findAll()).thenReturn(roleEntities);
+        when(roleConvertor.convertEntityListToDtoList(roleEntities)).thenReturn(roleDtos);
 
-        Assert.assertTrue(roleDtos2.isEmpty());
+        Assert.assertEquals(1, roleService.findAll().size());
     }
 
     @Test
     public void testFind() throws Exception {
+        RoleEntity roleEntity = new RoleEntity();
+        RoleDto roleDto = new RoleDtoImpl();
+
+        when(roleDao.find(1L)).thenReturn(roleEntity);
+        when(roleDao.find(999L)).thenReturn(null);
+        when(roleConvertor.convertEntityToDto(roleEntity)).thenReturn(roleDto);
+
         Assert.assertNotNull(roleService.find(1L));
+
         Assert.assertNull(roleService.find(999L));
     }
 
-    @Test
-    public void testCreate() throws Exception {
-        RoleDto roleDto = new RoleDtoImpl();
-        roleDto.setName("ROLE_NEW");
-        roleService.create(roleDto);
-
-        List<RoleDto> roleDtos = roleService.findByCriteria(Restrictions.eq("name", "ROLE_NEW"));
-
-        Assert.assertEquals(1, roleDtos.size());
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindIllegalArgumentException() throws Exception {
+        roleService.find(null);
     }
 
-    @Test
-    public void testUpdate() throws Exception {
-        RoleDto roleDto = roleService.find(1L);
-        roleDto.setName("ROLE_UPDATED");
-
-        roleService.update(roleDto);
-
-        List<RoleDto> roleDtos = roleService.findByCriteria(Restrictions.eq("name", "ROLE_UPDATED"));
-
-        Assert.assertEquals(1, roleDtos.size());
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateIllegalArgumentException() throws Exception {
+        roleService.create(null);
     }
 
-    @Test
-    public void testDelete() throws Exception {
-        roleService.delete(roleService.find(1L));
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateIllegalArgumentException() throws Exception {
+        roleService.update(null);
+    }
 
-        Assert.assertNull(roleService.find(1L));
+    @Test(expected = IllegalArgumentException.class)
+    public void testDeleteIllegalArgumentException() throws Exception {
+        roleService.delete(null);
     }
 }

@@ -1,84 +1,85 @@
 package com.pa165.bookingmanager.service.impl;
 
 import com.pa165.bookingmanager.TestServiceSetup;
+import com.pa165.bookingmanager.convertor.impl.UserConvertorImpl;
+import com.pa165.bookingmanager.dao.UserDao;
 import com.pa165.bookingmanager.dto.UserDto;
 import com.pa165.bookingmanager.dto.impl.UserDtoImpl;
-import com.pa165.bookingmanager.service.RoleService;
-import com.pa165.bookingmanager.service.UserService;
+import com.pa165.bookingmanager.entity.UserEntity;
 import junit.framework.Assert;
-import org.hibernate.criterion.Restrictions;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.mockito.Mock;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.when;
 
 /**
  * @author Jakub Polak, Jan Hrubes
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 public class UserServiceImplTest  extends TestServiceSetup
 {
-    @Autowired
-    UserService userService;
+    @Mock
+    private UserDao userDao;
 
-    @Autowired
-    RoleService roleService;
+    @Mock
+    private UserConvertorImpl userConvertor;
 
-    @Test
-    public void testFindAll() throws Exception {
-        List<UserDto> userDtos = userService.findAll();
+    private UserServiceImpl userService;
 
-        Assert.assertEquals(userDtos.size(), 2);
+    @Before
+    public void setup() throws Exception {
+        super.setup();
+        userService = new UserServiceImpl(userDao, userConvertor);
     }
 
     @Test
-    public void testFindByCriteria() throws Exception {
-        List<UserDto> userDtos = userService.findByCriteria(Restrictions.eq("email", "admin@bm.com"));
-        Assert.assertEquals(userDtos.size(), 1);
+    public void testFindAll() throws Exception {
+        List<UserEntity> userEntities = new ArrayList<>();
+        List<UserDto> userDtos = new ArrayList<>();
 
-        List<UserDto> userDtos1 = userService.findByCriteria(Restrictions.eq("id", 999L));
-        Assert.assertEquals(userDtos1.size(), 0);
+        userEntities.add(new UserEntity());
+        userDtos.add(new UserDtoImpl());
+
+        when(userDao.findAll()).thenReturn(userEntities);
+        when(userConvertor.convertEntityListToDtoList(userEntities)).thenReturn(userDtos);
+
+        Assert.assertEquals(1, userService.findAll().size());
     }
 
     @Test
     public void testFindOneByEmail() throws Exception {
-        Assert.assertNotNull(userService.findOneByEmail("admin@bm.com"));
-        Assert.assertNull(userService.findOneByEmail("undefined@email.com"));
-    }
+        UserEntity userEntity = new UserEntity();
+        UserDto userDto = new UserDtoImpl();
 
-    @Test
-    public void testFind() throws Exception {
+        when(userDao.find(1L)).thenReturn(userEntity);
+        when(userDao.find(999L)).thenReturn(null);
+        when(userConvertor.convertEntityToDto(userEntity)).thenReturn(userDto);
+
         Assert.assertNotNull(userService.find(1L));
+
         Assert.assertNull(userService.find(999L));
     }
 
-    @Test
-    public void testCreate() throws Exception {
-        UserDto userDto = new UserDtoImpl();
-        userDto.setEmail("default@email.com");
-        userDto.setPassword("passw");
-        userDto.setRoleByRoleId(roleService.find(1L));
-
-        userService.create(userDto);
-        // TODO: user DAO does not save mandatory role attribute
-        Assert.assertNotNull(userService.findOneByEmail("default@email.com"));
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindIllegalArgumentException() throws Exception {
+        userService.find(null);
     }
 
-    @Test
-    public void testUpdate() throws Exception {
-        UserDto userDto = userService.find(1L);
-        userDto.setEmail("new@email.com");
-
-        userService.update(userDto);
-
-        Assert.assertNotNull(userService.findOneByEmail("new@email.com"));
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateIllegalArgumentException() throws Exception {
+        userService.create(null);
     }
 
-    @Test
-    public void testDelete() throws Exception {
-        userService.delete(userService.find(1L));
-        Assert.assertNull(userService.find(1L));
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateIllegalArgumentException() throws Exception {
+        userService.update(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDeleteIllegalArgumentException() throws Exception {
+        userService.delete(null);
     }
 }

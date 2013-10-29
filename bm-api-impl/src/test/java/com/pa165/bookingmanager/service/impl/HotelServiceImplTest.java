@@ -1,85 +1,86 @@
 package com.pa165.bookingmanager.service.impl;
 
 import com.pa165.bookingmanager.TestServiceSetup;
+import com.pa165.bookingmanager.convertor.impl.HotelConvertorImpl;
 import com.pa165.bookingmanager.dao.HotelDao;
 import com.pa165.bookingmanager.dto.HotelDto;
 import com.pa165.bookingmanager.dto.impl.HotelDtoImpl;
+import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.service.HotelService;
 import junit.framework.Assert;
-import org.hibernate.criterion.Restrictions;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.when;
 
 /**
  * @author Jakub Polak, Jan Hrubes
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 public class HotelServiceImplTest extends TestServiceSetup
 {
     @Mock
     private HotelDao hotelDao;
 
-    @Autowired
-    @InjectMocks
+    @Mock
+    private HotelConvertorImpl hotelConvertor;
+
     private HotelService hotelService;
 
-    @Test
-    public void testFindAll() throws Exception {
-        List<HotelDto> hotelDtos = hotelService.findAll();
-
-        Assert.assertEquals(hotelDtos.size(), 3);
+    @Before
+    public void setup() throws Exception{
+        super.setup();
+        hotelService = new HotelServiceImpl(hotelDao, hotelConvertor);
     }
 
     @Test
-    public void testFindByCriteria() throws Exception {
-        List<HotelDto> hotelDtos1 = hotelService.findByCriteria(Restrictions.eq("name", "Hotel New York"));
+    public void testFindAll() throws Exception {
+        List<HotelEntity> hotelEntities = new ArrayList<>();
+        List<HotelDto> hotelDtos = new ArrayList<>();
 
-        Assert.assertEquals(hotelDtos1.size(), 1);
+        hotelEntities.add(new HotelEntity());
+        hotelDtos.add(new HotelDtoImpl());
 
-        List<HotelDto> hotelDtos2 = hotelService.findByCriteria(Restrictions.eq("id", 999L));
+        when(hotelDao.findAll()).thenReturn(hotelEntities);
+        when(hotelConvertor.convertEntityListToDtoList(hotelEntities)).thenReturn(hotelDtos);
 
-        Assert.assertTrue(hotelDtos2.isEmpty());
+        Assert.assertEquals(1, hotelService.findAll().size());
     }
 
     @Test
     public void testFind() throws Exception {
-        Assert.assertNotNull(hotelService.find(2L));
+        HotelEntity hotelEntity = new HotelEntity();
+        HotelDto hotelDto = new HotelDtoImpl();
+
+        when(hotelDao.find(1L)).thenReturn(hotelEntity);
+        when(hotelDao.find(999L)).thenReturn(null);
+        when(hotelConvertor.convertEntityToDto(hotelEntity)).thenReturn(hotelDto);
+
+        Assert.assertNotNull(hotelService.find(1L));
+
         Assert.assertNull(hotelService.find(999L));
     }
 
-    @Test
-    public void testCreate() throws Exception {
-        HotelDto hotelDto = new HotelDtoImpl();
-        hotelDto.setName("Hotel Bratislava");
-        hotelService.create(hotelDto);
-
-        List<HotelDto> hotelDtos = hotelService.findByCriteria(Restrictions.eq("name", "Hotel Bratislava"));
-
-        Assert.assertEquals(1, hotelDtos.size());
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindIllegalArgumentException() throws Exception {
+        hotelService.find(null);
     }
 
-    @Test
-    public void testUpdate() throws Exception {
-        HotelDto hotelDto = hotelService.find(1L);
-        hotelDto.setName("Update Hotel name");
-
-        hotelService.update(hotelDto);
-
-        List<HotelDto> hotelDtos = hotelService.findByCriteria(Restrictions.eq("name", "Update Hotel name"));
-
-        Assert.assertEquals(hotelDtos.size(), 1);
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateIllegalArgumentException() throws Exception {
+        hotelService.create(null);
     }
 
-    @Test
-    public void testDelete() throws Exception {
-        hotelService.delete(hotelService.find(1L));
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateIllegalArgumentException() throws Exception {
+        hotelService.update(null);
+    }
 
-        Assert.assertNull(hotelService.find(1L));
+    @Test(expected = IllegalArgumentException.class)
+    public void testDeleteIllegalArgumentException() throws Exception {
+        hotelService.delete(null);
     }
 }

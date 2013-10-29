@@ -5,7 +5,6 @@ import com.pa165.bookingmanager.dao.HotelDao;
 import com.pa165.bookingmanager.dto.HotelDto;
 import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.service.HotelService;
-import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,30 +25,29 @@ public class HotelServiceImpl implements HotelService
     HotelConvertorImpl hotelConvertor;
 
     /**
-     * {@inheritDoc}
+     * Constructor
      */
-    @Override
-    public List<HotelDto> findAll() {
-        List<HotelEntity> hotelEntities = hotelDao.findAll();
-        List<HotelDto> hotelDtos = null;
+    public HotelServiceImpl(){
 
-        if (hotelEntities != null){
-            hotelDtos = hotelConvertor.convertEntityListToDtoList(hotelEntities);
-        }
+    }
 
-        return hotelDtos;
+    /**
+     * Constructor
+     *
+     * @param hotelDao hotel dao
+     * @param hotelConvertor hotel convertor
+     */
+    public HotelServiceImpl(HotelDao hotelDao, HotelConvertorImpl hotelConvertor){
+        this.hotelDao = hotelDao;
+        this.hotelConvertor = hotelConvertor;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<HotelDto> findByCriteria(Criterion criterion) {
-        if (criterion == null){
-            throw new IllegalArgumentException("Criterion can't be null.");
-        }
-
-        List<HotelEntity> hotelEntities = hotelDao.findByCriteria(criterion);
+    public List<HotelDto> findAll() {
+        List<HotelEntity> hotelEntities = hotelDao.findAll();
         List<HotelDto> hotelDtos = null;
 
         if (hotelEntities != null){

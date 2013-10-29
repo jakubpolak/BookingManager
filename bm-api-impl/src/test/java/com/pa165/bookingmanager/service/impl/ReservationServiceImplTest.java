@@ -1,89 +1,87 @@
 package com.pa165.bookingmanager.service.impl;
 
 import com.pa165.bookingmanager.TestServiceSetup;
+import com.pa165.bookingmanager.convertor.impl.ReservationConvertorImpl;
+import com.pa165.bookingmanager.dao.ReservationDao;
 import com.pa165.bookingmanager.dto.ReservationDto;
 import com.pa165.bookingmanager.dto.impl.ReservationDtoImpl;
+import com.pa165.bookingmanager.entity.ReservationEntity;
 import com.pa165.bookingmanager.service.ReservationService;
-import com.pa165.bookingmanager.service.RoomService;
 import junit.framework.Assert;
-import org.hibernate.criterion.Restrictions;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.mockito.Mock;
 
-import java.util.GregorianCalendar;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.when;
 
 /**
  * @author Jakub Polak, Jan Hrubes
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 public class ReservationServiceImplTest extends TestServiceSetup
 {
-    @Autowired
-    ReservationService reservationService;
+    @Mock
+    private ReservationDao reservationDao;
 
-    @Autowired
-    RoomService roomService;
+    @Mock
+    private ReservationConvertorImpl reservationConvertor;
 
-    @Test
-    public void testFindAll() throws Exception {
-        List<ReservationDto> reservationDtos = reservationService.findAll();
+    private ReservationService reservationService;
 
-        Assert.assertEquals(reservationDtos.size(), 4);
+    @Before
+    public void setup() throws Exception{
+        super.setup();
+        reservationService = new ReservationServiceImpl(reservationDao, reservationConvertor);
     }
 
     @Test
-    public void testFindByCriteria() throws Exception {
-        List<ReservationDto> reservationDtos1 = reservationService.findByCriteria(Restrictions.eq("customerName", "Mahatma Gandhi"));
+    public void testFindAll() throws Exception {
+        List<ReservationEntity> reservationEntities = new ArrayList<>();
+        List<ReservationDto> reservationDtos = new ArrayList<>();
 
-        Assert.assertEquals(reservationDtos1.size(), 1);
+        reservationEntities.add(new ReservationEntity());
+        reservationDtos.add(new ReservationDtoImpl());
 
-        List<ReservationDto> reservationDtos2 = reservationService.findByCriteria(Restrictions.eq("id", 999L));
+        when(reservationDao.findAll()).thenReturn(reservationEntities);
+        when(reservationConvertor.convertEntityListToDtoList(reservationEntities)).thenReturn(reservationDtos);
 
-        Assert.assertTrue(reservationDtos2.isEmpty());
+        Assert.assertEquals(1, reservationService.findAll().size());
     }
 
     @Test
     public void testFind() throws Exception {
-        Assert.assertNotNull(reservationService.find(2L));
-        Assert.assertNull(reservationService.find(999L));
-    }
-
-    @Test
-    public void testCreate() throws Exception {
+        ReservationEntity reservationEntity = new ReservationEntity();
         ReservationDto reservationDto = new ReservationDtoImpl();
-        reservationDto.setCustomerEmail("new@email.com");
-        reservationDto.setCustomerName("John Doe");
-        reservationDto.setCustomerPhone("777 542 654");
-        reservationDto.setReservationFrom(new GregorianCalendar(2013, 12, 24).getTime());
-        reservationDto.setReservationTo(new GregorianCalendar(2013, 12, 28).getTime());
-        reservationDto.setRoomByRoomId(roomService.find(1L));
 
-        reservationService.create(reservationDto);
+        when(reservationDao.find(1L)).thenReturn(reservationEntity);
+        when(reservationDao.find(999L)).thenReturn(null);
+        when(reservationConvertor.convertEntityToDto(reservationEntity)).thenReturn(reservationDto);
 
-        List<ReservationDto> reservationDtos = reservationService.findByCriteria(Restrictions.eq("customerName", "John Doe"));
+        Assert.assertNotNull(reservationService.find(1L));
 
-        Assert.assertEquals(reservationDtos.size(), 1);
+        Assert.assertNull(reservationService.find(999L));
+
     }
 
-    @Test
-    public void testUpdate() throws Exception {
-        ReservationDto reservationDto = reservationService.find(1L);
-        reservationDto.setCustomerName("New Name");
-
-        reservationService.update(reservationDto);
-
-        List<ReservationDto> reservationDtos = reservationService.findByCriteria(Restrictions.eq("customerName", "New Name"));
-
-        Assert.assertEquals(reservationDtos.size(), 1);
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindIllegalArgumentException() throws Exception {
+        reservationService.find(null);
     }
 
-    @Test
-    public void testDelete() throws Exception {
-        reservationService.delete(reservationService.find(1L));
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateIllegalArgumentException() throws Exception {
+        reservationService.create(null);
+    }
 
-        Assert.assertNull(reservationService.find(1L));
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateIllegalArgumentException() throws Exception {
+        reservationService.update(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDeleteIllegalArgumentException() throws Exception {
+        reservationService.delete(null);
     }
 }

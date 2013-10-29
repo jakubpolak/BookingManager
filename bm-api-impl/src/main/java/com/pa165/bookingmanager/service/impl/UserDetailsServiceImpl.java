@@ -37,6 +37,26 @@ public class UserDetailsServiceImpl implements UserDetailsService
     private UserConvertorImpl userConvertor;
 
     /**
+     * Constructor
+     */
+    public UserDetailsServiceImpl(){
+
+    }
+
+    /**
+     * User details service impl
+     *
+     * @param userDao user dao
+     * @param userConvertor user convertor
+     * @param roleConvertor role convertor
+     */
+    public UserDetailsServiceImpl(UserDao userDao, UserConvertorImpl userConvertor, RoleConvertorImpl roleConvertor){
+        this.userDao = userDao;
+        this.userConvertor = userConvertor;
+        this.roleConvertor = roleConvertor;
+    }
+
+    /**
      * Load user by user name
      *
      * @param email unique identification of user, user email is used in this case

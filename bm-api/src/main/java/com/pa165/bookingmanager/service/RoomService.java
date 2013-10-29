@@ -1,7 +1,6 @@
 package com.pa165.bookingmanager.service;
 
 import com.pa165.bookingmanager.dto.RoomDto;
-import org.hibernate.criterion.Criterion;
 
 import java.util.List;
 
@@ -16,14 +15,6 @@ public interface RoomService
      * @return list of room DTOs
      */
     List<RoomDto> findAll();
-
-    /**
-     * Find by criteria
-     *
-     * @param criterion
-     * @return list of room DTOs
-     */
-    List<RoomDto> findByCriteria(Criterion criterion);
 
     /**
      * Find

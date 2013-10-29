@@ -1,7 +1,6 @@
 package com.pa165.bookingmanager.service;
 
 import com.pa165.bookingmanager.dto.RoleDto;
-import org.hibernate.criterion.Criterion;
 
 import java.util.List;
 
@@ -16,14 +15,6 @@ public interface RoleService
      * @return list of role DTOs
      */
     List<RoleDto> findAll();
-
-    /**
-     * Find by criteria
-     *
-     * @param criterion
-     * @return list of role DTOs
-     */
-    List<RoleDto> findByCriteria(Criterion criterion);
 
     /**
      * Find

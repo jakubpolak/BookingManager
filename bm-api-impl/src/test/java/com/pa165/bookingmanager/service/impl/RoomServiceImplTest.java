@@ -1,88 +1,86 @@
 package com.pa165.bookingmanager.service.impl;
 
 import com.pa165.bookingmanager.TestServiceSetup;
+import com.pa165.bookingmanager.convertor.impl.RoomConvertorImpl;
 import com.pa165.bookingmanager.dao.RoomDao;
 import com.pa165.bookingmanager.dto.RoomDto;
 import com.pa165.bookingmanager.dto.impl.RoomDtoImpl;
+import com.pa165.bookingmanager.entity.RoomEntity;
 import com.pa165.bookingmanager.service.RoomService;
 import junit.framework.Assert;
-import org.hibernate.criterion.Restrictions;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.when;
 
 /**
  * @author Jakub Polak, Jan Hrubes
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 public class RoomServiceImplTest extends TestServiceSetup
 {
     @Mock
-    RoomDao roomDao;
+    private RoomDao roomDao;
 
-    @Autowired
-    @InjectMocks
-    RoomService roomService;
+    @Mock
+    private RoomConvertorImpl roomConvertor;
 
-    @Test
-    public void testFindAll() throws Exception {
-        List<RoomDto> roomDtos = roomService.findAll();
+    private RoomService roomService;
 
-        Assert.assertEquals(8, roomDtos.size());
+    @Before
+    public void setup() throws Exception {
+        super.setup();
+        roomService = new RoomServiceImpl(roomDao, roomConvertor);
     }
 
     @Test
-    public void testFindByCriteria() throws Exception {
-        List<RoomDto> roomDtos1 = roomService.findByCriteria(Restrictions.eq("number", "101"));
+    public void testFindAll() throws Exception {
+        List<RoomEntity> roomEntities = new ArrayList<>();
+        List<RoomDto> roomDtos = new ArrayList<>();
 
-        Assert.assertEquals(2, roomDtos1.size());
+        roomEntities.add(new RoomEntity());
+        roomDtos.add(new RoomDtoImpl());
 
-        List<RoomDto> roomDtos2 = roomService.findByCriteria(Restrictions.eq("number", "999"));
+        when(roomDao.findAll()).thenReturn(roomEntities);
+        when(roomConvertor.convertEntityListToDtoList(roomEntities)).thenReturn(roomDtos);
 
-        Assert.assertTrue(roomDtos2.isEmpty());
+        Assert.assertEquals(1, roomService.findAll().size());
     }
 
     @Test
     public void testFind() throws Exception {
+        RoomEntity roomEntity = new RoomEntity();
+        RoomDto roomDto = new RoomDtoImpl();
+
+        when(roomDao.find(1L)).thenReturn(roomEntity);
+        when(roomDao.find(999L)).thenReturn(null);
+        when(roomConvertor.convertEntityToDto(roomEntity)).thenReturn(roomDto);
+
         Assert.assertNotNull(roomService.find(1L));
+
         Assert.assertNull(roomService.find(999L));
     }
 
-    @Test
-    public void testCreate() throws Exception {
-        RoomDto roomDto = new RoomDtoImpl();
-        roomDto.setNumber("456");
-        roomDto.setPrice(new BigDecimal(99.99));
-
-        roomService.create(roomDto);
-
-        List<RoomDto> roomDtos = roomService.findByCriteria(Restrictions.eq("number", "465"));
-
-        Assert.assertEquals(roomDtos.size(), 1);
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindIllegalArgumentException() throws Exception {
+        roomService.find(null);
     }
 
-    @Test
-    public void testUpdate() throws Exception {
-        RoomDto roomDto = roomService.find(8L);
-        roomDto.setNumber("689");
-
-        roomService.update(roomDto);
-
-        List<RoomDto> roomDtos = roomService.findByCriteria(Restrictions.eq("number", "689"));
-
-        Assert.assertEquals(1, roomDtos.size());
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateIllegalArgumentException() throws Exception {
+        roomService.create(null);
     }
 
-    @Test
-    public void testDelete() throws Exception {
-        roomService.delete(roomService.find(1L));
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateIllegalArgumentException() throws Exception {
+        roomService.update(null);
+    }
 
-        Assert.assertNull(roomService.find(1L));
+    @Test(expected = IllegalArgumentException.class)
+    public void testDeleteIllegalArgumentException() throws Exception {
+        roomService.delete(null);
     }
 }

@@ -1,7 +1,6 @@
 package com.pa165.bookingmanager.service;
 
 import com.pa165.bookingmanager.dto.HotelDto;
-import org.hibernate.criterion.Criterion;
 
 import java.util.List;
 
@@ -16,15 +15,6 @@ public interface HotelService
      * @return list of hotel DTOs
      */
     List<HotelDto> findAll();
-
-
-    /**
-     * Find by criteria
-     *
-     * @param criterion
-     * @return list of hotel DTOs
-     */
-    List<HotelDto> findByCriteria(Criterion criterion);
 
     /**
      * Find

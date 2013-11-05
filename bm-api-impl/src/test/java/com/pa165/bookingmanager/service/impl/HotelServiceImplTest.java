@@ -63,24 +63,4 @@ public class HotelServiceImplTest extends TestServiceSetup
 
         Assert.assertNull(hotelService.find(999L));
     }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testFindIllegalArgumentException() throws Exception {
-        hotelService.find(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testCreateIllegalArgumentException() throws Exception {
-        hotelService.create(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testUpdateIllegalArgumentException() throws Exception {
-        hotelService.update(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testDeleteIllegalArgumentException() throws Exception {
-        hotelService.delete(null);
-    }
 }

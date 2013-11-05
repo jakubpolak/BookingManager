@@ -62,24 +62,4 @@ public class UserServiceImplTest  extends TestServiceSetup
 
         Assert.assertNull(userService.find(999L));
     }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testFindIllegalArgumentException() throws Exception {
-        userService.find(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testCreateIllegalArgumentException() throws Exception {
-        userService.create(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testUpdateIllegalArgumentException() throws Exception {
-        userService.update(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testDeleteIllegalArgumentException() throws Exception {
-        userService.delete(null);
-    }
 }

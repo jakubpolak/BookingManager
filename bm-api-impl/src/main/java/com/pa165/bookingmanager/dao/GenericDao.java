@@ -1,7 +1,5 @@
 package com.pa165.bookingmanager.dao;
 
-import org.hibernate.criterion.Criterion;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,14 +14,6 @@ public interface GenericDao<E, I extends Serializable>
      * @return list of entities
      */
     List<E> findAll();
-
-    /**
-     * Find by criteria
-     *
-     * @param criterion criterion
-     * @return entities
-     */
-    List<E> findByCriteria(Criterion criterion);
 
     /**
      * Find one entity by id

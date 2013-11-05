@@ -3,6 +3,7 @@ package com.pa165.bookingmanager.dao.impl;
 import com.pa165.bookingmanager.dao.UserDao;
 import com.pa165.bookingmanager.entity.UserEntity;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -25,7 +26,7 @@ public class UserDaoImpl extends GenericDaoImpl<UserEntity, Long> implements Use
      * @return UserEntity
      */
     @Override
-    public UserEntity findOneByEmail(String email) {
+    public UserEntity findOneByEmail(String email) throws DataAccessException {
         return (UserEntity) getCurrentSession()
             .createCriteria(UserEntity.class)
             .add(Restrictions.eq("email", email))

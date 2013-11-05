@@ -4,8 +4,6 @@ import com.pa165.bookingmanager.TestDaoSetup;
 import com.pa165.bookingmanager.dao.ReservationDao;
 import com.pa165.bookingmanager.dao.RoomDao;
 import com.pa165.bookingmanager.entity.ReservationEntity;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,13 +35,6 @@ public class ReservationDaoImplTest extends TestDaoSetup
     public void testFind(){
         ReservationEntity reservationEntity = reservationDao.find(1L);
         Assert.assertNotNull(reservationEntity);
-    }
-
-    @Test
-    public void testFindByCriteria(){
-        Criterion critName = Restrictions.like("customerName", "Steve%");
-        List<ReservationEntity> hotelEntities = reservationDao.findByCriteria(critName);
-        Assert.assertEquals(1, hotelEntities.size());
     }
 
     @Test
@@ -85,6 +76,8 @@ public class ReservationDaoImplTest extends TestDaoSetup
         ReservationEntity reservationEntityDeleted = reservationDao.find(hotelId);
         Assert.assertEquals(reservationEntityDeleted, null);
     }
+
+    // TODO: Test DataAccessException
 }
 
 

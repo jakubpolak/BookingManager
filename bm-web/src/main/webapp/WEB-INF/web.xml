@@ -24,7 +24,7 @@
         <param-value>
             classpath:/configuration/spring.xml,
             classpath:/configuration/security.xml,
-            classpath:/configuration/testing/hibernate.xml
+            classpath:/configuration/testing/hibernate.xml,
         </param-value>
     </context-param>
 

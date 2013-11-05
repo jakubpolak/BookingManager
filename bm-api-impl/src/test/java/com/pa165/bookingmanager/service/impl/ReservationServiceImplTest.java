@@ -64,24 +64,4 @@ public class ReservationServiceImplTest extends TestServiceSetup
         Assert.assertNull(reservationService.find(999L));
 
     }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testFindIllegalArgumentException() throws Exception {
-        reservationService.find(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testCreateIllegalArgumentException() throws Exception {
-        reservationService.create(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testUpdateIllegalArgumentException() throws Exception {
-        reservationService.update(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testDeleteIllegalArgumentException() throws Exception {
-        reservationService.delete(null);
-    }
 }

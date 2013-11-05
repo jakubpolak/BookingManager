@@ -3,12 +3,10 @@ package com.pa165.bookingmanager.dao.impl;
 import com.pa165.bookingmanager.TestDaoSetup;
 import com.pa165.bookingmanager.dao.RoleDao;
 import com.pa165.bookingmanager.entity.RoleEntity;
-import org.hibernate.criterion.Property;
-import org.hibernate.criterion.Restrictions;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.junit.Assert;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -36,15 +34,6 @@ public class RoleDaoImplTest extends TestDaoSetup
         Assert.assertEquals(id, roleEntity.getId());
         Assert.assertEquals("ROLE_ADMIN", roleEntity.getName());
         Assert.assertEquals(1, roleEntity.getUsersById().size());
-    }
-
-    @Test
-    public void testFindByCriteria(){
-        List<RoleEntity> roleEntitiesByProperty = roleDao.findByCriteria(Property.forName("name").like("%I%"));
-        Assert.assertEquals(2, roleEntitiesByProperty.size());
-
-        List<RoleEntity> roleEntitiesByRestrictions = roleDao.findByCriteria(Restrictions.eq("name", "ROLE_RECEPTIONIST"));
-        Assert.assertEquals(1, roleEntitiesByRestrictions.size());
     }
 
     @Test
@@ -84,4 +73,6 @@ public class RoleDaoImplTest extends TestDaoSetup
         RoleEntity roleEntityDeleted = roleDao.find(id);
         Assert.assertEquals(null, roleEntityDeleted);
     }
+
+    // TODO: Test DataAccessException
 }

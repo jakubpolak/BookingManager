@@ -3,11 +3,10 @@ package com.pa165.bookingmanager.dao.impl;
 import com.pa165.bookingmanager.TestDaoSetup;
 import com.pa165.bookingmanager.dao.UserDao;
 import com.pa165.bookingmanager.entity.UserEntity;
-import org.hibernate.criterion.Restrictions;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.junit.Assert;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -37,15 +36,6 @@ public class UserDaoImplTest extends TestDaoSetup
 
         // Check associated role entity
         Assert.assertEquals("ROLE_ADMIN", UserEntity.getRoleByRoleId().getName());
-    }
-
-    @Test
-    public void testFindByCriteria(){
-        List<UserEntity> UserEntitiesByProperty = userDao.findByCriteria(Restrictions.like("email", "%@bm.com%"));
-        Assert.assertEquals(2, UserEntitiesByProperty.size());
-
-        List<UserEntity> UserEntitiesByRestrictions = userDao.findByCriteria(Restrictions.lt("id", (long) 3));
-        Assert.assertEquals(2, UserEntitiesByRestrictions.size());
     }
 
     @Test
@@ -94,4 +84,6 @@ public class UserDaoImplTest extends TestDaoSetup
         UserEntity userEntity = userDao.findOneByEmail("admin@bm.com");
         Assert.assertNotNull(userEntity);
     }
+
+    // TODO: Test DataAccessException
 }

@@ -63,24 +63,4 @@ public class RoleServiceImplTest extends TestServiceSetup
 
         Assert.assertNull(roleService.find(999L));
     }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testFindIllegalArgumentException() throws Exception {
-        roleService.find(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testCreateIllegalArgumentException() throws Exception {
-        roleService.create(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testUpdateIllegalArgumentException() throws Exception {
-        roleService.update(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testDeleteIllegalArgumentException() throws Exception {
-        roleService.delete(null);
-    }
 }

@@ -63,24 +63,4 @@ public class RoomServiceImplTest extends TestServiceSetup
 
         Assert.assertNull(roomService.find(999L));
     }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testFindIllegalArgumentException() throws Exception {
-        roomService.find(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testCreateIllegalArgumentException() throws Exception {
-        roomService.create(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testUpdateIllegalArgumentException() throws Exception {
-        roomService.update(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testDeleteIllegalArgumentException() throws Exception {
-        roomService.delete(null);
-    }
 }

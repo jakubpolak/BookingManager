@@ -38,6 +38,14 @@ public class RoleServiceImpl implements RoleService
      * @param roleConvertor role convertor
      */
     public RoleServiceImpl(RoleDao roleDao, RoleConvertorImpl roleConvertor){
+        if (roleDao == null){
+            throw new IllegalArgumentException("RoleDao can't be null.");
+        }
+
+        if (roleConvertor == null){
+            throw new IllegalArgumentException("RoleConvertor can't be null.");
+        }
+
         this.roleDao = roleDao;
         this.roleConvertor = roleConvertor;
     }

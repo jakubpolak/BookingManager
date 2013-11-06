@@ -38,6 +38,14 @@ public class ReservationServiceImpl implements ReservationService
      * @param reservationConvertor reservation convertor
      */
     public ReservationServiceImpl(ReservationDao reservationDao, ReservationConvertorImpl reservationConvertor){
+        if (reservationDao == null){
+            throw new IllegalArgumentException("ReservationDao can't be null.");
+        }
+
+        if (reservationConvertor == null){
+            throw new IllegalArgumentException("ReservationConvertor can't be null.");
+        }
+
         this.reservationDao = reservationDao;
         this.reservationConvertor = reservationConvertor;
     }

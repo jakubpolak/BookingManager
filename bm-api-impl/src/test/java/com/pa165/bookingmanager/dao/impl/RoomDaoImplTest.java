@@ -114,8 +114,6 @@ public class RoomDaoImplTest extends TestDaoSetup
             Assert.assertNull(reservationEntityDeleted);
         }
     }
-
-    // TODO: Test DataAccessException
 }
 
 

@@ -38,6 +38,14 @@ public class RoomServiceImpl implements RoomService
      * @param roomConvertor room convertor
      */
     public RoomServiceImpl(RoomDao roomDao, RoomConvertorImpl roomConvertor){
+        if (roomDao == null){
+            throw new IllegalArgumentException("RoomDao can't be null.");
+        }
+
+        if (roomConvertor == null){
+            throw new IllegalArgumentException("RoomConvertor can't be null.");
+        }
+
         this.roomDao = roomDao;
         this.roomConvertor = roomConvertor;
     }

@@ -76,8 +76,6 @@ public class ReservationDaoImplTest extends TestDaoSetup
         ReservationEntity reservationEntityDeleted = reservationDao.find(hotelId);
         Assert.assertEquals(reservationEntityDeleted, null);
     }
-
-    // TODO: Test DataAccessException
 }
 
 

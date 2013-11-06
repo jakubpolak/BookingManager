@@ -103,6 +103,4 @@ public class HotelDaoImplTest extends TestDaoSetup
             Assert.assertNull(roomEntityDeleted);
         }
     }
-
-    // TODO: Test DataAccessException
 }

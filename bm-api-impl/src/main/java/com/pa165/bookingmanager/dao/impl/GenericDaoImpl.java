@@ -1,6 +1,7 @@
 package com.pa165.bookingmanager.dao.impl;
 
 import com.pa165.bookingmanager.dao.GenericDao;
+import com.pa165.bookingmanager.dao.exception.DaoException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,11 @@ public class GenericDaoImpl<E, I extends Serializable> implements GenericDao<E, 
     /**
      * Constructor
      */
-    public GenericDaoImpl(Class<E> entityClass){
-        // TODO: Throw custom exception that extends DataAccessException
+    public GenericDaoImpl(Class<E> entityClass) throws DataAccessException{
+        if (entityClass == null){
+            throw new DaoException("EntityClass can't be null.");
+        }
+
         this.entityClass = entityClass;
     }
 
@@ -51,7 +55,9 @@ public class GenericDaoImpl<E, I extends Serializable> implements GenericDao<E, 
     @Override
     @SuppressWarnings("unchecked")
     public E find(I id) throws DataAccessException {
-        // TODO: Throw custom exception that extends DataAccessException
+        if (id == null){
+            throw new DaoException("Id can't be null.");
+        }
         return (E) getCurrentSession().get(entityClass, id);
     }
 
@@ -60,7 +66,9 @@ public class GenericDaoImpl<E, I extends Serializable> implements GenericDao<E, 
      */
     @Override
     public void create(E e) throws DataAccessException {
-        // TODO: Throw custom exception that extends DataAccessException
+        if (e == null){
+            throw new DaoException("Entity can't be null.");
+        }
         getCurrentSession().save(e);
     }
 
@@ -69,7 +77,9 @@ public class GenericDaoImpl<E, I extends Serializable> implements GenericDao<E, 
      */
     @Override
     public void update(E e) throws DataAccessException {
-        // TODO: Throw custom exception that extends DataAccessException
+        if (e == null){
+            throw new DaoException("Entity can't be null.");
+        }
         getCurrentSession().update(e);
     }
 
@@ -78,7 +88,9 @@ public class GenericDaoImpl<E, I extends Serializable> implements GenericDao<E, 
      */
     @Override
     public void delete(E e) throws DataAccessException {
-        // TODO: Throw custom exception that extends DataAccessException
+        if (e == null){
+            throw new DaoException("Entity can't be null.");
+        }
         getCurrentSession().delete(e);
     }
 }

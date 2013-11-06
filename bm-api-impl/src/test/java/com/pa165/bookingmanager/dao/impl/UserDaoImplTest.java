@@ -84,6 +84,4 @@ public class UserDaoImplTest extends TestDaoSetup
         UserEntity userEntity = userDao.findOneByEmail("admin@bm.com");
         Assert.assertNotNull(userEntity);
     }
-
-    // TODO: Test DataAccessException
 }

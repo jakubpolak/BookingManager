@@ -73,6 +73,4 @@ public class RoleDaoImplTest extends TestDaoSetup
         RoleEntity roleEntityDeleted = roleDao.find(id);
         Assert.assertEquals(null, roleEntityDeleted);
     }
-
-    // TODO: Test DataAccessException
 }

@@ -1,43 +1,47 @@
-package com.pa165.bookingmanager.dto.impl;
-
-import com.pa165.bookingmanager.dto.ReservationDto;
-import com.pa165.bookingmanager.dto.RoomDto;
+package com.pa165.bookingmanager.module.home.form;
 
 import java.util.Date;
 
-/**
- * @author Josef Stribny
- */
-public class ReservationDtoImpl  implements ReservationDto
-{
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+public class ReservationForm {
     /**
      * Id
      */
     private Long id;
 
     /**
-     * Rooms by room id
+     * Room room id
      */
+    @NotNull
     private Long roomByRoomId;
 
     /**
      * Reservation from
      */
+    @NotNull
+    @DateTimeFormat(pattern="MM/dd/yyyy")
     private Date reservationFrom;
 
     /**
      * Reservation to
      */
+    @NotNull
+    @DateTimeFormat(pattern="MM/dd/yyyy")
     private Date reservationTo;
 
     /**
      * Customer name
      */
+    @NotNull
     private String customerName;
 
     /**
      * Customer email
      */
+    @NotNull
     private String customerEmail;
 
     /**
@@ -64,20 +68,20 @@ public class ReservationDtoImpl  implements ReservationDto
     }
 
     /**
-     * Get room by room id
+     * Get room id
      *
-     * @return room by room id
+     * @return room id
      */
-    public RoomDto getRoomByRoomId() {
+    public Long getRoomByRoomId() {
         return roomByRoomId;
     }
 
     /**
-     * Set room by room id
+     * Set room id
      *
-     * @param roomByRoomId room by room id
+     * @param roomByRoomId room id
      */
-    public void setRoomByRoomId(RoomDto roomByRoomId) {
+    public void setRoomByRoomId(Long roomByRoomId) {
         this.roomByRoomId = roomByRoomId;
     }
 
@@ -169,57 +173,5 @@ public class ReservationDtoImpl  implements ReservationDto
      */
     public void setCustomerPhone(String customerPhone) {
         this.customerPhone = customerPhone;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ReservationDtoImpl)) return false;
-
-        ReservationDtoImpl that = (ReservationDtoImpl) o;
-
-        if (!customerEmail.equals(that.customerEmail)) return false;
-        if (!customerName.equals(that.customerName)) return false;
-        if (!customerPhone.equals(that.customerPhone)) return false;
-        if (!id.equals(that.id)) return false;
-        if (!reservationFrom.equals(that.reservationFrom)) return false;
-        if (!reservationTo.equals(that.reservationTo)) return false;
-        if (!roomByRoomId.equals(that.roomByRoomId)) return false;
-
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + roomByRoomId.hashCode();
-        result = 31 * result + reservationFrom.hashCode();
-        result = 31 * result + reservationTo.hashCode();
-        result = 31 * result + customerName.hashCode();
-        result = 31 * result + customerEmail.hashCode();
-        result = 31 * result + customerPhone.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String toString() {
-        return "ReservationDtoImpl{" +
-                "id=" + id +
-                ", roomByRoomId=" + roomByRoomId +
-                ", reservationFrom=" + reservationFrom +
-                ", reservationTo=" + reservationTo +
-                ", customerName='" + customerName + '\'' +
-                ", customerEmail='" + customerEmail + '\'' +
-                ", customerPhone='" + customerPhone + '\'' +
-                '}';
     }
 }

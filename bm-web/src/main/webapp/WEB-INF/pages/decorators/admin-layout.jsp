@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:useBean id="now" class="java.util.Date" scope="application" />
 <decorator:usePage id="origPage" />
 <!DOCTYPE html>
@@ -41,13 +42,13 @@
 <div class="sidebar-nav">
     <a href="#" class="nav-header" ><i class="icon-table"></i>Dashboard</a>
 
-    <a href="#articles-menu" class="nav-header" data-toggle="collapse"><i class="icon-file"></i>Menu<span class="label label-info">+2</span></a>
+    <a href="#articles-menu" class="nav-header" data-toggle="collapse"><i class="icon-file"></i>Hotel<span class="label label-info">+2</span></a>
     <ul id="articles-menu" class="nav nav-list collapse  in">
         <li class="active">
-            <a href="#">Active Menu</a>
+            <a href="#"><spring:message code="list.of.hotels" text="default text" /></a>
         </li>
         <li>
-            <a href="#">Inactive Menu</a>
+            <a href="#"><spring:message code="add.hotel" text="default text" /></a>
         </li>
     </ul>
 </div>

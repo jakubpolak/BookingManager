@@ -12,6 +12,6 @@ public class DefaultController
     @RequestMapping(method = RequestMethod.GET)
     public String indexAction(ModelMap model) {
         model.addAttribute("message", "Hello world!");
-        return "modules/home/default/index";
+        return "home/default/index";
     }
 }

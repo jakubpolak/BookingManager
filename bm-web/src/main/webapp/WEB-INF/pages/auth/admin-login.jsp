@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta name="decorator" content="admin-auth">
-    <%@ include file="../admin/partials/head.jsp" %>
+    <%@ include file="../modules/admin/partials/head.jsp" %>
 </head>
 <body>
 <div class="navbar">

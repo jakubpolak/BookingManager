@@ -8,7 +8,6 @@
     <span class="divider">/</span>
     <spring:message code="update.user" text="Update User" />
 </content>
-
 <body>
     update-user.jsp
 </body>

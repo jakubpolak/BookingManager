@@ -41,7 +41,6 @@
 </div>
 <div class="sidebar-nav">
     <a href="${pageContext.request.contextPath}/admin" class="nav-header" ><i class="icon-table"></i><spring:message code="dashboard" text="Nástenka" /></a>
-
     <a href="#hotels-menu" class="nav-header" data-toggle="collapse">
         <i class="icon-home"></i><spring:message code="hotel" text="Hotel" />
         <span class="label label-info">+2</span>

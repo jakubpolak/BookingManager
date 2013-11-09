@@ -17,6 +17,13 @@ public interface UserService
     List<UserDto> findAll();
 
     /**
+     * Find all and roles
+     *
+     * @return list of user DTOs
+     */
+    List<UserDto> findAllAndRoles();
+
+    /**
      * Find
      *
      * @param id

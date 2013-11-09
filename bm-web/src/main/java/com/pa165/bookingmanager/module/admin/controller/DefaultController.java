@@ -5,6 +5,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * @author Jakub Polak
+ */
 @Controller("adminDefaultController")
 @RequestMapping(value = "/admin")
 public class DefaultController
@@ -16,7 +19,7 @@ public class DefaultController
     }
 
     @RequestMapping(value = "/settings", method = RequestMethod.GET)
-    public String settings(ModelMap model) {
+    public String settings() {
         return "modules/admin/default/settings";
     }
 }

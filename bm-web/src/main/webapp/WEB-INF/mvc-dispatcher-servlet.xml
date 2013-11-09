@@ -11,9 +11,11 @@
         http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:component-scan base-package="com.pa165.bookingmanager"/>
+
     <context:annotation-config />
 
     <mvc:annotation-driven />
+
     <mvc:resources mapping="/public/**" location="classpath:/public/" />
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
@@ -24,4 +26,24 @@
     </bean>
 
     <bean id="encoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
+
+    <!-- i18n -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:/i18n/messages" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+
+    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="lang" />
+    </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="sk"/>
+    </bean>
+
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang" />
+        </bean>
+    </mvc:interceptors>
 </beans>

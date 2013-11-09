@@ -20,7 +20,7 @@
     <jdbc:embedded-database id="dataSource" type="DERBY" />
 
     <jdbc:initialize-database data-source="dataSource">
-        <jdbc:script location="classpath:/data/testing/db-sample-data.sql" />
+        <jdbc:script encoding="utf-8" location="classpath:/data/testing/db-sample-data.sql" />
     </jdbc:initialize-database>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">

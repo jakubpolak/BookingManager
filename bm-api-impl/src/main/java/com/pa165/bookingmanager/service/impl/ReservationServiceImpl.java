@@ -85,6 +85,28 @@ public class ReservationServiceImpl implements ReservationService
     }
 
     /**
+     * Find by room
+     *
+     * @param id
+     * @return reservation dtos
+     */
+    @Override
+    public List<ReservationDto> findByRoom(Long id) {
+        if (id == null){
+            throw new IllegalArgumentException("Id can't be null.");
+        }
+
+        List<ReservationEntity> reservationEntities = reservationDao.findByRoom(id);
+        List<ReservationDto> reservationDtos = null;
+
+        if (reservationEntities != null){
+            reservationDtos = reservationConvertor.convertEntityListToDtoList(reservationEntities);
+        }
+
+        return reservationDtos;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

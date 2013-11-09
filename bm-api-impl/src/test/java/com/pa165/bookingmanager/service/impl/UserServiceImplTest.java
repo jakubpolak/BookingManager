@@ -62,4 +62,9 @@ public class UserServiceImplTest  extends TestServiceSetup
 
         Assert.assertNull(userService.find(999L));
     }
+
+    @Test
+    public void testFindAllAndRoles() throws Exception {
+        Assert.fail("Test needs to be implemented.");
+    }
 }

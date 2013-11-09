@@ -76,6 +76,11 @@ public class ReservationDaoImplTest extends TestDaoSetup
         ReservationEntity reservationEntityDeleted = reservationDao.find(hotelId);
         Assert.assertEquals(reservationEntityDeleted, null);
     }
+
+    @Test
+    public void testFindByRoom(){
+        Assert.fail("Test needs to be implemented.");
+    }
 }
 
 

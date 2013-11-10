@@ -6,6 +6,7 @@ import com.pa165.bookingmanager.dao.ReservationDao;
 import com.pa165.bookingmanager.dao.RoomDao;
 import com.pa165.bookingmanager.entity.ReservationEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,38 +40,54 @@ public class RoomDaoImplTest extends TestDaoSetup
     }
     
     @Test
-    public void testFindAvailable(){       
-        // Let's create a reservation for January 2014
-        ReservationEntity reservationEntity = new ReservationEntity();
-        reservationEntity.setReservationFrom(new GregorianCalendar(2014, 1, 10).getTime());
-        reservationEntity.setReservationTo(new GregorianCalendar(2014, 1, 15).getTime());
-        reservationEntity.setCustomerName("Josef");
-        reservationEntity.setCustomerEmail("strzibny@strzibny.name");
+    public void testFindAvailable(){ 
+    	// Create a new room for reservations
+    	RoomEntity roomEntity = new RoomEntity();
+        roomEntity.setNumber("404");
+        roomEntity.setPrice(new BigDecimal(29.99));
+        roomEntity.setHotelByHotelId(hotelDao.find(1L));
         
-        // Let's create a reservation for March 2014
+        // Let's create a reservation for February 2014
+        ReservationEntity reservationEntity1 = new ReservationEntity();
+        reservationEntity1.setReservationFrom(new GregorianCalendar(2014, 1, 10).getTime());
+        reservationEntity1.setReservationTo(new GregorianCalendar(2014, 1, 15).getTime());
+        reservationEntity1.setCustomerName("Josef");
+        reservationEntity1.setCustomerEmail("strzibny@strzibny.name");
+        reservationEntity1.setCustomerPhone("123456789");
+        reservationEntity1.setRoomByRoomId(roomEntity);
+ 
+        // Let's create a reservation for May 2014
         ReservationEntity reservationEntity2 = new ReservationEntity();
         reservationEntity2.setReservationFrom(new GregorianCalendar(2014, 3, 10).getTime());
         reservationEntity2.setReservationTo(new GregorianCalendar(2014, 3, 30).getTime());
         reservationEntity2.setCustomerName("Josef");
         reservationEntity2.setCustomerEmail("strzibny@strzibny.name");
+        reservationEntity2.setCustomerPhone("123456789");
+        reservationEntity2.setRoomByRoomId(roomEntity);
         
-        List<ReservationEntity> reservationEntities = new ArrayList<>();
-        reservationEntities.add(reservationEntity);
-        reservationEntities.add(reservationEntity2);
-        
-        RoomEntity roomEntity = new RoomEntity();
-        roomEntity.setNumber("404");
-        roomEntity.setPrice(new BigDecimal(29.99));
-        roomEntity.setHotelByHotelId(hotelDao.find(1L));
-        roomEntity.setReservationsById(reservationEntities);
+        roomDao.create(roomEntity);
+        reservationDao.create(reservationEntity1);
+        reservationDao.create(reservationEntity2);
         
         // Check how many rooms are available for our hotel, room no. 404 shouln't be there
-        List<RoomEntity> roomEntities = roomDao.findAvailable(1L, new GregorianCalendar(2014, 3, 10).getTime(), new GregorianCalendar(2014, 3, 12).getTime());
-        Assert.assertEquals(8, roomEntities.size());
+        List<RoomEntity> roomEntities = roomDao.findAvailable(1L, new GregorianCalendar(2014, 3, 1).getTime(), new GregorianCalendar(2014, 3, 31).getTime());
+        Assert.assertEquals(4, roomEntities.size());
+        
+        List<RoomEntity> roomEntities2 = roomDao.findAvailable(1L, new GregorianCalendar(2014, 3, 10).getTime(), new GregorianCalendar(2014, 3, 30).getTime());
+        Assert.assertEquals(4, roomEntities2.size());
+        
+        List<RoomEntity> roomEntities3 = roomDao.findAvailable(1L, new GregorianCalendar(2014, 1, 1).getTime(), new GregorianCalendar(2014, 1, 12).getTime());
+        Assert.assertEquals(4, roomEntities3.size());
+        
+        List<RoomEntity> roomEntities4 = roomDao.findAvailable(1L, new GregorianCalendar(2014, 1, 11).getTime(), new GregorianCalendar(2014, 1, 20).getTime());
+        Assert.assertEquals(4, roomEntities4.size());
+        
+        List<RoomEntity> roomEntities5 = roomDao.findAvailable(1L, new GregorianCalendar(2014, 1, 11).getTime(), new GregorianCalendar(2014, 1, 12).getTime());
+        Assert.assertEquals(4, roomEntities5.size());
         
         // Check how many rooms are available for our hotel, room no. 404 should be there
-        List<RoomEntity> roomEntities = roomDao.findAvailable(1L, new GregorianCalendar(2014, 3, 10).getTime(), new GregorianCalendar(2014, 3, 12).getTime());
-        Assert.assertEquals(9, roomEntities.size());
+        List<RoomEntity> roomEntities10 = roomDao.findAvailable(1L, new GregorianCalendar(2014, 4, 10).getTime(), new GregorianCalendar(2014, 4, 12).getTime());
+        Assert.assertEquals(5, roomEntities10.size());
     }
 
     @Test

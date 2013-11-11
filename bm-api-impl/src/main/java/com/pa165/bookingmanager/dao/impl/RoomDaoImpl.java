@@ -1,18 +1,19 @@
 package com.pa165.bookingmanager.dao.impl;
 
+import com.pa165.bookingmanager.dao.RoomDao;
+import com.pa165.bookingmanager.entity.HotelEntity;
+import com.pa165.bookingmanager.entity.RoomEntity;
+import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Repository;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.pa165.bookingmanager.dao.RoomDao;
-import com.pa165.bookingmanager.entity.RoomEntity;
-
-import org.hibernate.Query;
-import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Repository;
-
 /**
- * @author Jana Polakova, Josef Stribny
+ * @author Jana Polakova, Josef Stribny, Jakub Polák
  * @param <E>
  */
 @Repository("roomDao")
@@ -24,9 +25,9 @@ public class RoomDaoImpl<E> extends GenericDaoImpl<RoomEntity, Long> implements 
     public RoomDaoImpl(){
         super(RoomEntity.class);
     }
-    
+
     /**
-     * Find all available rooms for a given hotel and dates
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -50,5 +51,19 @@ public class RoomDaoImpl<E> extends GenericDaoImpl<RoomEntity, Long> implements 
     	
     	Query result = getCurrentSession().createQuery(query.toString());
         return result.list();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<RoomEntity> findByHotel(HotelEntity hotelEntity) {
+        return getCurrentSession()
+            .createCriteria(RoomEntity.class)
+            .add(Restrictions
+            .eq("hotelByHotelId", hotelEntity))
+            .list()
+        ;
     }
 }

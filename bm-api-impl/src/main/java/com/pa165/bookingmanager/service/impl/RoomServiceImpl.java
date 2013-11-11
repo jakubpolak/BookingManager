@@ -1,8 +1,10 @@
 package com.pa165.bookingmanager.service.impl;
 
 import com.pa165.bookingmanager.convertor.impl.RoomConvertorImpl;
+import com.pa165.bookingmanager.dao.HotelDao;
 import com.pa165.bookingmanager.dao.RoomDao;
 import com.pa165.bookingmanager.dto.RoomDto;
+import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
 import com.pa165.bookingmanager.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class RoomServiceImpl implements RoomService
 {
     @Autowired
     RoomDao roomDao;
+
+    @Autowired
+    HotelDao hotelDao;
 
     @Autowired
     RoomConvertorImpl roomConvertor;
@@ -82,6 +87,26 @@ public class RoomServiceImpl implements RoomService
         }
 
         return roomDto;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<RoomDto> findByHotel(Long id){
+        if (id == null){
+            throw new IllegalArgumentException("Id can't be null.");
+        }
+
+        HotelEntity hotelEntity = hotelDao.find(id);
+
+        List<RoomDto> roomDtos = null;
+        if (hotelEntity != null){
+            List<RoomEntity> roomEntities = roomDao.findByHotel(hotelEntity);
+            roomDtos = roomConvertor.convertEntityListToDtoList(roomEntities);
+        }
+
+        return roomDtos;
     }
 
     /**

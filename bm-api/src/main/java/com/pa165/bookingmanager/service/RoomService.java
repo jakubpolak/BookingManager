@@ -44,4 +44,12 @@ public interface RoomService
      * @param roomDto room DTO
      */
     void delete(RoomDto roomDto);
+
+    /**
+     * Find by hotel
+     *
+     * @param id hotel id
+     * @return list of room DTOs
+     */
+    List<RoomDto> findByHotel(Long id);
 }

@@ -18,7 +18,7 @@ public class ReservationDtoImpl  implements ReservationDto
     /**
      * Rooms by room id
      */
-    private Long roomByRoomId;
+    private RoomDto roomByRoomId;
 
     /**
      * Reservation from

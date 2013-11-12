@@ -7,14 +7,16 @@ import com.pa165.bookingmanager.dto.RoomDto;
 import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
 import com.pa165.bookingmanager.service.RoomService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
- * @author Jana Polakova, Jakub Polak, Jan Hrubes
+ * @author Jana Polakova, Jakub Polak, Jan Hrubes, Josef Stribny
  */
 @Service("roomService")
 @Transactional(readOnly = true)
@@ -103,6 +105,26 @@ public class RoomServiceImpl implements RoomService
         List<RoomDto> roomDtos = null;
         if (hotelEntity != null){
             List<RoomEntity> roomEntities = roomDao.findByHotel(hotelEntity);
+            roomDtos = roomConvertor.convertEntityListToDtoList(roomEntities);
+        }
+
+        return roomDtos;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<RoomDto> findAvailableByHotel(Long id, Date from, Date to){
+        if (id == null){
+            throw new IllegalArgumentException("Id can't be null.");
+        }
+
+        HotelEntity hotelEntity = hotelDao.find(id);
+
+        List<RoomDto> roomDtos = null;
+        if (hotelEntity != null){
+            List<RoomEntity> roomEntities = roomDao.findAvailable(hotelEntity.getId(), from, to);
             roomDtos = roomConvertor.convertEntityListToDtoList(roomEntities);
         }
 

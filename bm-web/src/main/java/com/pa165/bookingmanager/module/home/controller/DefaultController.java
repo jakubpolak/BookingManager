@@ -54,7 +54,25 @@ public class DefaultController
     
     @RequestMapping(value = "/hotel/{hotelId}", method = RequestMethod.GET)
     public String book(@PathVariable(value="hotelId") Long hotelId, ModelMap model) {
-    	HotelDto hotel = hotelService.findWithRooms(hotelId);
+    	HotelDto hotel = null;
+    	
+    	if(request.getParameter("from") != null && request.getParameter("to") != null){
+			try {
+				Date from = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH).parse(request.getParameter("from"));
+				Date to = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH).parse(request.getParameter("to"));
+				
+				hotel = hotelService.findWithAvailableRooms(hotelId, from, to);
+			} catch (ParseException e) {
+				// Invalid date
+			}
+    	}
+    	
+    	if(hotel == null) {
+    		hotel = hotelService.findWithRooms(hotelId);
+    	}
+    	
+    	model.addAttribute("from", request.getParameter("from"));
+		model.addAttribute("to", request.getParameter("to"));
     	model.addAttribute("hotel", hotel);
     	return "modules/home/default/hotel";
     }

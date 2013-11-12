@@ -14,7 +14,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Názov</th>
+                        <th><spring:message code="name" text="Name" /></th>
                         <th>&nbsp;</th>
                         <th>&nbsp;</th>
                     </tr>
@@ -26,12 +26,12 @@
                             <td>${hotelDto.name}</td>
                             <td class="center width-100">
                                 <a href="${pageContext.servletContext.contextPath}/admin/hotel/${hotelDto.id}/update-hotel">
-                                    <i class="icon-pencil"></i> Upraviť
+                                    <i class="icon-pencil"></i> <spring:message code="update" text="Update"/>
                                 </a>
                             </td>
                             <td class="center width-100">
                                 <a href="${pageContext.servletContext.contextPath}/admin/hotel/${hotelDto.id}/delete-hotel">
-                                    <i class="icon-trash"></i> Zmazať
+                                    <i class="icon-trash"></i> <spring:message code="delete" text="Delete" />
                                 </a>
                             </td>
                         </tr>

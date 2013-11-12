@@ -119,7 +119,7 @@ public class HotelServiceImpl implements HotelService
         if (hotelEntity != null){
             hotelDto = hotelConvertor.convertEntityToDto(hotelEntity);
         }
-        
+
         hotelDto.setRoomsById(roomService.findAvailableByHotel(hotelEntity.getId(), from, to));
 
         return hotelDto;

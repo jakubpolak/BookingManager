@@ -1,13 +1,15 @@
 package com.pa165.bookingmanager.module.admin.form;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author Jakub Polak
  */
 public class HotelForm
 {
-    @NotEmpty(message="{field.not.empty}")
+    @NotNull
+    @Size(min=1, max=45)
     private String name;
 
     /**

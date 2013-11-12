@@ -32,12 +32,12 @@
                             <td>${userDto.roleByRoleId.name}</td>
                             <td class="center width-100">
                                 <a href="${pageContext.servletContext.contextPath}/admin/user/${userDto.id}/update-user">
-                                    <i class="icon-pencil"></i> Upraviť
+                                    <i class="icon-pencil"></i> <spring:message code="update" text="Update"/>
                                 </a>
                             </td>
                             <td class="center width-100">
                                 <a href="${pageContext.servletContext.contextPath}/admin/user/${userDto.id}/delete-user">
-                                    <i class="icon-trash"></i> Zmazať
+                                    <i class="icon-trash"></i> <spring:message code="delete" text="Delete" />
                                 </a>
                             </td>
                         </tr>

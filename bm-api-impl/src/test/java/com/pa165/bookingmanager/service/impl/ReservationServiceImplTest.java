@@ -64,4 +64,9 @@ public class ReservationServiceImplTest extends TestServiceSetup
         Assert.assertNull(reservationService.find(999L));
 
     }
+
+    @Test
+    public void testFindByRoom() throws Exception {
+         Assert.fail("Test needs to be implemented.");
+    }
 }

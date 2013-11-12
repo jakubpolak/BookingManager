@@ -71,8 +71,8 @@ public class HotelServiceImpl implements HotelService
         }
 
         HotelEntity hotelEntity = hotelDao.find(id);
-
         HotelDto hotelDto = null;
+
         if (hotelEntity != null){
             hotelDto = hotelConvertor.convertEntityToDto(hotelEntity);
         }
@@ -90,13 +90,14 @@ public class HotelServiceImpl implements HotelService
         }
 
         HotelEntity hotelEntity = hotelDao.find(id);
-
         HotelDto hotelDto = null;
+
         if (hotelEntity != null){
             hotelDto = hotelConvertor.convertEntityToDto(hotelEntity);
+            hotelDto.setRoomsById(
+                roomService.findByHotel(hotelEntity.getId())
+            );
         }
-        
-        hotelDto.setRoomsById(roomService.findByHotel(hotelEntity.getId()));
 
         return hotelDto;
     }

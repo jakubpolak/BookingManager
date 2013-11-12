@@ -32,10 +32,9 @@ public class GenericDaoImpl<E, I extends Serializable> implements GenericDao<E, 
     }
 
     /**
-     * Get current session
-     *
-     * @return current session
+     * {@inheritDoc}
      */
+    @Override
     public Session getCurrentSession() throws DataAccessException {
         return sessionFactory.getCurrentSession();
     }

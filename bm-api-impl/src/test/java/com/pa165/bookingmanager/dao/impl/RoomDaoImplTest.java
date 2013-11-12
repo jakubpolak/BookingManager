@@ -166,6 +166,11 @@ public class RoomDaoImplTest extends TestDaoSetup
             Assert.assertNull(reservationEntityDeleted);
         }
     }
+
+    @Test
+    public void testFindByHotel(){
+        Assert.fail("Test needs to be implemented.");
+    }
 }
 
 

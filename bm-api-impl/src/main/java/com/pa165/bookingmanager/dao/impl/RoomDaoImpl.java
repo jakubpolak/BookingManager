@@ -38,8 +38,6 @@ public class RoomDaoImpl extends GenericDaoImpl<RoomEntity, Long> implements Roo
     	//
     	// If from or to is in the middle of reservation dates for this room, room is unavailable
     	// If from is before reservationFrom and to is after reservationTo, room is unavailable
-    	System.out.println(from.toString());
-    	System.out.println(to.toString());
     	query.append(" and room.id NOT IN(SELECT reservation.roomByRoomId FROM ReservationEntity reservation WHERE ");
     	query.append(" (reservation.reservationFrom <= '" + sdf.format(from) + "' and reservation.reservationTo >= '" + sdf.format(from) + "')");
     	query.append(" OR ");

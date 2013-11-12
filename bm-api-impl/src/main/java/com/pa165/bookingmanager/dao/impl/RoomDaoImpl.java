@@ -14,10 +14,9 @@ import java.util.List;
 
 /**
  * @author Jana Polakova, Josef Stribny, Jakub Polák
- * @param <E>
  */
 @Repository("roomDao")
-public class RoomDaoImpl<E> extends GenericDaoImpl<RoomEntity, Long> implements RoomDao
+public class RoomDaoImpl extends GenericDaoImpl<RoomEntity, Long> implements RoomDao
 {
     /**
      * Constructor

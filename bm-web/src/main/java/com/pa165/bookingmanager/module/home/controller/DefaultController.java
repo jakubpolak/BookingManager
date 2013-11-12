@@ -3,8 +3,10 @@ package com.pa165.bookingmanager.module.home.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -24,6 +26,7 @@ import com.pa165.bookingmanager.service.UserService;
 import com.pa165.bookingmanager.service.RoomService;
 import com.pa165.bookingmanager.service.ReservationService;
 import com.pa165.bookingmanager.dto.HotelDto;
+import com.pa165.bookingmanager.dto.RoomDto;
 import com.pa165.bookingmanager.module.home.form.ReservationForm;
 
 @Controller("homeDefaultController")
@@ -53,7 +56,7 @@ public class DefaultController
     }
     
     @RequestMapping(value = "/hotel/{hotelId}", method = RequestMethod.GET)
-    public String book(@PathVariable(value="hotelId") Long hotelId, ModelMap model) {
+    public String showHotel(@PathVariable(value="hotelId") Long hotelId, ModelMap model) {
     	HotelDto hotel = null;
     	
     	if(request.getParameter("from") != null && request.getParameter("to") != null){
@@ -78,21 +81,14 @@ public class DefaultController
     }
     
     @RequestMapping(value = "/book/{roomId}", method = RequestMethod.GET)
-    public ModelAndView book(@PathVariable(value="roomId") Long roomId) {
+    public String bookRoom(@PathVariable(value="roomId") Long roomId, ModelMap model) {
     	ReservationForm reservation = new ReservationForm();
     	reservation.setRoomByRoomId(roomId);
     	
-    	if(request.getParameter("from") != null){
+    	if(request.getParameter("from") != null && request.getParameter("to") != null){
 			try {
 				Date from = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH).parse(request.getParameter("from"));
 				reservation.setReservationFrom(from);
-			} catch (ParseException e) {
-				// Skip
-			}
-    	}
-    	
-    	if(request.getParameter("to") != null){
-			try {
 				Date to = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH).parse(request.getParameter("to"));
 				reservation.setReservationTo(to);
 			} catch (ParseException e) {
@@ -100,7 +96,16 @@ public class DefaultController
 			}
     	}
     	
-    	return new ModelAndView("modules/home/default/book", "reservationForm", reservation);
+    	// Associated hotel has to exist
+    	RoomDto room = roomService.find(roomId);
+    	HotelDto hotel = hotelService.findByRoomId(room.getId());
+
+    	model.addAttribute("room", room);
+    	model.addAttribute("hotel", hotel);
+    	model.addAttribute("reservationForm", reservation);
+    	
+    	//return new ModelAndView("modules/home/default/book", "reservationForm", reservation);
+    	return "modules/home/default/book";
     }
     
     @RequestMapping(value = "/processBooking", method = RequestMethod.POST)

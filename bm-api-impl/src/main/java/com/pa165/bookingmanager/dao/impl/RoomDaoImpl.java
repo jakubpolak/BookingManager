@@ -58,7 +58,7 @@ public class RoomDaoImpl<E> extends GenericDaoImpl<RoomEntity, Long> implements 
      */
     @Override
     @SuppressWarnings("unchecked")
-    public List<RoomEntity> findByHotel(HotelEntity hotelEntity) {
+    public List<RoomEntity> findByHotel(HotelEntity hotelEntity) throws DataAccessException {
         return getCurrentSession()
             .createCriteria(RoomEntity.class)
             .add(Restrictions

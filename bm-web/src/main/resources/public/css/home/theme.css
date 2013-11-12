@@ -1,0 +1,7 @@
+
+/* Forms */
+.filter { float: left; }
+form input[type=text] { height: 30px; }
+
+/* Headlines */
+.table-headline { float: left; margin-top: 5px; margin-right: 20px; }

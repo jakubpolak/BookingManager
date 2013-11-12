@@ -5,6 +5,7 @@ import com.pa165.bookingmanager.dao.HotelDao;
 import com.pa165.bookingmanager.dto.HotelDto;
 import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.service.HotelService;
+import com.pa165.bookingmanager.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,9 @@ public class HotelServiceImpl implements HotelService
 
     @Autowired
     HotelConvertorImpl hotelConvertor;
+    
+    @Autowired
+    RoomService roomService;
 
     /**
      * Constructor
@@ -72,6 +76,27 @@ public class HotelServiceImpl implements HotelService
         if (hotelEntity != null){
             hotelDto = hotelConvertor.convertEntityToDto(hotelEntity);
         }
+
+        return hotelDto;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HotelDto findWithRooms(Long id) {
+        if (id == null){
+            throw new IllegalArgumentException("Id can't be null.");
+        }
+
+        HotelEntity hotelEntity = hotelDao.find(id);
+
+        HotelDto hotelDto = null;
+        if (hotelEntity != null){
+            hotelDto = hotelConvertor.convertEntityToDto(hotelEntity);
+        }
+        
+        hotelDto.setRoomsById(roomService.findByHotel(hotelEntity.getId()));
 
         return hotelDto;
     }

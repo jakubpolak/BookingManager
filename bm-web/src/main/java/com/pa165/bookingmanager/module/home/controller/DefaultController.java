@@ -54,7 +54,7 @@ public class DefaultController
     
     @RequestMapping(value = "/hotel/{hotelId}", method = RequestMethod.GET)
     public String book(@PathVariable(value="hotelId") Long hotelId, ModelMap model) {
-    	HotelDto hotel = hotelService.find(hotelId);
+    	HotelDto hotel = hotelService.findWithRooms(hotelId);
     	model.addAttribute("hotel", hotel);
     	return "modules/home/default/hotel";
     }

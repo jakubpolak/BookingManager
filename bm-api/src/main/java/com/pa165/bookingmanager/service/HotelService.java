@@ -2,10 +2,11 @@ package com.pa165.bookingmanager.service;
 
 import com.pa165.bookingmanager.dto.HotelDto;
 
+import java.util.Date;
 import java.util.List;
 
 /**
- * @author Jakub Polak
+ * @author Jakub Polak, Josef Stribny
  */
 public interface HotelService
 {
@@ -25,12 +26,22 @@ public interface HotelService
     HotelDto find(Long id);
     
     /**
-     * Find
+     * Find with rooms
      *
      * @param id
      * @return hotel DTO including associated room DTOs
      */
     HotelDto findWithRooms(Long id);
+    
+    /**
+     * Find with available rooms in the given time period
+     *
+     * @param id
+     * @param from
+     * @param to
+     * @return hotel DTO including associated room DTOs
+     */
+    HotelDto findWithAvailableRooms(Long id, Date from, Date to);
 
     /**
      * Create

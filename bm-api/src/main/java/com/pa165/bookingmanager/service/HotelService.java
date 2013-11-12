@@ -23,6 +23,14 @@ public interface HotelService
      * @return hotel DTO
      */
     HotelDto find(Long id);
+    
+    /**
+     * Find
+     *
+     * @param id
+     * @return hotel DTO including associated room DTOs
+     */
+    HotelDto findWithRooms(Long id);
 
     /**
      * Create

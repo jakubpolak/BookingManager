@@ -2,9 +2,11 @@ package com.pa165.bookingmanager.service.impl;
 
 import com.pa165.bookingmanager.convertor.impl.ReservationConvertorImpl;
 import com.pa165.bookingmanager.dao.ReservationDao;
+import com.pa165.bookingmanager.dao.RoomDao;
 import com.pa165.bookingmanager.dto.ReservationDto;
 import com.pa165.bookingmanager.entity.ReservationEntity;
 import com.pa165.bookingmanager.service.ReservationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @author Jana Polakova, Jakub Polak, Jan Hrubes
+ * @author Jana Polakova, Jakub Polak, Jan Hrubes, Josef Stribny
  */
 @Service("reservationService")
 @Transactional(readOnly = true)
@@ -20,6 +22,9 @@ public class ReservationServiceImpl implements ReservationService
 {
     @Autowired
     ReservationDao reservationDao;
+    
+    @Autowired
+    RoomDao roomDao;
 
     @Autowired
     ReservationConvertorImpl reservationConvertor;
@@ -115,8 +120,15 @@ public class ReservationServiceImpl implements ReservationService
         if (reservationDto == null){
             throw new IllegalArgumentException("ReservationDto can't be null.");
         }
+        ReservationEntity reservation = reservationConvertor.convertDtoToEntity(reservationDto);
+        
+        if(reservationDto.getRoomByRoomId() != null) {
+        	reservation.setRoomByRoomId(
+        		roomDao.find(reservationDto.getRoomByRoomId().getId())
+        	);
+        }
 
-        reservationDao.create(reservationConvertor.convertDtoToEntity(reservationDto));
+        reservationDao.create(reservation);
     }
 
     /**

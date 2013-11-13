@@ -3,6 +3,7 @@ package com.pa165.bookingmanager.convertor.impl;
 import com.pa165.bookingmanager.dto.ReservationDto;
 import com.pa165.bookingmanager.dto.impl.ReservationDtoImpl;
 import com.pa165.bookingmanager.entity.ReservationEntity;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +42,7 @@ public class ReservationConvertorImpl extends GenericConvertorImpl<ReservationEn
 
         ReservationEntity entity = new ReservationEntity();
         BeanUtils.copyProperties(dto, entity, ignoreProperties);
-
+        
         return entity;
     }
 

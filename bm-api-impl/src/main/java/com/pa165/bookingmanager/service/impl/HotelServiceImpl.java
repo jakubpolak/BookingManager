@@ -2,8 +2,10 @@ package com.pa165.bookingmanager.service.impl;
 
 import com.pa165.bookingmanager.convertor.impl.HotelConvertorImpl;
 import com.pa165.bookingmanager.dao.HotelDao;
+import com.pa165.bookingmanager.dao.RoomDao;
 import com.pa165.bookingmanager.dto.HotelDto;
 import com.pa165.bookingmanager.entity.HotelEntity;
+import com.pa165.bookingmanager.entity.RoomEntity;
 import com.pa165.bookingmanager.service.HotelService;
 import com.pa165.bookingmanager.service.RoomService;
 
@@ -23,6 +25,9 @@ public class HotelServiceImpl implements HotelService
 {
     @Autowired
     HotelDao hotelDao;
+    
+    @Autowired
+    RoomDao roomDao;
 
     @Autowired
     HotelConvertorImpl hotelConvertor;
@@ -85,6 +90,26 @@ public class HotelServiceImpl implements HotelService
     /**
      * {@inheritDoc}
      */
+    public HotelDto findByRoomId(Long id) {
+    	if (id == null){
+            throw new IllegalArgumentException("Id can't be null.");
+        }
+
+        RoomEntity roomEntity = roomDao.find(id);
+        HotelEntity hotelEntity = roomEntity.getHotelByHotelId();
+        
+        HotelDto hotelDto = null;
+
+        if (hotelEntity != null){
+            hotelDto = hotelConvertor.convertEntityToDto(hotelEntity);
+        }
+
+        return hotelDto;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HotelDto findWithRooms(Long id) {
         if (id == null){
@@ -118,9 +143,10 @@ public class HotelServiceImpl implements HotelService
         HotelDto hotelDto = null;
         if (hotelEntity != null){
             hotelDto = hotelConvertor.convertEntityToDto(hotelEntity);
+            hotelDto.setRoomsById(
+            	roomService.findAvailableByHotel(hotelEntity.getId(), from, to)
+            );
         }
-
-        hotelDto.setRoomsById(roomService.findAvailableByHotel(hotelEntity.getId(), from, to));
 
         return hotelDto;
     }

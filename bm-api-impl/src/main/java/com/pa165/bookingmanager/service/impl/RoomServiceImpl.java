@@ -1,13 +1,14 @@
 package com.pa165.bookingmanager.service.impl;
 
+import com.pa165.bookingmanager.convertor.impl.HotelConvertorImpl;
 import com.pa165.bookingmanager.convertor.impl.RoomConvertorImpl;
 import com.pa165.bookingmanager.dao.HotelDao;
 import com.pa165.bookingmanager.dao.RoomDao;
+import com.pa165.bookingmanager.dto.HotelDto;
 import com.pa165.bookingmanager.dto.RoomDto;
 import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
 import com.pa165.bookingmanager.service.RoomService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,9 @@ public class RoomServiceImpl implements RoomService
 
     @Autowired
     RoomConvertorImpl roomConvertor;
+
+    @Autowired
+    HotelConvertorImpl hotelConvertor;
 
     /**
      * Constructor
@@ -141,7 +145,18 @@ public class RoomServiceImpl implements RoomService
             throw new IllegalArgumentException("RoomDto can't be null.");
         }
 
-        roomDao.create(roomConvertor.convertDtoToEntity(roomDto));
+        HotelDto hotelDto = roomDto.getHotelByHotelId();
+
+        if (hotelDto == null){
+            throw new IllegalArgumentException("HotelDto can't be null.");
+        }
+
+        RoomEntity roomEntity = roomConvertor.convertDtoToEntity(roomDto);
+        HotelEntity hotelEntity = hotelConvertor.convertDtoToEntity(hotelDto);
+
+        roomEntity.setHotelByHotelId(hotelEntity);
+
+        roomDao.create(roomEntity);
     }
 
     /**

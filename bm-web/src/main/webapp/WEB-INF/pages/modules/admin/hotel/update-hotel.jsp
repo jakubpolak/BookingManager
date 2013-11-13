@@ -64,4 +64,10 @@
             </table>
         </div>
     </div>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-primary" href="${pageContext.servletContext.contextPath}/admin/hotel/room/${hotelId}/create-room">
+            <i class="icon-plus"></i> <spring:message code="add.room" text="Add room" />
+        </a>
+    </div>
 </body>

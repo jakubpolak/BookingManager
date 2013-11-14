@@ -1,19 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-  Reservation ID: ${reservationId}<br>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-  Customer: ${customerName}<br>
-  Contact email: ${customerEmail}<br>
-  Contact phone: ${customerPhone}<br>
-  From: ${reservationFrom}<br>
-  To: ${reservationTo}<br>
-  Room ID: ${roomByRoomId}
+<body>
+  <spring:message code="booking.reservation.number" text="Email" />: ${reservationId}<br>
+  <spring:message code="booking.reservation.onname" text="On Name" />: ${customerName}<br>
+  <spring:message code="booking.reservation.email" text="Email" /> ${customerEmail}<br>
+  <spring:message code="booking.reservation.phone" text="Phone" /> ${customerPhone}<br>
+  <spring:message code="booking.reservation.from" text="From" />: ${reservationFrom}<br>
+  <spring:message code="booking.reservation.to" text="To" />: ${reservationTo}<br>
 </body>
-</html>

@@ -6,7 +6,7 @@
 		<c:forEach items="${hotels}" var="hotel">
 			<tr>
 				<td>
-					<a href="/bm-web/hotel/<c:out value="${hotel.id}" />"><c:out value="${hotel.name}" /></a>
+					<a href="${pageContext.request.contextPath}/hotel/<c:out value="${hotel.id}" />"><c:out value="${hotel.name}" /></a>
 					<i>$<c:out value="${hotel.id}" /></i>
 				</td>
 			</tr>

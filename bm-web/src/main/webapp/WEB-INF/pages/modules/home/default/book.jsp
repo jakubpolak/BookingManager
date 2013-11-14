@@ -8,7 +8,7 @@
 
 	<!-- Reservation form to book a room in a hotel -->
 
-	<form:form method="post" action="/bm-web/processBooking"
+	<form:form method="post" action="${pageContext.request.contextPath}/processBooking"
 		modelAttribute="reservationForm">
 		<table>
 			<tr>

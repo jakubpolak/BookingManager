@@ -6,7 +6,7 @@
   
     <h4 class="table-headline">Available rooms</h4>
     
-    <form method="get" action="/bm-web/hotel/${hotel.id}" class="form-inline filter">
+    <form method="get" action="${pageContext.request.contextPath}/hotel/${hotel.id}" class="form-inline filter">
 		<div class="controls">
 	   		<input type="text" name="from" class="date-picker input-big span2" value="${from}" placeholder="Reservation from" />
 	        <input type="text" name="to" class="date-picker input-big span2" value="${to}" placeholder="Reservation to" />
@@ -32,7 +32,7 @@
 					${room.price}
 				</td>
 				<td>
-					<a href="/bm-web/book/${room.id}?from=${from}&to=${to}">Book now</a>
+					<a href="${pageContext.request.contextPath}/book/${room.id}?from=${from}&to=${to}">Book now</a>
 				</td>
 			</tr>
 		</c:forEach>

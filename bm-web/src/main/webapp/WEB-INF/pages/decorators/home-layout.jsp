@@ -23,12 +23,28 @@
     
     <script type="text/javascript">
 	$(function() {
+		$.datepicker.regional['sk'] = {
+		    prevText: 'Předchozí',
+		    nextText: 'Další',
+		    monthNames: ['Leden','Únor','Březen','Duben','Květen','Červen', 'Červenec','Srpen','Září','Říjen','Listopad','Prosinec'],
+		    monthNamesShort: ['Leden','Únor','Březen','Duben','Květen','Červen', 'Červenec','Srpen','Září','Říjen','Listopad','Prosinec'],
+		    dayNames: ['Neděle','Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota'],
+		    dayNamesShort: ['Ne','Po','Út','St','Čt','Pá','So'],
+		    dayNamesMin: ['Ne','Po','Út','St','Čt','Pá','So'],
+		    weekHeader: 'Sm',
+		    //dateFormat: 'dd.mm.yy',
+		    firstDay: 1,
+		    isRTL: false,
+		    showMonthAfterYear: false,
+		    yearSuffix: ''};
+	
+		        
+		$.datepicker.setDefaults($.datepicker.regional['sk']);
+		
 	    $('.date-picker').datepicker( {
 	        changeMonth: true,
 	        changeYear: true,
-	        showButtonPanel: true,
-	        //dateFormat: 'MM yy',
-	        
+	        showButtonPanel: false,
 	    });
 	});
 	</script>

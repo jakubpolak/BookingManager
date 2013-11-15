@@ -5,12 +5,14 @@ import com.pa165.bookingmanager.dao.ReservationDao;
 import com.pa165.bookingmanager.dao.RoomDao;
 import com.pa165.bookingmanager.dto.ReservationDto;
 import com.pa165.bookingmanager.entity.ReservationEntity;
+import com.pa165.bookingmanager.entity.RoomEntity;
 import com.pa165.bookingmanager.service.ReservationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -127,8 +129,11 @@ public class ReservationServiceImpl implements ReservationService
         		roomDao.find(reservationDto.getRoomByRoomId().getId())
         	);
         }
-
-        reservationDao.create(reservation);
+        
+        if(!this.isRoomAvailable(reservation.getRoomByRoomId().getId(), reservation.getReservationFrom(), reservation.getReservationTo())){
+        	throw new IllegalArgumentException("Reservation is conflicting with other reservation.");
+        }
+    	reservationDao.create(reservation);
     }
 
     /**
@@ -164,5 +169,15 @@ public class ReservationServiceImpl implements ReservationService
         if (reservationEntity != null){
             reservationDao.delete(reservationEntity);
         }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isRoomAvailable(Long id, Date reservationFrom, Date reservationTo){
+    	RoomEntity roomEntity = roomDao.find(id);
+
+    	return reservationDao.isRoomAvailable(roomEntity, reservationFrom, reservationTo);
     }
 }

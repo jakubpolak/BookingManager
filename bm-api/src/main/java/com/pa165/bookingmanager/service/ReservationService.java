@@ -2,6 +2,7 @@ package com.pa165.bookingmanager.service;
 
 import com.pa165.bookingmanager.dto.ReservationDto;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,4 +53,14 @@ public interface ReservationService
      * @return list of reservation DTOs
      */
     List<ReservationDto> findByRoom(Long id);
+    
+    /**
+     * Is the room available
+     *
+     * @param id room id
+     * @param from room available from
+     * @param to room available to
+     * @return true if the room is available or false
+     */
+    boolean isRoomAvailable(Long id, Date reservationFrom, Date reservationTo);
 }

@@ -5,16 +5,19 @@ import com.pa165.bookingmanager.dao.RoomDao;
 import com.pa165.bookingmanager.dao.exception.DaoException;
 import com.pa165.bookingmanager.entity.ReservationEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
+
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
- * @author Jana Polakova
+ * @author Jana Polakova, Josef Stribny
  */
 @Repository("reservationDao")
 public class ReservationDaoImpl extends GenericDaoImpl<ReservationEntity, Long> implements ReservationDao
@@ -48,5 +51,40 @@ public class ReservationDaoImpl extends GenericDaoImpl<ReservationEntity, Long> 
         }
 
         return reservationEntities;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isRoomAvailable(RoomEntity room, Date from, Date to){    	
+    	Criteria criteria = getCurrentSession().createCriteria(ReservationEntity.class)
+    	.add(Restrictions.eq("roomByRoomId", room))
+    	.add(
+    		Restrictions.disjunction()
+    			.add(
+    				Restrictions.conjunction()
+    					.add(Restrictions.lt("reservationFrom", from))
+    					.add(Restrictions.gt("reservationTo", to))
+    			)
+    		    .add(
+    		    	Restrictions.conjunction()
+    					.add(Restrictions.lt("reservationFrom", to))
+    					.add(Restrictions.gt("reservationTo", to))
+    	    	)
+    		    .add(
+    		    	Restrictions.conjunction()
+    					.add(Restrictions.gt("reservationFrom", from))
+    					.add(Restrictions.lt("reservationTo", to))
+    		    )
+    	);
+
+    	Long result = (Long) criteria.setProjection(Projections.rowCount()).list().get(0);
+    	    	
+    	if(result == 0L) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 }

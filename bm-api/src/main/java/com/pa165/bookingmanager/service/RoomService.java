@@ -55,12 +55,12 @@ public interface RoomService
     List<RoomDto> findByHotel(Long id);
     
     /**
-    * Find available rooms by hotel in a given time period
-    *
-    * @param id hotel id
-    * @param from rooms available from
-    * @param to rooms available to
-    * @return list of room DTOs
-    */
+     * Find available rooms by hotel in a given time period
+     *
+     * @param id hotel id
+     * @param from rooms available from
+     * @param to rooms available to
+     * @return list of room DTOs
+     */
     List<RoomDto> findAvailableByHotel(Long id, Date from, Date to);
 }

@@ -118,7 +118,6 @@ public class DefaultController
     	
     	RoomDto roomDto = roomService.find(reservationForm.getRoomByRoomId());
     	
-    	// TODO: check dates and create the reservation
     	ReservationDto reservationDto = new ReservationDtoImpl();
     	reservationDto.setReservationFrom(reservationForm.getReservationFrom());
     	reservationDto.setReservationTo(reservationForm.getReservationTo());
@@ -127,7 +126,7 @@ public class DefaultController
     	reservationDto.setCustomerPhone(reservationForm.getCustomerPhone());
     	reservationDto.setRoomByRoomId(roomDto);
     	
-    	reservationService.create(reservationDto);  	
+    	reservationService.create(reservationDto);
     	
     	// Print details of successful reservation
     	model.addAttribute("id", reservationForm.getId());

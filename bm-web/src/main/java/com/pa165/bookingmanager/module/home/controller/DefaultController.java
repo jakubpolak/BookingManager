@@ -3,10 +3,8 @@ package com.pa165.bookingmanager.module.home.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.pa165.bookingmanager.service.HotelService;
 import com.pa165.bookingmanager.service.UserService;
@@ -31,6 +28,9 @@ import com.pa165.bookingmanager.dto.RoomDto;
 import com.pa165.bookingmanager.dto.impl.ReservationDtoImpl;
 import com.pa165.bookingmanager.module.home.form.ReservationForm;
 
+/**
+ * @author Josef Stribny
+ */
 @Controller("homeDefaultController")
 @RequestMapping(value = "/")
 public class DefaultController

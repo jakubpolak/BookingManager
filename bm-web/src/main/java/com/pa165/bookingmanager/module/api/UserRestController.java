@@ -1,7 +1,7 @@
 package com.pa165.bookingmanager.module.api;
 
-import com.pa165.bookingmanager.dto.HotelDto;
-import com.pa165.bookingmanager.service.HotelService;
+import com.pa165.bookingmanager.dto.UserDto;
+import com.pa165.bookingmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,22 +15,23 @@ import java.util.List;
  * @author Jan Hrubeš
  */
 
-@Controller("hotelRestController")
-@RequestMapping(value = "/api/hotel")
-public class HotelRestController {
+@Controller("userRestController")
+@RequestMapping(value = "/api/user")
+public class UserRestController {
 
     @Autowired
-    private HotelService hotelService;
+    private UserService userService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public List<HotelDto> getList() {
-        return hotelService.findAll();
+    public List<UserDto> getList() {
+        return userService.findAll();
     }
 
-    @RequestMapping(value = "/id/{hotelId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{userId}", method = RequestMethod.GET)
     @ResponseBody
-    public HotelDto getHotel(@PathVariable(value = "hotelId") Long hotelId) {
-        return hotelService.find(hotelId);
+    public UserDto getUser(@PathVariable(value = "userId") Long userId) {
+        return userService.find(userId);
     }
+
 }

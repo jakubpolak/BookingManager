@@ -9,7 +9,6 @@
 			<tr>
 				<td>
 					<a href="${pageContext.request.contextPath}/hotel/<c:out value="${hotel.id}" />"><c:out value="${hotel.name}" /></a>
-					<i>$<c:out value="${hotel.id}" /></i>
 				</td>
 			</tr>
 		</c:forEach>

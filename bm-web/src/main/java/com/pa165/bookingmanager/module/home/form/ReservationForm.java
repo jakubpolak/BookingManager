@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class ReservationForm {
@@ -36,18 +37,21 @@ public class ReservationForm {
      * Customer name
      */
     @NotNull
+    @NotEmpty
     private String customerName;
 
     /**
      * Customer email
      */
     @NotNull
+    @NotEmpty
     private String customerEmail;
 
     /**
      * Customer phone
      */
     @NotNull
+    @NotEmpty
     private String customerPhone;
 
     /**

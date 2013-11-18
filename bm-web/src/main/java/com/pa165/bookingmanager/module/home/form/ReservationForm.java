@@ -47,6 +47,7 @@ public class ReservationForm {
     /**
      * Customer phone
      */
+    @NotNull
     private String customerPhone;
 
     /**

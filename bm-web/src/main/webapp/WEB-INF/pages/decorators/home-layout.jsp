@@ -38,8 +38,9 @@
 		    showMonthAfterYear: false,
 		    yearSuffix: ''};
 	
-		        
-		$.datepicker.setDefaults($.datepicker.regional['sk']);
+		<c:if test="${pageContext.request.locale.language == 'sk'}">
+			$.datepicker.setDefaults($.datepicker.regional['sk']);
+		</c:if>
 		
 	    $('.date-picker').datepicker( {
 	        changeMonth: true,

@@ -2,6 +2,7 @@ package com.pa165.bookingmanager.module.home.form;
 
 import java.util.Date;
 
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,13 +24,14 @@ public class ReservationForm {
      * Reservation from
      */
     @NotNull
-    @DateTimeFormat(pattern="MM/dd/yyyy")
+    @Future
     private Date reservationFrom;
 
     /**
      * Reservation to
      */
     @NotNull
+    @Future
     @DateTimeFormat(pattern="MM/dd/yyyy")
     private Date reservationTo;
 
@@ -38,6 +40,7 @@ public class ReservationForm {
      */
     @NotNull
     @NotEmpty
+    @DateTimeFormat(pattern="MM/dd/yyyy")
     private String customerName;
 
     /**

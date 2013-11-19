@@ -115,9 +115,30 @@
 
         <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap.js"></script>
         <script type="text/javascript">
-            $("[rel=tooltip]").tooltip();
             $(function() {
-                $('.demo-cancel-click').click(function(){return false;});
+                $.datepicker.regional['sk'] = {
+                    prevText: 'Predchádzajúci',
+                    nextText: 'Ďalší',
+                    monthNames: ['Január','Február','Marec','Apríl','Máj','Jún', 'Júl','August','September','Október','November','December'],
+                    monthNamesShort: ['Jan','Feb','Mar','Apr','Máj','Jún', 'Júl','Aug','Sep','Okt','Nov','Dec'],
+                    dayNames: ['Nedeľa','Pondelok','Utorok','Streda','Štvrtok','Piatok','Sobota'],
+                    dayNamesShort: ['Ne','Po','Ut','St','Stv','Pi','So'],
+                    dayNamesMin: ['Ne','Po','Ut','St','Stv','Pi','So'],
+                    weekHeader: 'Sm',
+                    firstDay: 1,
+                    isRTL: false,
+                    showMonthAfterYear: false,
+                    yearSuffix: ''};
+
+                <c:if test="${pageContext.request.locale.language == 'sk'}">
+                    $.datepicker.setDefaults($.datepicker.regional['sk']);
+                </c:if>
+
+                $('.date-picker').datepicker( {
+                    changeMonth: true,
+                    changeYear: true,
+                    showButtonPanel: false
+                });
             });
         </script>
     </body>

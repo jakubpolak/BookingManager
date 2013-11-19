@@ -50,6 +50,15 @@ public class RoomController
         return new ModelAndView("modules/admin/room/create-room");
     }
 
+    /**
+     * Create room
+     *
+     * @param roomForm room form
+     * @param bindingResult binding result
+     * @param hotelId hotel id
+     * @param redirectAttributes redirect attributes
+     * @return model and view
+     */
     @RequestMapping(value = "/{hotelId}/create-room", method = RequestMethod.POST)
     public ModelAndView createRoom(@Valid RoomForm roomForm, BindingResult bindingResult, @PathVariable Long hotelId, RedirectAttributes redirectAttributes){
         ModelAndView modelAndView = null;
@@ -79,20 +88,106 @@ public class RoomController
         return modelAndView;
     }
 
-
+    /**
+     * Update room
+     *
+     * @param hotelId hotel id
+     * @param roomId room id
+     * @param redirectAttributes redirect attributes
+     * @return model and view
+     */
     @RequestMapping(value = "/{hotelId}/{roomId}/update-room", method = RequestMethod.GET)
-    public ModelAndView updateRoom(@ModelAttribute @PathVariable Long hotelId, @ModelAttribute @PathVariable Long roomId){
-        List<ReservationDto> reservationDtos = reservationService.findByRoom(roomId);
+    public ModelAndView updateRoom(@ModelAttribute @PathVariable Long hotelId, @ModelAttribute @PathVariable Long roomId, RedirectAttributes redirectAttributes){
+        RoomDto roomDto = roomService.find(roomId);
 
-        ModelAndView modelAndView = new ModelAndView("modules/admin/room/update-room");
-        modelAndView.addObject("reservationDtos", reservationDtos);
+        ModelAndView modelAndView = null;
 
+        if (roomDto == null){
+            modelAndView = new ModelAndView("redirect:/admin/hotel/" + hotelId + "/update-hotel");
+            redirectAttributes.addFlashAttribute("flashMessage", "room.does.not.exist");
+            redirectAttributes.addFlashAttribute("flashMessageType", "error");
+        } else {
+            List<ReservationDto> reservationDtos = reservationService.findByRoom(roomId);
+            RoomForm roomForm = new RoomForm();
+
+            BeanUtils.copyProperties(roomDto, roomForm);
+
+            modelAndView = new ModelAndView("modules/admin/room/update-room");
+            modelAndView.addObject("roomForm", roomForm);
+            modelAndView.addObject("reservationDtos", reservationDtos);
+        }
 
         return modelAndView;
     }
 
+    /**
+     * Update room
+     *
+     * @param hotelId hotel id
+     * @param roomId room id
+     * @param roomForm room form
+     * @param bindingResult binding result
+     * @param redirectAttributes redirect attributes
+     * @return model and view
+     */
+    @RequestMapping(value = "/{hotelId}/{roomId}/update-room", method = RequestMethod.POST)
+    public ModelAndView updateRoom(
+            @Valid RoomForm roomForm,
+            BindingResult bindingResult,
+            @ModelAttribute @PathVariable Long hotelId,
+            @ModelAttribute @PathVariable Long roomId,
+            RedirectAttributes redirectAttributes){
+        ModelAndView modelAndView = null;
+
+        if (bindingResult.hasErrors()){
+            modelAndView = new ModelAndView("modules/admin/room/update-room");
+            modelAndView.addObject("error", true);
+
+            List<ReservationDto> reservationDtos = reservationService.findByRoom(roomId);
+            modelAndView.addObject("reservationDtos", reservationDtos);
+        } else {
+            RoomDto roomDto = roomService.find(roomId);
+            modelAndView = new ModelAndView("redirect:/admin/hotel/" + hotelId + "/update-hotel");
+
+            if (roomDto == null){
+                redirectAttributes.addFlashAttribute("flashMessage", "room.does.not.exist");
+                redirectAttributes.addFlashAttribute("flashMessageType", "error");
+            } else {
+                BeanUtils.copyProperties(roomForm, roomDto);
+                roomService.update(roomDto);
+
+                redirectAttributes.addFlashAttribute("flashMessage", "room.saved");
+                redirectAttributes.addFlashAttribute("flashMessageType", "success");
+            }
+        }
+
+        return modelAndView;
+    }
+
+    /**
+     * Delete room
+     *
+     * @param hotelId hotel id
+     * @param roomId room id
+     * @param redirectAttributes redirect attributes
+     * @return model and view
+     */
     @RequestMapping(value = "/{hotelId}/{roomId}/delete-room")
-    public ModelAndView deleteRoom(@PathVariable Long hotelId, @PathVariable Long roomId){
-        return new ModelAndView("redirect:/admin/hotel/room/" + hotelId + "/list-of-rooms");
+    public ModelAndView deleteRoom(@PathVariable Long hotelId, @PathVariable Long roomId, RedirectAttributes redirectAttributes){
+        ModelAndView modelAndView = new ModelAndView("redirect:/admin/hotel/" + hotelId + "/update-hotel");
+
+        RoomDto roomDto = roomService.find(roomId);
+
+        if (roomDto == null){
+            redirectAttributes.addFlashAttribute("flashMessage", "room.does.not.exist");
+            redirectAttributes.addFlashAttribute("flashMessageType", "error");
+        } else {
+            roomService.delete(roomDto);
+
+            redirectAttributes.addFlashAttribute("flashMessage", "room.deleted");
+            redirectAttributes.addFlashAttribute("flashMessageType", "success");
+        }
+
+        return modelAndView;
     }
 }

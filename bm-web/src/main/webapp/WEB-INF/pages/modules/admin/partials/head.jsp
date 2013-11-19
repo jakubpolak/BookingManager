@@ -7,10 +7,12 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap.css">
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/public/css/home/jquery-ui-1.10.3.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/public/css/admin/theme.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/public/lib/font-awesome/css/font-awesome.css">
 
-<script src="${pageContext.request.contextPath}/public/lib/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/public/lib/jquery-1.8.1.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/public/lib/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/public/css/admin/custom.css">
 

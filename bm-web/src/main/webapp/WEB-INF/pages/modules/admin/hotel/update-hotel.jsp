@@ -31,39 +31,41 @@
         </div>
     </div>
 
-    <div class="widget-box">
-        <div class="widget-title"><h5><span class="icon"><i class="icon-align-justify"></i></span> <spring:message code="list.of.rooms" text="List of Rooms" /></h5></div>
-        <div class="widget-content nopadding">
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th><spring:message code="number" text="Number" /></th>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${roomDtos}" var="roomDto" varStatus="status">
-                        <tr>
-                            <td class="width-20">${status.count}</td>
-                            <td>${roomDto.number}</td>
-                            <td class="center width-100">
-                                <a href="${pageContext.servletContext.contextPath}/admin/hotel/room/${hotelId}/${roomDto.id}/update-room">
-                                    <i class="icon-pencil"></i> <spring:message code="update" text="Update"/>
-                                </a>
-                            </td>
-                            <td class="center width-100">
-                                <a href="${pageContext.servletContext.contextPath}/admin/hotel/room/${hotelId}/${roomDto.id}/delete-room">
-                                    <i class="icon-trash"></i> <spring:message code="delete" text="Delete" />
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+    <c:if test="${not empty roomDtos}">
+        <div class="widget-box">
+            <div class="widget-title"><h5><span class="icon"><i class="icon-align-justify"></i></span> <spring:message code="list.of.rooms" text="List of Rooms" /></h5></div>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th><spring:message code="number" text="Number" /></th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${roomDtos}" var="roomDto" varStatus="status">
+                            <tr>
+                                <td class="width-20">${status.count}</td>
+                                <td>${roomDto.number}</td>
+                                <td class="center width-100">
+                                    <a href="${pageContext.servletContext.contextPath}/admin/hotel/room/${hotelId}/${roomDto.id}/update-room">
+                                        <i class="icon-pencil"></i> <spring:message code="update" text="Update"/>
+                                    </a>
+                                </td>
+                                <td class="center width-100">
+                                    <a href="${pageContext.servletContext.contextPath}/admin/hotel/room/${hotelId}/${roomDto.id}/delete-room">
+                                        <i class="icon-trash"></i> <spring:message code="delete" text="Delete" />
+                                    </a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    </c:if>
 
     <div class="btn-toolbar">
         <a class="btn btn-primary" href="${pageContext.servletContext.contextPath}/admin/hotel/room/${hotelId}/create-room">

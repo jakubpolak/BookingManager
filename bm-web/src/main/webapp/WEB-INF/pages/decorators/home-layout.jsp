@@ -32,7 +32,6 @@
 		    dayNamesShort: ['Ne','Po','Út','St','Čt','Pá','So'],
 		    dayNamesMin: ['Ne','Po','Út','St','Čt','Pá','So'],
 		    weekHeader: 'Sm',
-		    //dateFormat: 'dd.mm.yy',
 		    firstDay: 1,
 		    isRTL: false,
 		    showMonthAfterYear: false,
@@ -45,7 +44,7 @@
 	    $('.date-picker').datepicker( {
 	        changeMonth: true,
 	        changeYear: true,
-	        showButtonPanel: false,
+	        showButtonPanel: false
 	    });
 	});
 	</script>

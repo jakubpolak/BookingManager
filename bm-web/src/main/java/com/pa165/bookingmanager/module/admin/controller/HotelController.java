@@ -161,8 +161,6 @@ public class HotelController
      */
     @RequestMapping(value = "/{hotelId}/delete-hotel", method = RequestMethod.GET)
     public ModelAndView deleteHotel(@PathVariable Long hotelId, RedirectAttributes redirectAttributes){
-        ModelAndView modelAndView = new ModelAndView("redirect:/admin/hotel/list-of-hotels");
-
         HotelDto hotelDto = hotelService.find(hotelId);
 
         if (hotelDto == null){
@@ -175,6 +173,6 @@ public class HotelController
             redirectAttributes.addFlashAttribute("flashMessageType", "success");
         }
 
-        return modelAndView;
+        return new ModelAndView("redirect:/admin/hotel/list-of-hotels");
     }
 }

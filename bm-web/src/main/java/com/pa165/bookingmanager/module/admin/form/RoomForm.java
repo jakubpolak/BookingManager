@@ -9,10 +9,16 @@ import java.math.BigDecimal;
  */
 public class RoomForm
 {
+    /**
+     * Room number
+     */
     @NotNull
     @Size(min=1, max=10)
     private String number;
 
+    /**
+     * Room price
+     */
     @NotNull
     private BigDecimal price;
 

@@ -12,16 +12,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/admin")
 public class DefaultController
 {
+    /**
+     * Index
+     *
+     * @return redirect to /admin/hotel/list-of-hotels
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index() {
         return "redirect:/admin/hotel/list-of-hotels";
     }
 
-    @RequestMapping(value = "/settings", method = RequestMethod.GET)
-    public String settings() {
-        return "modules/admin/default/settings";
-    }
-
+    /**
+     * Change language
+     *
+     * @param lang lang
+     * @return redirect to /admin
+     */
     @RequestMapping(value = "/{lang}/change-language", method = RequestMethod.GET)
     public String changeLanguage(@PathVariable String lang){
         return "redirect:/admin";

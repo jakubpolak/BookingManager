@@ -21,26 +21,14 @@
         <div class="navbar">
             <div class="navbar-inner">
                 <ul class="nav pull-right">
-                    <li><a href="#" class="hidden-phone visible-tablet visible-desktop" role="button"><spring:message code="settings" text="Settings" /></a></li>
                     <li id="fat-menu" class="dropdown">
-                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="icon-user"></i> Administrator
-                            <i class="icon-caret-down"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#"><spring:message code="my.account" text="My account" /></a></li>
-                            <li class="divider"></li>
-                            <li><a class="visible-phone" href="#"><spring:message code="settings" text="Settings" /></a></li>
-                            <li class="divider visible-phone"></li>
-                            <li><a href="<c:url value="/j_spring_security_logout" />"><spring:message code="logout" text="Logout" /></a></li>
-                        </ul>
+                        <a href="<c:url value="/j_spring_security_logout" />"><i class="icon-user"></i> <spring:message code="logout" text="Logout" /></a>
                     </li>
                 </ul>
                 <a class="brand" href="${pageContext.request.contextPath}/admin"><spring:message code="administration" text="Administration" /></a>
             </div>
         </div>
         <div class="sidebar-nav">
-            <a href="${pageContext.request.contextPath}/admin" class="nav-header" ><i class="icon-table"></i><spring:message code="dashboard" text="Nástenka" /></a>
             <a href="#hotels-menu" class="nav-header" data-toggle="collapse">
                 <i class="icon-home"></i><spring:message code="hotel" text="Hotel" />
                 <span class="label label-info">+2</span>
@@ -137,7 +125,7 @@
                 $('.date-picker').datepicker( {
                     changeMonth: true,
                     changeYear: true,
-                    showButtonPanel: false
+                    showButtonPanel: false,
                 });
             });
         </script>

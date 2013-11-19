@@ -4,11 +4,11 @@
 
 <content tag="title"><spring:message code="add.hotel" text="Add hotel" /></content>
 
-<content tag="breadcrumbs"><spring:message code="add.hotel" text="Add Hotel" /></content>
+<content tag="breadcrumbs"><spring:message code="add.hotel" text="Add hotel" /></content>
 
 <body>
     <div class="widget-box">
-        <div class="widget-title"><h5><span class="icon"><i class="icon-align-justify"></i></span> <spring:message code="add.hotel" text="Add Hotel" /></h5></div>
+        <div class="widget-title"><h5><span class="icon"><i class="icon-align-justify"></i></span> <spring:message code="add.hotel" text="Add hotel" /></h5></div>
             <div class="widget-content nopadding">
                 <form:form modelAttribute="hotelForm" class="form-horizontal" method="post" action="${pageContext.request.contextPath}/admin/hotel/create-hotel">
                     <div class="control-group">

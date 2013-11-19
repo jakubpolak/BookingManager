@@ -2,12 +2,15 @@ package com.pa165.bookingmanager.service.impl;
 
 import com.pa165.bookingmanager.convertor.impl.RoleConvertorImpl;
 import com.pa165.bookingmanager.convertor.impl.UserConvertorImpl;
+import com.pa165.bookingmanager.dao.RoleDao;
 import com.pa165.bookingmanager.dao.UserDao;
 import com.pa165.bookingmanager.dto.RoleDto;
 import com.pa165.bookingmanager.dto.UserDto;
+import com.pa165.bookingmanager.entity.RoleEntity;
 import com.pa165.bookingmanager.entity.UserEntity;
 import com.pa165.bookingmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +32,9 @@ public class UserServiceImpl implements UserService
 
     @Autowired
     RoleConvertorImpl roleConvertor;
+
+    @Autowired
+    RoleDao roleDao;
 
     /**
      * Constructor
@@ -117,6 +123,8 @@ public class UserServiceImpl implements UserService
 
         if (userEntity != null){
             userDto = userConvertor.convertEntityToDto(userEntity);
+            RoleDto roleDto = roleConvertor.convertEntityToDto(userEntity.getRoleByRoleId());
+            userDto.setRoleByRoleId(roleDto);
         }
 
         return userDto;
@@ -132,7 +140,22 @@ public class UserServiceImpl implements UserService
             throw new IllegalArgumentException("UserDto can't be null.");
         }
 
-        userDao.create(userConvertor.convertDtoToEntity(userDto));
+        RoleDto roleDto = userDto.getRoleByRoleId();
+
+        if (roleDto == null){
+            throw new IllegalArgumentException("RoleDto can't be null.");
+        }
+
+        ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder();
+        String encodedPassword = shaPasswordEncoder.encodePassword(userDto.getPassword(), "");
+        userDto.setPassword(encodedPassword);
+
+        UserEntity userEntity = userConvertor.convertDtoToEntity(userDto);
+        RoleEntity roleEntity = roleConvertor.convertDtoToEntity(roleDto);
+
+        userEntity.setRoleByRoleId(roleEntity);
+
+        userDao.create(userEntity);
     }
 
     /**
@@ -145,10 +168,27 @@ public class UserServiceImpl implements UserService
             throw new IllegalArgumentException("UserDto can't be null.");
         }
 
+        RoleDto roleDto = userDto.getRoleByRoleId();
+
+        if (roleDto == null){
+            throw new IllegalArgumentException("RoleDto can't be null.");
+        }
+
         UserEntity userEntity = userDao.find(userDto.getId());
 
         if (userEntity != null){
+            if (!userDto.getPassword().equals("")){
+                ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder();
+                String encodedPassword = shaPasswordEncoder.encodePassword(userDto.getPassword(), "");
+                userDto.setPassword(encodedPassword);
+            } else {
+                userDto.setPassword(userEntity.getPassword());
+            }
+
+            RoleEntity roleEntity = roleDao.find(roleDto.getId());
             userConvertor.convertDtoToEntity(userDto, userEntity);
+
+            userEntity.setRoleByRoleId(roleEntity);
             userDao.update(userEntity);
         }
     }

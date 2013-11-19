@@ -18,7 +18,7 @@ public class UserEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID", nullable = false, length = 10)
+    @Column(name = "ID", unique = true, nullable = false, length = 10)
     private Long id;
 
     @Column(name = "EMAIL", nullable = false, length = 45)

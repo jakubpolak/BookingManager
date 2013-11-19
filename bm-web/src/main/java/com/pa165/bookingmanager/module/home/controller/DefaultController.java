@@ -112,7 +112,21 @@ public class DefaultController
     @RequestMapping(value = "/processBooking", method = RequestMethod.POST)
     public String processBooking(@Valid @ModelAttribute("reservationForm")ReservationForm reservationForm, BindingResult result, ModelMap model) {
     	if (result.hasErrors()) {
+        	RoomDto room = roomService.find(reservationForm.getRoomByRoomId());
+        	HotelDto hotel = hotelService.findByRoomId(room.getId());
+        	model.addAttribute("room", room);
+        	model.addAttribute("hotel", hotel);
     		model.addAttribute("reservationForm", reservationForm);
+    		return "modules/home/default/book";
+    	}
+    	
+    	if (reservationForm.getReservationFrom().compareTo(reservationForm.getReservationTo())>=0) {
+    		RoomDto room = roomService.find(reservationForm.getRoomByRoomId());
+        	HotelDto hotel = hotelService.findByRoomId(room.getId());
+        	model.addAttribute("room", room);
+        	model.addAttribute("hotel", hotel);
+    		model.addAttribute("reservationForm", reservationForm);
+    		model.addAttribute("error", "booking.reservation.invaliddates");
     		return "modules/home/default/book";
     	}
     	
@@ -126,17 +140,27 @@ public class DefaultController
     	reservationDto.setCustomerPhone(reservationForm.getCustomerPhone());
     	reservationDto.setRoomByRoomId(roomDto);
     	
-    	reservationService.create(reservationDto);
+    	try {
+    		ReservationDto reservation = reservationService.create(reservationDto);
+    		model.addAttribute("reservationId", reservation.getId());
+    	} catch (IllegalArgumentException e) {
+    		RoomDto room = roomService.find(reservationForm.getRoomByRoomId());
+        	HotelDto hotel = hotelService.findByRoomId(room.getId());
+        	model.addAttribute("room", room);
+        	model.addAttribute("hotel", hotel);
+    		model.addAttribute("reservationForm", reservationForm);
+    		model.addAttribute("error", "booking.reservation.alreadytaken");
+    		return "modules/home/default/book";
+    	}
     	
     	// Print details of successful reservation
-    	model.addAttribute("id", reservationForm.getId());
     	model.addAttribute("reservationFrom", reservationForm.getReservationFrom());
     	model.addAttribute("reservationTo", reservationForm.getReservationTo());
     	model.addAttribute("customerName", reservationForm.getCustomerName());
     	model.addAttribute("customerEmail", reservationForm.getCustomerEmail());
     	model.addAttribute("customerPhone", reservationForm.getCustomerPhone());
     	model.addAttribute("roomByRoomId", reservationForm.getRoomByRoomId());
-    	
+    	    	
         return "modules/home/default/reservation";	
     }
 }

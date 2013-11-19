@@ -21,7 +21,7 @@ public class ReservationEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID", nullable = false, length = 10)
+    @Column(name = "ID", unique = true, nullable = false, length = 10)
     private Long id;
 
     @ManyToOne

@@ -19,7 +19,7 @@ public class HotelEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID", nullable = false, length = 10)
+    @Column(name = "ID", unique = true, nullable = false, length = 10)
     private Long id;
 
     @Column(name = "NAME", nullable = false, length = 45)

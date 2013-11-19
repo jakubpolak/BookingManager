@@ -14,6 +14,10 @@
     <spring:message code="booking.reservation.youremail" text="Your email" var="youremail" />
     <spring:message code="booking.reservation.yourphone" text="Your phone number" var="yourphonenumber" />
 
+	<c:if test="${error != null}">
+		<div class="alert alert-danger"><spring:message code="${error}" /></div>
+	</c:if>
+
 	<form:form method="post" action="${pageContext.request.contextPath}/processBooking"
 		modelAttribute="reservationForm">
 		<table>

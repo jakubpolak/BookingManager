@@ -25,6 +25,7 @@ public class ReservationForm {
      */
     @NotNull
     @Future
+    @DateTimeFormat(pattern="MM/dd/yyyy")
     private Date reservationFrom;
 
     /**
@@ -40,7 +41,6 @@ public class ReservationForm {
      */
     @NotNull
     @NotEmpty
-    @DateTimeFormat(pattern="MM/dd/yyyy")
     private String customerName;
 
     /**

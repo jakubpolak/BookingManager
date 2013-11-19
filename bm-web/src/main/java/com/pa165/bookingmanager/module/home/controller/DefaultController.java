@@ -141,7 +141,8 @@ public class DefaultController
     	reservationDto.setRoomByRoomId(roomDto);
     	
     	try {
-    		reservationService.create(reservationDto);
+    		ReservationDto reservation = reservationService.create(reservationDto);
+    		model.addAttribute("reservationId", reservation.getId());
     	} catch (IllegalArgumentException e) {
     		RoomDto room = roomService.find(reservationForm.getRoomByRoomId());
         	HotelDto hotel = hotelService.findByRoomId(room.getId());
@@ -153,7 +154,6 @@ public class DefaultController
     	}
     	
     	// Print details of successful reservation
-    	model.addAttribute("id", reservationDto.getId());
     	model.addAttribute("reservationFrom", reservationForm.getReservationFrom());
     	model.addAttribute("reservationTo", reservationForm.getReservationTo());
     	model.addAttribute("customerName", reservationForm.getCustomerName());

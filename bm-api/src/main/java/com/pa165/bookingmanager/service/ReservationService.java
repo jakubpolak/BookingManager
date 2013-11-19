@@ -29,8 +29,9 @@ public interface ReservationService
      * Create
      *
      * @param reservationDto reservation DTO
+     * @return 
      */
-    void create(ReservationDto reservationDto);
+    ReservationDto create(ReservationDto reservationDto);
 
     /**
      * Update

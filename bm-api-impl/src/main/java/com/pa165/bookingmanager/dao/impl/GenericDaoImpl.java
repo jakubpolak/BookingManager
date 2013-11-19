@@ -69,6 +69,9 @@ public class GenericDaoImpl<E, I extends Serializable> implements GenericDao<E, 
             throw new DaoException("Entity can't be null.");
         }
         getCurrentSession().save(e);
+        System.out.println("Save:");
+        System.out.println(e.toString());
+        //System.out.println(e.getId().toString());
     }
 
     /**

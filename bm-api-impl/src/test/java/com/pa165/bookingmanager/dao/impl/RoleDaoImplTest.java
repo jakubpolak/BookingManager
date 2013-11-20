@@ -23,7 +23,7 @@ public class RoleDaoImplTest extends TestDaoSetup
     @Test
     public void testFindAll(){
         List<RoleEntity> roleEntities = roleDao.findAll();
-        Assert.assertEquals(3, roleEntities.size());
+        Assert.assertEquals(2, roleEntities.size());
     }
 
     @Test

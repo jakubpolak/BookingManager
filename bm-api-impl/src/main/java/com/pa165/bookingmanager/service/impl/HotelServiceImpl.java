@@ -48,8 +48,23 @@ public class HotelServiceImpl implements HotelService
      * @param hotelDao hotel dao
      * @param hotelConvertor hotel convertor
      */
-    public HotelServiceImpl(HotelDao hotelDao, HotelConvertorImpl hotelConvertor){
+    public HotelServiceImpl(HotelDao hotelDao, HotelConvertorImpl hotelConvertor, RoomService roomService){
+        if (hotelDao == null){
+            throw new IllegalArgumentException("HotelDao can't be null.");
+        }
+
         this.hotelDao = hotelDao;
+
+        if (hotelConvertor == null){
+            throw new IllegalArgumentException("HotelConvertor can't be null.");
+        }
+
+        this.roomService = roomService;
+
+        if (roomService == null){
+            throw new IllegalArgumentException("RoomService can't be null.");
+        }
+
         this.hotelConvertor = hotelConvertor;
     }
 

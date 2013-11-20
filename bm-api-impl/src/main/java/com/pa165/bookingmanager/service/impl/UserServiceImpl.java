@@ -49,9 +49,10 @@ public class UserServiceImpl implements UserService
      * @param userDao user dao
      * @param userConvertor user convertor
      */
-    public UserServiceImpl(UserDao userDao, UserConvertorImpl userConvertor){
+    public UserServiceImpl(UserDao userDao, UserConvertorImpl userConvertor, RoleConvertorImpl roleConvertor){
         this.userDao = userDao;
         this.userConvertor = userConvertor;
+        this.roleConvertor = roleConvertor;
     }
 
     /**

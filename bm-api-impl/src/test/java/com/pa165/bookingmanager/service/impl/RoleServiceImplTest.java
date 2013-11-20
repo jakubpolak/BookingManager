@@ -1,6 +1,7 @@
 package com.pa165.bookingmanager.service.impl;
 
 import com.pa165.bookingmanager.TestServiceSetup;
+import com.pa165.bookingmanager.convertor.impl.ReservationConvertorImpl;
 import com.pa165.bookingmanager.convertor.impl.RoleConvertorImpl;
 import com.pa165.bookingmanager.dao.RoleDao;
 import com.pa165.bookingmanager.dto.RoleDto;
@@ -28,6 +29,9 @@ public class RoleServiceImplTest extends TestServiceSetup
     @Mock
     private RoleConvertorImpl roleConvertor;
 
+    @Mock
+    private ReservationConvertorImpl reservationConvertor;
+
     private RoleService roleService;
 
     @Before
@@ -53,14 +57,13 @@ public class RoleServiceImplTest extends TestServiceSetup
     @Test
     public void testFind() throws Exception {
         RoleEntity roleEntity = new RoleEntity();
+        roleEntity.setId(1L);
         RoleDto roleDto = new RoleDtoImpl();
+        roleDto.setId(1L);
 
-        when(roleDao.find(1L)).thenReturn(roleEntity);
-        when(roleDao.find(999L)).thenReturn(null);
+        when(roleDao.find(roleEntity.getId())).thenReturn(roleEntity);
         when(roleConvertor.convertEntityToDto(roleEntity)).thenReturn(roleDto);
 
-        Assert.assertNotNull(roleService.find(1L));
-
-        Assert.assertNull(roleService.find(999L));
+        Assert.assertNotNull(roleService.find(roleDto.getId()));
     }
 }

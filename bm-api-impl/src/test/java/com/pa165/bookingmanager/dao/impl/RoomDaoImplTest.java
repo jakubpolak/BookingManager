@@ -4,9 +4,9 @@ import com.pa165.bookingmanager.TestDaoSetup;
 import com.pa165.bookingmanager.dao.HotelDao;
 import com.pa165.bookingmanager.dao.ReservationDao;
 import com.pa165.bookingmanager.dao.RoomDao;
+import com.pa165.bookingmanager.entity.HotelEntity;
 import com.pa165.bookingmanager.entity.ReservationEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -169,7 +169,8 @@ public class RoomDaoImplTest extends TestDaoSetup
 
     @Test
     public void testFindByHotel(){
-        Assert.fail("Test needs to be implemented.");
+        HotelEntity hotelEntity = hotelDao.find(1L);
+        Assert.assertEquals(4, roomDao.findByHotel(hotelEntity).size());
     }
 }
 

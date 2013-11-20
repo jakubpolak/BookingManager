@@ -49,17 +49,30 @@ public class RoomServiceImpl implements RoomService
      * @param roomDao room dao
      * @param roomConvertor room convertor
      */
-    public RoomServiceImpl(RoomDao roomDao, RoomConvertorImpl roomConvertor){
+    public RoomServiceImpl(RoomDao roomDao, RoomConvertorImpl roomConvertor, HotelConvertorImpl hotelConvertor, HotelDao hotelDao){
         if (roomDao == null){
             throw new IllegalArgumentException("RoomDao can't be null.");
         }
+
+        this.roomDao = roomDao;
 
         if (roomConvertor == null){
             throw new IllegalArgumentException("RoomConvertor can't be null.");
         }
 
-        this.roomDao = roomDao;
         this.roomConvertor = roomConvertor;
+
+        if (hotelConvertor == null){
+            throw new IllegalArgumentException("HotelConvertor can't be null.");
+        }
+
+        this.hotelConvertor = hotelConvertor;
+
+        if (hotelDao == null){
+            throw new IllegalArgumentException("HotelDao can't be null.");
+        }
+
+        this.hotelDao = hotelDao;
     }
 
     /**

@@ -43,18 +43,25 @@ public class ReservationServiceImpl implements ReservationService
      *
      * @param reservationDao reservation dao
      * @param reservationConvertor reservation convertor
+     * @param roomDao room dao
      */
-    public ReservationServiceImpl(ReservationDao reservationDao, ReservationConvertorImpl reservationConvertor){
+    public ReservationServiceImpl(ReservationDao reservationDao, ReservationConvertorImpl reservationConvertor, RoomDao roomDao){
         if (reservationDao == null){
             throw new IllegalArgumentException("ReservationDao can't be null.");
         }
+        this.reservationDao = reservationDao;
 
         if (reservationConvertor == null){
             throw new IllegalArgumentException("ReservationConvertor can't be null.");
         }
 
-        this.reservationDao = reservationDao;
         this.reservationConvertor = reservationConvertor;
+
+        if (roomDao == null){
+            throw new IllegalArgumentException("RoomDao can't be null.");
+        }
+
+        this.roomDao = roomDao;
     }
 
     /**

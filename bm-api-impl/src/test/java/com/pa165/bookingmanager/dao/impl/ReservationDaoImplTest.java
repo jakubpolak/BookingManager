@@ -4,12 +4,14 @@ import com.pa165.bookingmanager.TestDaoSetup;
 import com.pa165.bookingmanager.dao.ReservationDao;
 import com.pa165.bookingmanager.dao.RoomDao;
 import com.pa165.bookingmanager.entity.ReservationEntity;
+import com.pa165.bookingmanager.entity.RoomEntity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -79,7 +81,28 @@ public class ReservationDaoImplTest extends TestDaoSetup
 
     @Test
     public void testFindByRoom(){
-        Assert.fail("Test needs to be implemented.");
+        Long roomId = 1L;
+
+        RoomEntity roomEntity = roomDao.find(roomId);
+        List<ReservationEntity> reservationEntities = reservationDao.findByRoom(roomEntity.getId());
+
+        Assert.assertEquals(1, reservationEntities.size());
+    }
+
+    @Test
+    public void testIsRoomAvailable(){
+        Long roomId = 1L;
+
+        RoomEntity roomEntity = roomDao.find(roomId);
+        Date reservationFrom1 = new GregorianCalendar(1990, 10, 10).getTime();
+        Date reservationTo1 = new GregorianCalendar(1990, 10, 17).getTime();
+
+        Assert.assertEquals(false, reservationDao.isRoomAvailable(roomEntity, reservationFrom1, reservationTo1));
+
+        Date reservationFrom2 = new GregorianCalendar(2025, 10, 10).getTime();
+        Date reservationTo2 = new GregorianCalendar(2025, 10, 17).getTime();
+
+        Assert.assertEquals(true, reservationDao.isRoomAvailable(roomEntity, reservationFrom2, reservationTo2));
     }
 }
 

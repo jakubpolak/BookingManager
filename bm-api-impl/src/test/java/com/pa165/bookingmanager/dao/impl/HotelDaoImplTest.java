@@ -45,7 +45,7 @@ public class HotelDaoImplTest extends TestDaoSetup
         roomEntity.setNumber("101");
         roomEntity.setPrice(new BigDecimal(29.99));
 
-        List<RoomEntity> roomEntities = new ArrayList<>();
+        List<RoomEntity> roomEntities = new ArrayList<RoomEntity>();
         roomEntities.add(roomEntity);
 
         HotelEntity hotelEntity = new HotelEntity();

@@ -44,8 +44,8 @@ public class UserServiceImplTest  extends TestServiceSetup
 
     @Test
     public void testFindAll() throws Exception {
-        List<UserEntity> userEntities = new ArrayList<>();
-        List<UserDto> userDtos = new ArrayList<>();
+        List<UserEntity> userEntities = new ArrayList<UserEntity>();
+        List<UserDto> userDtos = new ArrayList<UserDto>();
 
         userEntities.add(new UserEntity());
         userDtos.add(new UserDtoImpl());
@@ -58,11 +58,11 @@ public class UserServiceImplTest  extends TestServiceSetup
 
     @Test
     public void testFindAllAndRoles() throws Exception {
-        List<UserEntity> userEntities = new ArrayList<>();
+        List<UserEntity> userEntities = new ArrayList<UserEntity>();
         UserEntity userEntity = new UserEntity();
         userEntities.add(userEntity);
 
-        List<UserDto> userDtos = new ArrayList<>();
+        List<UserDto> userDtos = new ArrayList<UserDto>();
         UserDto userDto = new UserDtoImpl();
         userDtos.add(userDto);
 

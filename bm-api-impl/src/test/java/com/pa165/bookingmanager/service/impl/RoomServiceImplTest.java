@@ -48,8 +48,8 @@ public class RoomServiceImplTest extends TestServiceSetup
 
     @Test
     public void testFindAll() throws Exception {
-        List<RoomEntity> roomEntities = new ArrayList<>();
-        List<RoomDto> roomDtos = new ArrayList<>();
+        List<RoomEntity> roomEntities = new ArrayList<RoomEntity>();
+        List<RoomDto> roomDtos = new ArrayList<RoomDto>();
 
         roomEntities.add(new RoomEntity());
         roomDtos.add(new RoomDtoImpl());
@@ -77,8 +77,8 @@ public class RoomServiceImplTest extends TestServiceSetup
     public void testFindByHotel() throws Exception {
         HotelEntity hotelEntity = new HotelEntity();
         hotelEntity.setId(1L);
-        List<RoomEntity> roomEntities = new ArrayList<>();
-        List<RoomDto> roomDtos = new ArrayList<>();
+        List<RoomEntity> roomEntities = new ArrayList<RoomEntity>();
+        List<RoomDto> roomDtos = new ArrayList<RoomDto>();
 
         when(hotelDao.find(hotelEntity.getId())).thenReturn(hotelEntity);
         when(roomDao.findByHotel(hotelEntity)).thenReturn(roomEntities);
@@ -91,8 +91,8 @@ public class RoomServiceImplTest extends TestServiceSetup
     public void testFindAvailableByHotel() throws Exception {
         HotelEntity hotelEntity = new HotelEntity();
         hotelEntity.setId(1L);
-        List<RoomEntity> roomEntities = new ArrayList<>();
-        List<RoomDto> roomDtos = new ArrayList<>();
+        List<RoomEntity> roomEntities = new ArrayList<RoomEntity>();
+        List<RoomDto> roomDtos = new ArrayList<RoomDto>();
 
         when(hotelDao.find(hotelEntity.getId())).thenReturn(hotelEntity);
         when(roomDao.findAvailable(hotelEntity.getId(), new Date(), new Date())).thenReturn(roomEntities);

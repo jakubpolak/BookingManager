@@ -42,8 +42,8 @@ public class RoleServiceImplTest extends TestServiceSetup
 
     @Test
     public void testFindAll() throws Exception {
-        List<RoleEntity> roleEntities = new ArrayList<>();
-        List<RoleDto> roleDtos = new ArrayList<>();
+        List<RoleEntity> roleEntities = new ArrayList<RoleEntity>();
+        List<RoleDto> roleDtos = new ArrayList<RoleDto>();
 
         roleEntities.add(new RoleEntity());
         roleDtos.add(new RoleDtoImpl());

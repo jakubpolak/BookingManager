@@ -44,8 +44,8 @@ public class ReservationServiceImplTest extends TestServiceSetup
 
     @Test
     public void testFindAll() throws Exception {
-        List<ReservationEntity> reservationEntities = new ArrayList<>();
-        List<ReservationDto> reservationDtos = new ArrayList<>();
+        List<ReservationEntity> reservationEntities = new ArrayList<ReservationEntity>();
+        List<ReservationDto> reservationDtos = new ArrayList<ReservationDto>();
 
         reservationEntities.add(new ReservationEntity());
         reservationDtos.add(new ReservationDtoImpl());
@@ -72,12 +72,12 @@ public class ReservationServiceImplTest extends TestServiceSetup
 
     @Test
     public void testFindByRoom() throws Exception{
-        List<ReservationEntity> reservationEntities = new ArrayList<>();
+        List<ReservationEntity> reservationEntities = new ArrayList<ReservationEntity>();
         ReservationEntity reservationEntity = new ReservationEntity();
         reservationEntity.setId(1L);
         reservationEntities.add(reservationEntity);
 
-        List<ReservationDto> reservationDtos = new ArrayList<>();
+        List<ReservationDto> reservationDtos = new ArrayList<ReservationDto>();
         ReservationDto reservationDto = new ReservationDtoImpl();
         reservationDto.setId(1L);
         reservationDtos.add(reservationDto);

@@ -105,7 +105,7 @@ public class RoomDaoImplTest extends TestDaoSetup
         reservationEntity.setCustomerEmail("jan@hrubes.com");
         reservationEntity.setCustomerPhone("321 456 987");
 
-        List<ReservationEntity> reservationEntities = new ArrayList<>();
+        List<ReservationEntity> reservationEntities = new ArrayList<ReservationEntity>();
         reservationEntities.add(reservationEntity);
 
         RoomEntity roomEntity = new RoomEntity();

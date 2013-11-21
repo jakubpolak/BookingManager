@@ -44,8 +44,8 @@ public class HotelServiceImplTest extends TestServiceSetup
 
     @Test
     public void testFindAll() throws Exception {
-        List<HotelEntity> hotelEntities = new ArrayList<>();
-        List<HotelDto> hotelDtos = new ArrayList<>();
+        List<HotelEntity> hotelEntities = new ArrayList<HotelEntity>();
+        List<HotelDto> hotelDtos = new ArrayList<HotelDto>();
 
         hotelEntities.add(new HotelEntity());
         hotelDtos.add(new HotelDtoImpl());
@@ -77,7 +77,7 @@ public class HotelServiceImplTest extends TestServiceSetup
         hotelDto.setId(1L);
         Date from = new Date();
         Date to = new Date();
-        List<RoomDto> roomDtos = new ArrayList<>();
+        List<RoomDto> roomDtos = new ArrayList<RoomDto>();
 
         when(hotelDao.find(hotelEntity.getId())).thenReturn(hotelEntity);
         when(hotelConvertor.convertEntityToDto(hotelEntity)).thenReturn(hotelDto);
@@ -92,7 +92,7 @@ public class HotelServiceImplTest extends TestServiceSetup
         hotelEntity.setId(1L);
         HotelDto hotelDto = new HotelDtoImpl();
         hotelDto.setId(1L);
-        List<RoomDto> roomDtos = new ArrayList<>();
+        List<RoomDto> roomDtos = new ArrayList<RoomDto>();
 
         when(hotelDao.find(hotelEntity.getId())).thenReturn(hotelEntity);
         when(hotelConvertor.convertEntityToDto(hotelEntity)).thenReturn(hotelDto);
@@ -107,7 +107,7 @@ public class HotelServiceImplTest extends TestServiceSetup
         hotelEntity.setId(1L);
         HotelDto hotelDto = new HotelDtoImpl();
         hotelDto.setId(1L);
-        List<RoomDto> roomDtos = new ArrayList<>();
+        List<RoomDto> roomDtos = new ArrayList<RoomDto>();
         Date from = new Date();
         Date to = new Date();
 

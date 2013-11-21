@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService
         List<UserDto> userDtos = null;
 
         if (userEntities != null){
-            userDtos = new ArrayList<>();
+            userDtos = new ArrayList<UserDto>();
             for (UserEntity userEntity : userEntities){
                 UserDto userDto = userConvertor.convertEntityToDto(userEntity);
                 RoleDto roleDto = roleConvertor.convertEntityToDto(userEntity.getRoleByRoleId());

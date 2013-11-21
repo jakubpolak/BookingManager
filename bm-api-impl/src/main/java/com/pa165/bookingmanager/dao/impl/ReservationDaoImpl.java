@@ -65,11 +65,11 @@ public class ReservationDaoImpl extends GenericDaoImpl<ReservationEntity, Long> 
     			.add(
     				Restrictions.conjunction()
     					.add(Restrictions.le("reservationFrom", from))
-    					.add(Restrictions.ge("reservationTo", to))
+    					.add(Restrictions.gt("reservationTo", from))
     			)
     		    .add(
     		    	Restrictions.conjunction()
-    					.add(Restrictions.le("reservationFrom", to))
+    					.add(Restrictions.lt("reservationFrom", to))
     					.add(Restrictions.ge("reservationTo", to))
     	    	)
     		    .add(

@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -50,8 +52,20 @@ public class DefaultController
 	@Autowired
 	private HttpServletRequest request;
 	
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String index(ModelMap model) {
+	@RequestMapping(value = "", method = RequestMethod.GET)
+    public String index(@RequestHeader(value = "Accept-Language") String lang, ModelMap model) {
+		// Get current display language
+        String displayLanguage = LocaleContextHolder.getLocale().getDisplayLanguage();
+
+        // Change language automatically according to user browser preferences
+        // It can be changed manually by calling ?lang=sk or ?lang=en, but it will change back to browser preferences
+        // when user comes back to /admin
+        if (lang.contains("sk-") && !displayLanguage.equals("Slovak")){
+            return "redirect:/?lang=sk";
+        } else if (lang.contains("en-") && !displayLanguage.equals("English")) {
+            return "redirect:/?lang=en";
+        }
+        
     	List<HotelDto> hotels = hotelService.findAll();
         model.addAttribute("hotels", hotels);
         return "modules/home/default/index";

@@ -142,8 +142,6 @@ public class ReservationServiceImpl implements ReservationService
         	throw new IllegalArgumentException("Reservation is conflicting with other reservation.");
         }
     	reservationDao.create(reservation);
-    	System.out.println("Service:");
-        System.out.println(reservation.toString());
     	reservationDto = reservationConvertor.convertEntityToDto(reservation);
     	return reservationDto;
     }

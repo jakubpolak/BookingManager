@@ -73,7 +73,7 @@
             <ul class="breadcrumb">
                 <c:choose>
                     <c:when test="${origPage.isPropertySet('page.breadcrumbs')}">
-                        <li><a href="${pageContext.request.contextPath}/admin/dashboard"><spring:message code="dashboard" text="Dashboard" /></a> <span class="divider">/</span></li>
+                        <li><spring:message code="administration" text="Administration" /> <span class="divider">/</span></li>
                         <decorator:getProperty property="page.breadcrumbs" />
                     </c:when>
                     <c:otherwise>

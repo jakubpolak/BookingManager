@@ -6,7 +6,6 @@ import com.pa165.bookingmanager.dao.RoomDao;
 import com.pa165.bookingmanager.entity.ReservationEntity;
 import com.pa165.bookingmanager.entity.RoomEntity;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,20 +90,15 @@ public class ReservationDaoImplTest extends TestDaoSetup
     }
 
     @Test
-    @Ignore
     public void testIsRoomAvailable(){
         Long roomId = 1L;
 
         RoomEntity roomEntity = roomDao.find(roomId);
-        Date reservationFrom1 = new GregorianCalendar(1990, 10, 10).getTime();
-        Date reservationTo1 = new GregorianCalendar(1990, 10, 17).getTime();
 
-        Assert.assertEquals(false, reservationDao.isRoomAvailable(roomEntity, reservationFrom1, reservationTo1));
+        Date reservationFrom = new GregorianCalendar(2025, 10, 10).getTime();
+        Date reservationTo = new GregorianCalendar(2025, 10, 17).getTime();
 
-        Date reservationFrom2 = new GregorianCalendar(2025, 10, 10).getTime();
-        Date reservationTo2 = new GregorianCalendar(2025, 10, 17).getTime();
-
-        Assert.assertEquals(true, reservationDao.isRoomAvailable(roomEntity, reservationFrom2, reservationTo2));
+        Assert.assertEquals(true, reservationDao.isRoomAvailable(roomEntity, reservationFrom, reservationTo));
     }
 }
 

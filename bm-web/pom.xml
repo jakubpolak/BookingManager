@@ -52,7 +52,6 @@
         </dependency>
 
         <!-- Other -->
-        <!-- TODO: Causes problems when running from console -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>

@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.module.api;
+package com.pa165.bookingmanager.controller;
 
 import com.pa165.bookingmanager.dto.UserDto;
 import com.pa165.bookingmanager.service.UserService;
@@ -14,19 +14,19 @@ import java.util.List;
  */
 
 @Controller("userRestController")
-@RequestMapping(value = "/api/user")
+@RequestMapping(value = "/user")
 public class UserRestController extends GenericRestController {
                                                                                                      
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "list", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public List<UserDto> getAll() {
         return userService.findAll();
     }
 
-    @RequestMapping(value = "/get/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     @ResponseBody
     public UserDto get(@PathVariable(value = "userId") Long userId) {
         return userService.find(userId);
@@ -44,7 +44,7 @@ public class UserRestController extends GenericRestController {
         userService.update(user);
     }
 
-    @RequestMapping(value = "delete/{userId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{userId}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("userId") Long userId) {
         UserDto user = userService.find(userId);
 

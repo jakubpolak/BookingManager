@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.module.api;
+package com.pa165.bookingmanager.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -18,7 +18,7 @@ public class GenericRestController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ErrorMessage handleException(MethodArgumentNotValidException ex) {
+    ErrorMessage handle(MethodArgumentNotValidException ex) {
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
         List<ObjectError> globalErrors = ex.getBindingResult().getGlobalErrors();
         List<String> errors = new ArrayList<String>(fieldErrors.size() + globalErrors.size());

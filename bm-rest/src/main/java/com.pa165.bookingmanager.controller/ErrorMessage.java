@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.module.api;
+package com.pa165.bookingmanager.controller;
 
 import java.util.Arrays;
 import java.util.Collections;

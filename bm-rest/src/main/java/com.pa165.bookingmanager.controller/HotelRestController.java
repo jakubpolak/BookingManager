@@ -1,4 +1,4 @@
-package com.pa165.bookingmanager.module.api;
+package com.pa165.bookingmanager.controller;
 
 import com.pa165.bookingmanager.dto.HotelDto;
 import com.pa165.bookingmanager.service.HotelService;
@@ -14,19 +14,19 @@ import java.util.List;
  */
 
 @Controller("hotelRestController")
-@RequestMapping(value = "/api/hotel")
+@RequestMapping(value = "/hotel")
 public class HotelRestController extends GenericRestController {
 
     @Autowired
     private HotelService hotelService;
 
-    @RequestMapping(value = "list", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public List<HotelDto> getAll() {
         return hotelService.findAll();
     }
 
-    @RequestMapping(value = "/get/{hotelId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{hotelId}", method = RequestMethod.GET)
     @ResponseBody
     public HotelDto get(@PathVariable(value = "hotelId") Long hotelId) {
         return hotelService.find(hotelId);
@@ -44,7 +44,7 @@ public class HotelRestController extends GenericRestController {
         hotelService.update(hotel);
     }
 
-    @RequestMapping(value = "delete/{hotelId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{hotelId}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("hotelId") Long hotelId) {
         HotelDto hotel = hotelService.find(hotelId);
 

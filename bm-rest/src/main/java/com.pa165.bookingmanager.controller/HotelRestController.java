@@ -2,7 +2,9 @@ package com.pa165.bookingmanager.controller;
 
 import com.pa165.bookingmanager.dto.HotelDto;
 import com.pa165.bookingmanager.service.HotelService;
+import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -40,16 +42,18 @@ public class HotelRestController extends GenericRestController {
     }
 
     @RequestMapping(value = "update", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(HotelDto hotel) {
         hotelService.update(hotel);
     }
 
     @RequestMapping(value = "/{hotelId}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("hotelId") Long hotelId) {
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("hotelId") Long hotelId) throws ObjectNotFoundException {
         HotelDto hotel = hotelService.find(hotelId);
-
-        if (hotel != null) {
-            hotelService.delete(hotel);
+        if (hotel == null) {
+            throw new ObjectNotFoundException("Hotel not found.");
         }
+        hotelService.delete(hotel);
     }
 }

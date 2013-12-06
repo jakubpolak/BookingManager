@@ -25,6 +25,21 @@ public class HotelDtoImpl  implements HotelDto
      */
     private List<RoomDto> roomsById;
 
+
+    public HotelDtoImpl() {
+    }
+
+    /**
+     * @param id
+     * @param name
+     * @param roomsById
+     */
+    public HotelDtoImpl(Long id, String name, List<RoomDto> roomsById) {
+        this.id = id;
+        this.name = name;
+        this.roomsById = roomsById;
+    }
+
     /**
      * Get id
      *

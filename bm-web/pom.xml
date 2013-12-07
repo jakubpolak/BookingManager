@@ -61,7 +61,7 @@
     </dependencies>
 
     <build>
-        <finalName>bm-web</finalName>
+        <finalName>pa165</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

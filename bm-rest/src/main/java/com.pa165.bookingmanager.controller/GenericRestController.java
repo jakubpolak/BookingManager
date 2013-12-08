@@ -1,6 +1,5 @@
 package com.pa165.bookingmanager.controller;
 
-import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -35,12 +34,11 @@ public class GenericRestController {
         return new ErrorMessage(errors);
     }
 
-    @ExceptionHandler(ObjectNotFoundException.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ErrorMessage handle(ObjectNotFoundException ex) {
+    ErrorMessage handle(Exception ex) {
+        System.out.println("Returning HTTP 400 Bad Request: " + ex);
         return new ErrorMessage(ex.getMessage());
     }
-
-
 }

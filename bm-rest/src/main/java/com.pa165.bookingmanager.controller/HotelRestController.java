@@ -41,9 +41,9 @@ public class HotelRestController extends GenericRestController {
         hotelService.create(hotel);
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.PUT,  consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{hotelId}", method = RequestMethod.PUT,  consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@RequestBody HotelDtoImpl hotel) {
+    public void update(@PathVariable("hotelId") Long hotelId, @RequestBody HotelDtoImpl hotel) {
         hotelService.update(hotel);
     }
 

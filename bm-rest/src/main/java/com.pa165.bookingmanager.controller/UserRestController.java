@@ -19,7 +19,6 @@ import java.util.List;
 /**
  * @author Jan Hrubeš
  */
-
 @Controller("userRestController")
 @RequestMapping(value = "/user")
 public class UserRestController extends GenericRestController {
@@ -49,7 +48,7 @@ public class UserRestController extends GenericRestController {
     }
 
     @RequestMapping(value="create", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @ResponseStatus(value = HttpStatus.CREATED)
     public void create(@RequestBody UserRestDto user) {
         // special Dto for rest transfer due to jackson parsing
         UserDto userDto= new UserDtoImpl();
@@ -59,7 +58,7 @@ public class UserRestController extends GenericRestController {
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void update(@PathVariable("userId") Long userId, @RequestBody UserRestDto user) {
         // special Dto for rest transfer due to jackson parsing
         UserDto userDto= new UserDtoImpl();

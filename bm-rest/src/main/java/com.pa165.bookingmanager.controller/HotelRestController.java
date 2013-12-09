@@ -15,7 +15,6 @@ import java.util.List;
 /**
  * @author Jan Hrubeš
  */
-
 @Controller("hotelRestController")
 @RequestMapping(value = "/hotel")
 public class HotelRestController extends GenericRestController {
@@ -36,13 +35,13 @@ public class HotelRestController extends GenericRestController {
     }
 
     @RequestMapping(value="create", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @ResponseStatus(value = HttpStatus.CREATED)
     public void create(@RequestBody HotelDtoImpl hotel) {
         hotelService.create(hotel);
     }
 
     @RequestMapping(value = "/{hotelId}", method = RequestMethod.PUT,  consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void update(@PathVariable("hotelId") Long hotelId, @RequestBody HotelDtoImpl hotel) {
         hotelService.update(hotel);
     }

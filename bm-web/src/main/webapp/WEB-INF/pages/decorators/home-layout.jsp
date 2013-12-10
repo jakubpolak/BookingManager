@@ -59,7 +59,7 @@
   <div class="row">
     <div class="navbar">
 	    <div class="navbar-inner">
-	    	<a class="brand" href="#">Reservation System</a>
+	    	<a class="brand" href="${pageContext.request.contextPath}">Reservation System</a>
 	    </div>
     </div>
     <decorator:body />

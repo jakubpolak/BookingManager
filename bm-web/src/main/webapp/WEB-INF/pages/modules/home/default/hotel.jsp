@@ -38,4 +38,10 @@
 			</tr>
 		</c:forEach>
 	</table>
+	
+	<c:if test="${empty hotel.roomsById}">
+	   <div class="well">
+	       <spring:message code="booking.reservation.norooms" text="There are currently no rooms to choose from." />
+	   </div>
+    </c:if>
 </body>

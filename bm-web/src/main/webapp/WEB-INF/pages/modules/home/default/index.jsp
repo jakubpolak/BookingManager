@@ -5,6 +5,11 @@
     <!-- Listing hotels -->
 	<h3><spring:message code="booking.header.hotels" text="Hotels" /></h3>
 	<table class="table table-striped table-bordered">
+	    <c:if test="${empty hotels}">
+	        <div class="well">
+	        	<spring:message code="booking.reservation.nohotels" text="There are currently no hotels to choose from." />
+	        </div>
+        </c:if>
 		<c:forEach items="${hotels}" var="hotel">
 			<tr>
 				<td>

@@ -7,7 +7,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="decorator" content="home-layout">
-    <title>Default</title>
+    <title>
+        <c:if test="${not empty pageTitle}">
+	        <c:out value="${pageTitle}"></c:out> &ndash;
+        </c:if>
+        Reservation System
+    </title>
     
     <!-- jQuery -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/public/css/home/jquery-ui-1.10.3.custom.min.css" />

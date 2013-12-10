@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -52,6 +53,9 @@ public class DefaultController
 	@Autowired
 	private HttpServletRequest request;
 	
+	@Autowired
+    private MessageSource messageSource;
+	
 	@RequestMapping(value = "", method = RequestMethod.GET)
     public String index(@RequestHeader(value = "Accept-Language") String lang, ModelMap model) {
 		// Get current display language
@@ -93,6 +97,7 @@ public class DefaultController
     	model.addAttribute("from", request.getParameter("from"));
 		model.addAttribute("to", request.getParameter("to"));
     	model.addAttribute("hotel", hotel);
+    	model.addAttribute("pageTitle", hotel.getName());
     	return "modules/home/default/hotel";
     }
     
@@ -119,6 +124,7 @@ public class DefaultController
     	model.addAttribute("room", room);
     	model.addAttribute("hotel", hotel);
     	model.addAttribute("reservationForm", reservation);
+    	model.addAttribute("pageTitle", messageSource.getMessage("booking.reservation.athotel", null, LocaleContextHolder.getLocale()) + " " + hotel.getName());
     	
     	return "modules/home/default/book";
     }
@@ -154,12 +160,14 @@ public class DefaultController
     	reservationDto.setCustomerPhone(reservationForm.getCustomerPhone());
     	reservationDto.setRoomByRoomId(roomDto);
     	
+    	RoomDto room = roomService.find(reservationForm.getRoomByRoomId());
+    	HotelDto hotel = hotelService.findByRoomId(room.getId());
+    	model.addAttribute("pageTitle", messageSource.getMessage("booking.reservation.athotel", null, LocaleContextHolder.getLocale()) + " " + hotel.getName());
+    	
     	try {
     		ReservationDto reservation = reservationService.create(reservationDto);
     		model.addAttribute("reservationId", reservation.getId());
     	} catch (IllegalArgumentException e) {
-    		RoomDto room = roomService.find(reservationForm.getRoomByRoomId());
-        	HotelDto hotel = hotelService.findByRoomId(room.getId());
         	model.addAttribute("room", room);
         	model.addAttribute("hotel", hotel);
     		model.addAttribute("reservationForm", reservationForm);
@@ -174,7 +182,7 @@ public class DefaultController
     	model.addAttribute("customerEmail", reservationForm.getCustomerEmail());
     	model.addAttribute("customerPhone", reservationForm.getCustomerPhone());
     	model.addAttribute("roomByRoomId", reservationForm.getRoomByRoomId());
-    	    	
+
         return "modules/home/default/reservation";	
     }
 }

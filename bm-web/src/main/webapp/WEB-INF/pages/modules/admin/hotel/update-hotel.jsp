@@ -11,7 +11,7 @@
 
 <body>
     <div class="widget-box">
-        <div class="widget-title"><h5><span class="icon"><i class="icon-align-justify"></i></span> <spring:message code="add.hotel" text="Add Hotel" /></h5></div>
+        <div class="widget-title"><h5><span class="icon"><i class="icon-align-justify"></i></span> <spring:message code="update.hotel" text="Update Hotel" /></h5></div>
         <div class="widget-content nopadding">
             <form:form modelAttribute="hotelForm" class="form-horizontal" method="post" action="${pageContext.request.contextPath}/admin/hotel/${hotelId}/update-hotel">
                 <div class="control-group">

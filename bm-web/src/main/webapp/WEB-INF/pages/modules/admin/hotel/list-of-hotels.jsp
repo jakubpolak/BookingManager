@@ -25,6 +25,7 @@
                             <th><spring:message code="name" text="Name" /></th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
+                            <th>&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,6 +33,11 @@
                             <tr>
                                 <td class="width-20">${status.count}</td>
                                 <td>${hotelDto.name}</td>
+                                <td class="center width-100">
+                                    <a href="${pageContext.servletContext.contextPath}/admin/hotel/room/${hotelDto.id}/create-room">
+                                        <i class="icon-plus"></i> <spring:message code="add.room" text="Add room"/>
+                                    </a>
+                                </td>
                                 <td class="center width-100">
                                     <a href="${pageContext.servletContext.contextPath}/admin/hotel/${hotelDto.id}/update-hotel">
                                         <i class="icon-pencil"></i> <spring:message code="update" text="Update"/>

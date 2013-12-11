@@ -27,6 +27,6 @@ INSERT INTO "PA165"."ROLE" ("ID", "NAME") VALUES (1, 'ROLE_ADMIN'), (2, 'ROLE_RE
 INSERT INTO "PA165"."USER"
       ("ID", "ROLE_ID", "EMAIL", "PASSWORD")
   VALUES
-      (1, 1, 'admin@bm.com', 'f613a2ae7af9039d3a371abf0a65d4751e3aed23'),
-      (2, 2, 'receptionist@bm.com', 'f613a2ae7af9039d3a371abf0a65d4751e3aed23')
+      (1, 1, 'admin@bm.com', '7c4a8d09ca3762af61e59520943dc26494f8941b'),
+      (2, 2, 'receptionist@bm.com', '7c4a8d09ca3762af61e59520943dc26494f8941b')
 ;

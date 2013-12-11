@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <jsp:useBean id="now" class="java.util.Date" scope="application" />
 <decorator:usePage id="origPage" />
 <!DOCTYPE html>
@@ -46,22 +47,24 @@
                 </li>
             </ul>
 
-            <a href="#users-menu" class="nav-header" data-toggle="collapse">
-                <i class="icon-user"></i><spring:message code="user" text="User" />
-                <span class="label label-info">+2</span>
-            </a>
-            <ul id="users-menu" class="nav nav-list collapse <c:if test="${pageContext.request.servletPath.contains('/admin/user')}">in</c:if>">
-                <li <c:if test="${pageContext.request.servletPath.contains('/admin/user') and pageContext.request.servletPath != '/admin/user/create-user'}">class="active"</c:if>>
-                    <a href="${pageContext.request.contextPath}/admin/user/list-of-users">
-                        <spring:message code="list.of.users" text="List of users" />
-                    </a>
-                </li>
-                <li <c:if test="${pageContext.request.servletPath == '/admin/user/create-user'}">class="active"</c:if>>
-                    <a href="${pageContext.request.contextPath}/admin/user/create-user">
-                        <spring:message code="add.user" text="Add user" />
-                    </a>
-                </li>
-            </ul>
+            <sec:authorize ifAllGranted="ROLE_ADMIN">
+                <a href="#users-menu" class="nav-header" data-toggle="collapse">
+                    <i class="icon-user"></i><spring:message code="user" text="User" />
+                    <span class="label label-info">+2</span>
+                </a>
+                <ul id="users-menu" class="nav nav-list collapse <c:if test="${pageContext.request.servletPath.contains('/admin/user')}">in</c:if>">
+                    <li <c:if test="${pageContext.request.servletPath.contains('/admin/user') and pageContext.request.servletPath != '/admin/user/create-user'}">class="active"</c:if>>
+                        <a href="${pageContext.request.contextPath}/admin/user/list-of-users">
+                            <spring:message code="list.of.users" text="List of users" />
+                        </a>
+                    </li>
+                    <li <c:if test="${pageContext.request.servletPath == '/admin/user/create-user'}">class="active"</c:if>>
+                        <a href="${pageContext.request.contextPath}/admin/user/create-user">
+                            <spring:message code="add.user" text="Add user" />
+                        </a>
+                    </li>
+                </ul>
+            </sec:authorize>
         </div>
         <div class="content">
             <div class="header">

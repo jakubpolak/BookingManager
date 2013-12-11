@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 /**
- * @author Jakub Polak
+ * @author Jakub Polak, Jana Polakova
  */
 @Controller("adminReservationController")
 @RequestMapping(value = "/admin/hotel/room/reservation")

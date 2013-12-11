@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * @author Jakub Polak
+ * @author Jakub Polak, Jana Polakova
  */
 @Controller("adminHotelController")
 @RequestMapping(value = "/admin/hotel")

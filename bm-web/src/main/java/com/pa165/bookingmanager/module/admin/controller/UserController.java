@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * @author Jakub Polak
+ * @author Jakub Polak, Jana Polakova
  */
 @Controller("adminUserController")
 @RequestMapping(value = "/admin/user")

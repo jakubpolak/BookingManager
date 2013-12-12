@@ -1,0 +1,25 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    <xs:complexType name="hotel">
+        <xs:attribute name="id" type="xs:long"/>
+        <xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="roomsById" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="user">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" nillable="true"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
+            <xs:element name="roleByRoleId" type="role"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="role">
+        <xs:attribute name="id" type="xs:long"/>
+        <xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="usersById" type="xs:string"/>
+    </xs:complexType>
+
+</xs:schema>

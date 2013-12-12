@@ -28,6 +28,22 @@ public class UserDtoImpl implements UserDto
      */
     private RoleDto roleByRoleId;
 
+    public UserDtoImpl() {
+    }
+
+    /**
+     * @param id
+     * @param email
+     * @param password
+     * @param roleByRoleId
+     */
+    public UserDtoImpl(Long id, String email, String password, RoleDto roleByRoleId) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.roleByRoleId = roleByRoleId;
+    }
+
     /**
      * Get id
      *

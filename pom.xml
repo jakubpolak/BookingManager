@@ -14,6 +14,8 @@
         <module>bm-web</module>
         <module>bm-api</module>
         <module>bm-api-impl</module>
+        <module>bm-rest</module>
+        <module>bm-rest-client</module>
     </modules>
 
     <build>

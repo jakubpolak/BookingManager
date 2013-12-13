@@ -38,9 +38,9 @@ public class Client {
     private JTextField updateUserEmailField;
     private JTextField deleteUserIdField;
     private JTextPane userResponsePanel;
-    private JComboBox<RoleItem> newUserRoleCombo;
+    private JComboBox newUserRoleCombo;
     private JButton getAllUsersButton;
-    private JComboBox<RoleItem> updateUserRoleCombo;
+    private JComboBox updateUserRoleCombo;
     private JPasswordField newUserPasswordField;
     private JPasswordField updateUserPasswordField;
 
@@ -112,7 +112,7 @@ public class Client {
     }
 
     private void createUIComponents() {
-        newUserRoleCombo = new JComboBox<>();
-        updateUserRoleCombo = new JComboBox<>();
+        newUserRoleCombo = new JComboBox();
+        updateUserRoleCombo = new JComboBox();
     }
 }

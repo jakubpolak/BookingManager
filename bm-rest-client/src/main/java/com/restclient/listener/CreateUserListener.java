@@ -19,13 +19,13 @@ public class CreateUserListener implements ActionListener {
     private UserClient userClient;
     private final JTextField newUserEmailField;
     private final JTextField newUserPasswordField;
-    private JComboBox<RoleItem> newUserRoleCombo;
+    private JComboBox newUserRoleCombo;
     private final JTextPane userResponsePanel;
 
     public CreateUserListener(UserClient userClient,
                               JTextField newUserEmailField,
                               JTextField newUserPasswordField,
-                              JComboBox<RoleItem> newUserRoleCombo,
+                              JComboBox newUserRoleCombo,
                               JTextPane userResponsePanel)
     {
         this.userClient = userClient;

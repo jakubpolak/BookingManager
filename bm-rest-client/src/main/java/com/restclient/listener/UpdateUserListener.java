@@ -20,10 +20,10 @@ public class UpdateUserListener implements ActionListener {
     private final JTextField updateUserIdField;
     private final JTextField updateUserEmailField;
     private final JTextField updateUserPasswordField;
-    private final JComboBox<RoleItem> updateUserRoleCombo;
+    private final JComboBox updateUserRoleCombo;
     private final JTextPane userResponsePanel;
 
-    public UpdateUserListener(UserClient userClient, JTextField updateUserIdField, JTextField updateUserEmailField, JTextField updateUserPasswordField, JComboBox<RoleItem> updateUserRoleCombo, JTextPane userResponsePanel) {
+    public UpdateUserListener(UserClient userClient, JTextField updateUserIdField, JTextField updateUserEmailField, JTextField updateUserPasswordField, JComboBox updateUserRoleCombo, JTextPane userResponsePanel) {
         this.userClient = userClient;
         this.updateUserIdField = updateUserIdField;
         this.updateUserEmailField = updateUserEmailField;

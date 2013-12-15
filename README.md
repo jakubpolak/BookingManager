@@ -41,7 +41,9 @@ mvn tomcat:run -Dmaven.test.skip=true
 
 * Start Derby Network Server, instructions can be found here:
 
+```
 https://github.com/jakubpolak/BookingManager/wiki/Manual:-Using-of-Apache-Derby
+```
 
 * Change hibernate configuration in /bm-api-impl/src/main/resources/configuration/hibernate.xml to:
 

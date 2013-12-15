@@ -43,7 +43,7 @@ Run bm-web module:
 mvn tomcat:run -Dmaven.test.skip=true
 ```
 
-## Set up Application database
+## Set up database
 
 * Change hibernate configuration in /bm-api-impl/src/main/resources/configuration/hibernate.xml to:
 
@@ -52,6 +52,8 @@ mvn tomcat:run -Dmaven.test.skip=true
 ```
 
 * Run application, database tables are created.
+
+* Change hibernate configuration in /bm-api-impl/src/main/resources/configuration/hibernate.xml to original state.
 
 * Run SQL script with sample data, the script can be found here:
 

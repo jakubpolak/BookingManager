@@ -10,7 +10,7 @@ This is a team project for our advanced Java Course at Masaryk University.
 * __Database name__ - pa165
 * __Database user__ - pa165
 * __Database user password__ - pa165
-* __Web application context localhost__ - 8080/pa165
+* __Web application context__ - http://localhost:8080/pa165
 
 ## Modules
 * __bm-api__ - contains DTO and Service interfaces

@@ -42,3 +42,24 @@ Run bm-web module:
 ```
 mvn tomcat:run -Dmaven.test.skip=true
 ```
+
+## Set up Application database
+
+* Change hibernate configuration in /bm-api-impl/src/main/resources/configuration/hibernate.xml to:
+
+```
+<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+```
+
+* Run application, database tables are created.
+
+* Run SQL script with sample data, the script can be found here:
+
+```
+/bm-api-impl/src/main/resources/data.testing/db-sample-data.sql
+```
+
+Passwords in database are saved in form of SHA-1 hash, default passwords are:
+
+* user: admin@bm.com, password: 123456
+* user: receptionist@bm.com, password: 123456

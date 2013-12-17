@@ -11,7 +11,7 @@
         <c:if test="${not empty pageTitle}">
 	        <c:out value="${pageTitle}"></c:out> &ndash;
         </c:if>
-        Reservation System
+        BookingManager
     </title>
     
     <!-- jQuery -->
@@ -57,12 +57,17 @@
 <body>
   <div class="container">
   <div class="row">
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
 	    <div class="navbar-inner">
-	    	<a class="brand" href="${pageContext.request.contextPath}">Reservation System</a>
+	    	<a class="brand" href="${pageContext.request.contextPath}">BookingManager</a>
 	    </div>
     </div>
     <decorator:body />
+    <div id="footer">
+      BookingManager &mdash; Jakub Polák, Jana Poláková, Josef Stříbný, Jan Hrubeš
+      <a href="${pageContext.request.contextPath}/admin">Admin</a>
+      <a href="https://github.com/jakubpolak/BookingManager/">GitHub</a>
+    </div>
   </div>
   </div>
 </body>

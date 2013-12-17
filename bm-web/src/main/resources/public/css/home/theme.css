@@ -1,3 +1,11 @@
+/* Main */
+body { padding-top: 70px; }
+.navbar .brand { margin:0; float:none;}
+.navbar-inner { text-align:center; }
+body .pickhotel { text-decoration: none; font-size: 150%; font-weight: bold; }
+.pickhotel img { padding-right: 30px; }
+#footer { margin-top: 20px; }
+#footer a { padding-left: 15px; }
 
 /* Forms */
 .filter { float: left; }
@@ -6,3 +14,4 @@ form table span { color: red; margin-bottom: 5px; }
 
 /* Headlines */
 .table-headline { float: left; margin-top: 5px; margin-right: 20px; }
+h4 { padding-bottom: 15px; }

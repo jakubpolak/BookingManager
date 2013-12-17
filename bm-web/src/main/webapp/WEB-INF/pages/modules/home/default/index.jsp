@@ -13,7 +13,11 @@
 		<c:forEach items="${hotels}" var="hotel">
 			<tr>
 				<td>
-					<a href="${pageContext.request.contextPath}/hotel/<c:out value="${hotel.id}" />"><c:out value="${hotel.name}" /></a>
+					<a class="pickhotel" href="${pageContext.request.contextPath}/hotel/<c:out value="${hotel.id}" />">
+					    <img src="http://lorempixel.com/250/150/city/${hotel.id}">
+						<c:out value="${hotel.name}" />
+					
+					</a>
 				</td>
 			</tr>
 		</c:forEach>

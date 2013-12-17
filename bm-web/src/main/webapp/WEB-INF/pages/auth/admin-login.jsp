@@ -22,7 +22,7 @@
         <div class="block">
             <p class="block-heading">Sign In</p>
             <div class="block-body">
-                <form method="post" action="<c:url value='j_spring_security_check' />">
+                <form method="post" action="<c:url value="${pageContext.request.contextPath}/j_spring_security_check" />">
                     <c:if test="${error == true}">
                         <div class="alert alert-error">
                             <button type="button" class="close" data-dismiss="alert">×</button>

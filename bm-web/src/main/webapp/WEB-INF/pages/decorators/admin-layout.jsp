@@ -23,7 +23,7 @@
             <div class="navbar-inner">
                 <ul class="nav pull-right">
                     <li id="fat-menu" class="dropdown">
-                        <a href="<c:url value="/j_spring_security_logout" />"><i class="icon-user"></i> <spring:message code="logout" text="Logout" /></a>
+                        <a href="<c:url value="${pageContext.request.contextPath}/j_spring_security_logout" />"><i class="icon-user"></i> <spring:message code="logout" text="Logout" /></a>
                     </li>
                 </ul>
                 <a class="brand" href="${pageContext.request.contextPath}/admin"><spring:message code="administration" text="Administration" /></a>

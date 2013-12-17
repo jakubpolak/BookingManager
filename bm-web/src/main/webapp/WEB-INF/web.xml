@@ -36,7 +36,7 @@
 
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/pa165/*</url-pattern>
     </filter-mapping>
 
     <!-- UTF-8 encoding -->

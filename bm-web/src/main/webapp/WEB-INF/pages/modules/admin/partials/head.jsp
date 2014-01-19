@@ -5,7 +5,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/public/lib/bootstrap-2.1.1/css/bootstrap.min.css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/public/css/home/jquery-ui-1.10.3.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/public/css/admin/theme.css">

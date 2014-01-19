@@ -104,7 +104,7 @@
             </div>
         </div>
 
-        <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="${pageContext.request.contextPath}/public/lib/bootstrap-2.1.1/js/bootstrap.js"></script>
         <script type="text/javascript">
             $(function() {
                 $.datepicker.regional['sk'] = {

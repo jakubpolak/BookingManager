@@ -20,8 +20,8 @@
     <script src="${pageContext.request.contextPath}/public/lib/jquery-ui-1.10.3.custom.min.js"></script>
     
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap.min.css">
-    <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/public/lib/bootstrap-2.3.2/css/bootstrap.min.css">
+    <script src="${pageContext.request.contextPath}/public/lib/bootstrap-2.3.2/js/bootstrap.min.js"></script>
     
     <!--  Custom theme -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/public/css/home/theme.css" />
